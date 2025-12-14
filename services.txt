@@ -1,0 +1,11 @@
+# Format: ServiceName|ESBUrl|SchemaPath
+# The SchemaPath is relative to where the script is executed
+# If no schema is needed, leave the third column empty
+
+Demo3 Service|http://esb.example.com/demo1|schemas/demo_schema.json
+Demo4 Service|http://esb.example.com/demo2|schemas/demo_schema.json
+Demo5 Service|http://esb.example.com/demo1|schemas/demo_schema.json
+
+
+# Example without schema (note the empty third field):
+# Simple Service|http://esb.example.com/simple|

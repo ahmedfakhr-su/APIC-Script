@@ -1,0 +1,246 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Another Service Demo
+  x-ibm-name: another-service-demo
+servers:
+  - url: /albilad-api/v1
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: >-
+        http://demo-url/api
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: false
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - operation-switch:
+          version: 2.0.0
+          title: operation-switch
+          case:
+            - operations:
+                - AnotherServiceDemo
+              execute:
+                - invoke:
+                    version: 2.0.0
+                    title: invoke
+                    backend-type: json
+                    header-control:
+                      type: blocklist
+                      values: []
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    timeout: 60
+                    verb: POST
+                    chunked-uploads: true
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    follow-redirects: false
+                    inject-proxy-headers: true
+          otherwise: []
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+paths:
+  /another-service-demo:
+    post:
+      operationId: AnotherServiceDemo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnotherServiceDemoRequest'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnotherServiceDemoResponse'
+components:
+  securitySchemes:
+    clientID:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Id
+      x-key-type: client_id
+    clientSecret:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Secret
+      x-key-type: client_secret
+    oAuth:
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+      flows:
+        clientCredentials:
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+          scopes:
+            Integration_scope: Integration_scope
+  schemas:
+    AnotherServiceDemoRequest:
+      {
+          "type": "object",
+          "properties": {
+              "header": {
+                  "type": "object",
+                  "properties": {
+                      "messageFormat": {
+                          "type": "string"
+                      },
+                      "cif": {
+                          "type": "string"
+                      },
+                      "channelId": {
+                          "type": "string"
+                      },
+                      "functionId": {
+                          "type": "string"
+                      },
+                      "language": {
+                          "type": "string"
+                      },
+                      "reversalOption": {
+                          "type": "string"
+                      },
+                      "segment": {
+                          "type": "string"
+                      },
+                      "requesterInfo1": {
+                          "type": "string"
+                      },
+                      "requesterInfo2": {
+                          "type": "string"
+                      },
+                      "deviceInfo": {
+                          "type": "object",
+                          "properties": {
+                              "model": {
+                                  "type": "string"
+                              },
+                              "osType": {
+                                  "type": "string"
+                              },
+                              "osVersion": {
+                                  "type": "string"
+                              },
+                              "id": {
+                                  "type": "string"
+                              },
+                              "ipAddress": {
+                                  "type": "string"
+                              },
+                              "city": {
+                                  "type": "string"
+                              },
+                              "country": {
+                                  "type": "string"
+                              }
+                          }
+                      },
+                      "frontendReferenceNumber": {
+                          "type": "string"
+                      },
+                      "backendReferenceNumber": {
+                          "type": "string"
+                      },
+                      "transactionDateTime": {
+                          "type": "string"
+                      }
+                  }
+              },
+              "requestDetails": {
+                  "type": "object",
+                  "properties": {
+                      "customerId": {
+                          "type": "string"
+                      },
+                      "action": {
+                          "type": "string",
+                          "enum": [
+                              "CREATE",
+                              "UPDATE"
+                          ]
+                      }
+                  }
+              }
+          }
+      }    RequestHeader:
+      type: object
+      properties:
+        messageFormat:
+          type: string
+        cif:
+          type: string
+        channelId:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        deviceInfo:
+          type: object
+          properties:
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+        frontendReferenceNumber:
+          type: string
+        backendReferenceNumber:
+          type: string
+        transactionDateTime:
+          type: string
+
+    AnotherServiceDemoResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+        data:
+          $ref: '#/components/schemas/AnotherServiceDemoResponseData'
+    ResponseHeader:
+      allOf:
+        - $ref: '#/components/schemas/RequestHeader'
+        - type: object
+          properties:
+            code:
+              type: string
+            info:
+              type: string
+    AnotherServiceDemoResponseData:
+      type: object
+    
+security:
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
