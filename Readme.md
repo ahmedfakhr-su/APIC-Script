@@ -12,6 +12,7 @@ Generates IBM API Connect YAML drafts from a template and service list, with opt
 - Filters out JSON-Schema-specific properties not suitable for OpenAPI.
 - Ensures `type` appears first in generated YAML for API Connect compatibility.
 - Detects `apic` CLI executable (Windows paths supported).
+- Validate the YAML file before creating the API, If invalid, It will abort the process for the current API and proceed with the rest.
 - Logs into API Connect and attempts draft creation (`apic draft-apis:create`).
 - Tracks counters: total processed, created, already exists, failed.
 - Robust error handling and informative debug output.

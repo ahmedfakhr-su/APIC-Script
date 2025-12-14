@@ -245,6 +245,9 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     OperationName="${ServiceName// /}"
     OUTPUT_FILE="${OutputDirectory}/${x_ibm_name}_1.0.0.yaml"
 
+    # Extract name and version for validation (assumes _1.0.0.yaml format)
+    API_NAME_VERSION="${x_ibm_name}:1.0.0"
+
     echo ""
     echo "========================================"
     echo "Processing: '$ServiceName'"
@@ -308,8 +311,18 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     
     echo "  ✓ Generated YAML: $OUTPUT_FILE"
 
+
+    # Validate YAML file with API Connect (using name:version and required flags)
+    echo "4) Validating YAML locally with API Connect..."
+    if ! "$APIC_CMD" validate "$OUTPUT_FILE"; then
+        echo "  ✗ Validation failed: YAML file is invalid" >&2
+        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        continue
+    fi
+    echo "  ✓ YAML validation passed"
+
     # Create draft API in IBM API Connect
-    echo "4) Creating draft API in API Connect..."
+    echo "5) Creating draft API in API Connect..."
     if ! "$APIC_CMD" draft-apis:create \
         --org "$APIC_ORG" \
         --server "$APIC_SERVER" \
