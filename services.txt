@@ -2,9 +2,9 @@
 # The SchemaPath is relative to where the script is executed
 # If no schema is needed, leave the third column empty
 
-Demo11 Service|http://esb.example.com/demo22222|schemas/demo_schema.json
-Demo12 Service|http://esb.example.com/demo2|schemas/demo_schema.json
-Demo13 Service|http://esb.example.com/demo1|schemas/demo_schema.json
+s Service|http://esb.example.com/demo22222|schemas/demo_schema.json
+q Service|http://esb.example.com/demo2|schemas/demo_schema.json
+a Service|http://esb.example.com/demo1|schemas/demo_schema.json
 
 
 # Example without schema (note the empty third field):

@@ -1,0 +1,334 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: a Service
+  x-ibm-name: a-service
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: http://esb.example.com/demo1
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: false
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+    - operation-switch:
+        version: 2.0.0
+        title: operation-switch
+        case:
+        - operations:
+          - aService
+          execute:
+          - invoke:
+              version: 2.0.0
+              title: invoke
+              backend-type: json
+              header-control:
+                type: blocklist
+                values: []
+              parameter-control:
+                type: allowlist
+                values: []
+              timeout: 60
+              verb: POST
+              chunked-uploads: true
+              persistent-connection: true
+              target-url: $(target-url)
+              follow-redirects: false
+              inject-proxy-headers: true
+        otherwise: []
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+paths:
+  /a-service:
+    post:
+      operationId: aService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/aServiceRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/aServiceResponse'
+components:
+  securitySchemes:
+    clientID:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Id
+      x-key-type: client_id
+    clientSecret:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Secret
+      x-key-type: client_secret
+    oAuth:
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+      flows:
+        clientCredentials:
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+          scopes:
+            Integration_scope: Integration_scope
+  schemas:
+    aServiceRequest:
+      type: object
+      description: Demo Service Request - Complete request structure with EAIHeader
+        and body
+      required:
+      - EAIMessage
+      properties:
+        EAIMessage:
+          type: object
+          required:
+          - EAIHeader
+          - Body
+          properties:
+            Body:
+              type: object
+              description: Request body with business-specific data
+              required:
+              - accountNumber
+              - customerId
+              properties:
+                accountNumber:
+                  type: string
+                  description: The account number
+                  example: 1234567890
+                  minLength: 10
+                  maxLength: 20
+                  pattern: ^[0-9]+$
+                amount:
+                  type: number
+                  format: double
+                  description: Transaction amount with decimal precision
+                  example: 1000.5
+                  minimum: 0
+                  exclusiveMinimum: false
+                currency:
+                  type: string
+                  description: ISO 4217 currency code
+                  default: SAR
+                  example: SAR
+                  minLength: 3
+                  maxLength: 3
+                  pattern: ^[A-Z]{3}$
+                customerId:
+                  type: string
+                  description: Unique customer identifier
+                  example: CUST-001
+                metadata:
+                  type: object
+                  description: Additional transaction metadata
+                  properties:
+                    notes:
+                      type: string
+                      description: Additional notes
+                      example: Customer initiated transaction
+                      maxLength: 500
+                    source:
+                      type: string
+                      description: Source of the transaction
+                      example: mobile_app
+                  additionalProperties: false
+                transactionType:
+                  type: string
+                  description: Type of transaction
+                  enum:
+                  - DEPOSIT
+                  - WITHDRAWAL
+                  - TRANSFER
+                  - INQUIRY
+                  example: INQUIRY
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              required:
+              - channelId
+              - functionId
+              - transactionDateTime
+              properties:
+                backendReferenceNumber:
+                  type: string
+                  description: Backend system reference number
+                  example: BE987654321
+                channelId:
+                  type: string
+                  description: Channel identifier
+                  enum:
+                  - MOB
+                  - WEB
+                  - ATM
+                  - BRANCH
+                  example: MOB
+                cif:
+                  type: string
+                  description: Customer Information File number
+                  example: 1234567
+                deviceInfo:
+                  type: object
+                  description: Device information for the request
+                  properties:
+                    city:
+                      type: string
+                      description: City of the device location
+                      example: Riyadh
+                    country:
+                      type: string
+                      description: ISO 3166-1 alpha-2 country code
+                      example: SA
+                      minLength: 2
+                      maxLength: 2
+                    id:
+                      type: string
+                      description: Unique device identifier
+                      example: ABC123XYZ
+                    ipAddress:
+                      type: string
+                      format: ipv4
+                      description: Device IP address
+                      example: 192.168.1.100
+                    model:
+                      type: string
+                      description: Device model
+                      example: iPhone 14
+                    osType:
+                      type: string
+                      description: Operating system type
+                      example: iOS
+                    osVersion:
+                      type: string
+                      description: Operating system version
+                      example: 16.5
+                  additionalProperties: false
+                frontendReferenceNumber:
+                  type: string
+                  description: Frontend system reference number
+                  example: FE123456789
+                functionId:
+                  type: string
+                  description: Function identifier
+                  example: DEMO_FUNC_001
+                language:
+                  type: string
+                  description: Language code
+                  enum:
+                  - EN
+                  - AR
+                  example: EN
+                messageFormat:
+                  type: string
+                  description: Message format type
+                  enum:
+                  - JSON
+                  - XML
+                  example: JSON
+                requesterInfo1:
+                  type: string
+                  description: Additional requester information field 1
+                requesterInfo2:
+                  type: string
+                  description: Additional requester information field 2
+                reversalOption:
+                  type: boolean
+                  description: Indicates if transaction can be reversed
+                  example: false
+                segment:
+                  type: string
+                  description: Customer segment
+                  example: RETAIL
+                transactionDateTime:
+                  type: string
+                  format: date-time
+                  description: Transaction timestamp in ISO 8601 format
+                  example: "2024-12-14T10:30:00Z"
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    aServiceResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+        data:
+          $ref: '#/components/schemas/aServiceResponseData'
+    RequestHeader:
+      type: object
+      properties:
+        messageFormat:
+          type: string
+        cif:
+          type: string
+        channelId:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        deviceInfo:
+          type: object
+          properties:
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+        frontendReferenceNumber:
+          type: string
+        backendReferenceNumber:
+          type: string
+        transactionDateTime:
+          type: string
+    ResponseHeader:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - type: object
+        properties:
+          code:
+            type: string
+            description: Response code
+          info:
+            type: string
+            description: Response message
+    aServiceResponseData:
+      type: object
+      description: Response data payload - customize per operation
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope

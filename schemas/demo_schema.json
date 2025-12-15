@@ -6,7 +6,6 @@
   "properties": {
     "EAIMessage": {
       "type": "object",
-      "required": ["EAIHeader", "Body"],
       "additionalProperties": false,
       "properties": {
         "EAIHeader": {

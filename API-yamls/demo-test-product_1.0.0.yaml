@@ -23,6 +23,12 @@ apis:
     $ref: demo12-service_1.0.0.yaml
   demo13-service:
     $ref: demo13-service_1.0.0.yaml
+  s-service:
+    $ref: s-service_1.0.0.yaml
+  q-service:
+    $ref: q-service_1.0.0.yaml
+  a-service:
+    $ref: a-service_1.0.0.yaml
 
 visibility:
   view:

@@ -108,4 +108,7 @@ If you need to rollback changes:
 apic draft-products:update internal-services:1.0.0 \
     --server $APIC_SERVER --org $APIC_ORG \
     API-yamls/.backup/internal-services_1.0.0_backup.yaml
+
+https://claude.ai/public/artifacts/8f7df6ba-11a5-4549-8bed-cd77bade1ce3
 ```
+
