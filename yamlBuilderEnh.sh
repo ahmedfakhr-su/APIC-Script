@@ -259,6 +259,109 @@ replace_schema_section() {
     ' "$yaml_file" > "$output_file"
 }
 
+}
+
+# Update target-url in an existing API YAML file
+update_target_url() {
+    local yaml_file="$1"
+    local new_url="$2"
+    
+    # Escape the new URL for sed
+    local escaped_url
+    escaped_url=$(printf '%s' "$new_url" | sed -e 's/[\/&]/\\&/g')
+    
+    # Use sed to find "target-url:" and replace the NEXT occurrence of "value: >-" or "value:" with the new URL
+    # We look for the pattern:
+    #     target-url:
+    #       value: >-
+    #         OLD_URL
+    # OR potentially simple value: OLD_URL
+    
+    # Strategy: 
+    # 1. Search for 'target-url:'
+    # 2. In the block following it, find 'value: ...' and replace it.
+    
+    # Since our script generates:
+    #     target-url:
+    #       value: >-
+    #         {{ESBUrl}}
+    
+    # We will replace the line containing the URL itself, which is the line AFTER "value: >-"
+    # OR if it was flattened, replace the value line.
+    
+    # Let's try a robust approach for the generated format:
+    # Match lines like: "        http..." which come after "value: >-" under "target-url:"
+    # This is tricky with simple sed.
+    
+    # Simplified approach: Replace the known structure
+    # We assume the file has "value: >-" followed by the URL on next line
+    
+    # We will simply overwrite the logic to use Python for this part as well to be safe?
+    # No, let's use a temporary python script to do this safely as we already rely on python3
+    
+    if command -v python3 >/dev/null 2>&1; then
+        python3 - "$yaml_file" "$new_url" <<'EOF'
+import sys
+import ruamel.yaml # Might not be installed, so fallback to simple string processing if needed?
+# Standard python doesn't have yaml. Let's stick to text processing but cleaner than sed.
+
+file_path = sys.argv[1]
+new_url = sys.argv[2]
+
+with open(file_path, 'r') as f:
+    lines = f.readlines()
+
+new_lines = []
+in_target_url = False
+in_value_block = False
+updated = False
+
+for i, line in enumerate(lines):
+    stripped = line.strip()
+    
+    if 'target-url:' in line:
+        in_target_url = True
+        new_lines.append(line)
+        continue
+        
+    if in_target_url and 'value:' in line:
+        # Check if it's "value: >-" (multiline) or "value: http..." (inline)
+        if '>-' in line:
+            in_value_block = True
+            new_lines.append(line)
+            continue
+        else:
+            # Inline value case
+            indent = line.split('value:')[0]
+            new_lines.append(f"{indent}value: {new_url}\n")
+            in_target_url = False # Done
+            updated = True
+            continue
+
+    if in_value_block:
+        # This line is the URL content
+        # Detect indentation
+        indent = line[:len(line) - len(line.lstrip())]
+        new_lines.append(f"{indent}{new_url}\n")
+        in_value_block = False
+        in_target_url = False
+        updated = True
+        continue
+        
+    # Reset if we hit another property at specific indentation? 
+    # For now, simplistic state machine is fine for our controlled template.
+    
+    new_lines.append(line)
+
+with open(file_path, 'w') as f:
+    f.writelines(new_lines)
+EOF
+    else
+        echo "Error: Python3 required for URL update" >&2
+        return 1
+    fi
+}
+
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
@@ -531,6 +634,13 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
         UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
         replace_schema_section "$EXISTING_API_FILE" "$OperationName" "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
         echo "    ✓ Schema section replaced"
+        
+        # Step 5b.2: Update target-url (ensure it matches services.txt)
+        if update_target_url "$UPDATED_API_FILE" "$ESBUrl"; then
+            echo "    ✓ Target URL updated to: $ESBUrl"
+        else
+            echo "    ⚠ Warning: Failed to update target URL" >&2
+        fi
         
         # Step 5c: Validate the updated YAML
         echo "    Validating updated YAML..."
