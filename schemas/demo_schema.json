@@ -10,7 +10,6 @@
       "properties": {
         "EAIHeader": {
           "type": "object",
-          "required": ["channelId", "functionId", "transactionDateTime"],
           "additionalProperties": false,
           "properties": {
             "messageFormat": {
