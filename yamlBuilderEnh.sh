@@ -294,6 +294,9 @@ if ! "$APIC_CMD" login \
 fi
 echo "✓ Successfully logged in"
 
+#!/usr/bin/env bash
+# Replace lines 208-338 in your original script with this optimized version
+
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
@@ -330,64 +333,8 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     echo "  Schema:  ${SchemaPath:-"(none - using empty object)"}"
     echo "========================================"
 
-    # Escape special characters for sed replacement
-    escService=$(escape_sed_replacement "$ServiceName")
-    escName=$(escape_sed_replacement "$x_ibm_name")
-    escOp=$(escape_sed_replacement "$OperationName")
-    escUrl=$(escape_sed_replacement "$ESBUrl")
-
-    # Load and prepare schema content
-    TEMP_SCHEMA_FILE="${OutputDirectory}/.schema_temp_$$"
-    
-    if [ -n "$SchemaPath" ]; then
-        echo "2) Loading schema from: $SchemaPath"
-        if load_json_schema "$SchemaPath" > "$TEMP_SCHEMA_FILE"; then
-            echo "  ✓ Schema loaded and converted to YAML"
-            SCHEMA_PROVIDED=true
-        else
-            echo "  ⚠ Warning: Failed to load schema, using empty object" >&2
-            echo "      type: object" > "$TEMP_SCHEMA_FILE"
-            SCHEMA_PROVIDED=false
-        fi
-    else
-        echo "2) No schema provided, using empty object"
-        echo "      type: object" > "$TEMP_SCHEMA_FILE"
-        SCHEMA_PROVIDED=false
-    fi
-
-    # Generate YAML from template
-    echo "3) Generating YAML from template..."
-    
-    # Step 1: Replace simple placeholders
-    TEMP_YAML="${OutputDirectory}/.yaml_temp_$$"
-    sed -e "s|{{ServiceName}}|${escService}|g" \
-        -e "s|{{x_ibm_name}}|${escName}|g" \
-        -e "s|{{OperationName}}|${escOp}|g" \
-        -e "s|{{ESBUrl}}|${escUrl}|g" \
-        "$TemplateFile" > "$TEMP_YAML"
-    
-    # Step 2: Replace {{SCHEMA_PLACEHOLDER}} with content from temp file
-    awk -v schema_file="$TEMP_SCHEMA_FILE" '
-    {
-        if ($0 ~ /{{SCHEMA_PLACEHOLDER}}/) {
-            # Read and insert schema content
-            while ((getline line < schema_file) > 0) {
-                print line
-            }
-            close(schema_file)
-        } else {
-            print $0
-        }
-    }
-    ' "$TEMP_YAML" > "$OUTPUT_FILE"
-    
-    # Cleanup temp files
-    rm -f "$TEMP_SCHEMA_FILE" "$TEMP_YAML"
-    
-    echo "  ✓ Generated YAML: $OUTPUT_FILE"
-
     # ------------------------------
-    # Incremental Mode Check
+    # Incremental Mode Check - BEFORE any processing
     # ------------------------------
     NEED_API_SYNC=true
     if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ]; then
@@ -409,71 +356,145 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
         fi
     fi
 
-    # Validate YAML file with API Connect (using name:version and required flags)
-    echo "4) Validating YAML locally with API Connect..."
-    if ! "$APIC_CMD" validate "$OUTPUT_FILE"; then
-        echo "  ✗ Validation failed: YAML file is invalid" >&2
-        FAILURE_COUNT=$((FAILURE_COUNT + 1))
-        continue
-    fi
-    echo "  ✓ YAML validation passed"
+    # Escape special characters for sed replacement
+    escService=$(escape_sed_replacement "$ServiceName")
+    escName=$(escape_sed_replacement "$x_ibm_name")
+    escOp=$(escape_sed_replacement "$OperationName")
+    escUrl=$(escape_sed_replacement "$ESBUrl")
 
-    # Create or Update draft API in IBM API Connect
-    echo "5) Creating/Updating draft API in API Connect..."
-    
-    # Temp directory for existing API retrieval
+    # ------------------------------
+    # Check if API already exists
+    # ------------------------------
+    echo "2) Checking if API exists..."
     TEMP_API_DIR="${OutputDirectory}/.temp_api"
     mkdir -p "$TEMP_API_DIR"
     
-    # Check if API already exists by trying to get it
     EXISTING_API_FILE="${TEMP_API_DIR}/${x_ibm_name}_1.0.0.yaml"
+    API_EXISTS=false
     
     if "$APIC_CMD" draft-apis:get "${x_ibm_name}:1.0.0" \
         --server "$APIC_SERVER" \
         --org "$APIC_ORG" \
         --output "$TEMP_API_DIR" 2>/dev/null; then
-        
-        echo "  ℹ API already exists, updating schema..."
-        
-        # API exists - need to update schema
-        # Step 5a: Load and convert the new schema from JSON to YAML
-        TEMP_NEW_SCHEMA="${OutputDirectory}/.new_schema_$$"
-        if [ -n "$SchemaPath" ] && [ -f "$SchemaPath" ]; then
-            if load_json_schema "$SchemaPath" > "$TEMP_NEW_SCHEMA"; then
-                echo "    ✓ Loaded new schema from: $SchemaPath"
-            else
-                echo "    ⚠ Failed to load schema, using empty object" >&2
-                echo "      type: object" > "$TEMP_NEW_SCHEMA"
-            fi
+        API_EXISTS=true
+        echo "  ✓ API exists, will update"
+    else
+        echo "  ✓ API doesn't exist, will create new"
+    fi
+
+    # ------------------------------
+    # Load schema ONCE based on whether we're creating or updating
+    # ------------------------------
+    TEMP_SCHEMA_FILE="${OutputDirectory}/.schema_temp_$$"
+    
+    if [ -n "$SchemaPath" ]; then
+        echo "3) Loading schema from: $SchemaPath"
+        if load_json_schema "$SchemaPath" > "$TEMP_SCHEMA_FILE"; then
+            echo "  ✓ Schema loaded and converted to YAML"
+            SCHEMA_PROVIDED=true
         else
-            echo "    ℹ No schema path provided, using empty object"
-            echo "      type: object" > "$TEMP_NEW_SCHEMA"
+            echo "  ⚠ Warning: Failed to load schema, using empty object" >&2
+            echo "      type: object" > "$TEMP_SCHEMA_FILE"
+            SCHEMA_PROVIDED=false
         fi
+    else
+        echo "3) No schema provided, using empty object"
+        echo "      type: object" > "$TEMP_SCHEMA_FILE"
+        SCHEMA_PROVIDED=false
+    fi
+
+    # ------------------------------
+    # Branch: Create new API vs Update existing API
+    # ------------------------------
+    if [ "$API_EXISTS" = false ]; then
+        # ------------------------------
+        # PATH A: Create new API
+        # ------------------------------
+        echo "4) Generating complete YAML from template..."
         
-        # Step 5b: Replace schema section in existing API YAML
-        UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
-        replace_schema_section "$EXISTING_API_FILE" "$OperationName" "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
-        echo "    ✓ Schema section replaced"
+        # Step 1: Replace simple placeholders
+        TEMP_YAML="${OutputDirectory}/.yaml_temp_$$"
+        sed -e "s|{{ServiceName}}|${escService}|g" \
+            -e "s|{{x_ibm_name}}|${escName}|g" \
+            -e "s|{{OperationName}}|${escOp}|g" \
+            -e "s|{{ESBUrl}}|${escUrl}|g" \
+            "$TemplateFile" > "$TEMP_YAML"
         
-        # Step 5b.2: Update target-url (ensure it matches services.txt)
-        if update_target_url "$UPDATED_API_FILE" "$ESBUrl"; then
-            echo "    ✓ Target URL updated to: $ESBUrl"
-        else
-            echo "    ⚠ Warning: Failed to update target URL" >&2
-        fi
+        # Step 2: Replace {{SCHEMA_PLACEHOLDER}} with content from temp file
+        awk -v schema_file="$TEMP_SCHEMA_FILE" '
+        {
+            if ($0 ~ /{{SCHEMA_PLACEHOLDER}}/) {
+                # Read and insert schema content
+                while ((getline line < schema_file) > 0) {
+                    print line
+                }
+                close(schema_file)
+            } else {
+                print $0
+            }
+        }
+        ' "$TEMP_YAML" > "$OUTPUT_FILE"
         
-        # Step 5c: Validate the updated YAML
-        echo "    Validating updated YAML..."
-        if ! "$APIC_CMD" validate "$UPDATED_API_FILE"; then
-            echo "    ✗ Validation failed for updated YAML" >&2
-            rm -f "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
+        # Cleanup temp files
+        rm -f "$TEMP_YAML"
+        
+        echo "  ✓ Generated YAML: $OUTPUT_FILE"
+
+        # Validate YAML file with API Connect
+        echo "5) Validating YAML locally with API Connect..."
+        if ! "$APIC_CMD" validate "$OUTPUT_FILE"; then
+            echo "  ✗ Validation failed: YAML file is invalid" >&2
+            rm -f "$TEMP_SCHEMA_FILE"
             rm -rf "$TEMP_API_DIR"
             FAILURE_COUNT=$((FAILURE_COUNT + 1))
             continue
         fi
-        echo "    ✓ Validation passed"
+        echo "  ✓ YAML validation passed"
+
+        # Create draft API in IBM API Connect
+        echo "6) Creating draft API in API Connect..."
+        if "$APIC_CMD" draft-apis:create \
+            --org "$APIC_ORG" \
+            --server "$APIC_SERVER" \
+            "$OUTPUT_FILE"; then
+            echo "  ✓ Draft API created successfully"
+            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+        else
+            echo "  ✗ Failed to create draft API" >&2
+            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        fi
         
-        # Step 5d: Update the draft API
+    else
+        # ------------------------------
+        # PATH B: Update existing API
+        # ------------------------------
+        echo "4) Updating existing API with new schema..."
+        
+        # Replace schema section in existing API YAML (using already-loaded schema)
+        UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
+        replace_schema_section "$EXISTING_API_FILE" "$OperationName" "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
+        echo "  ✓ Schema section replaced"
+        
+        # Update target-url (ensure it matches services.txt)
+        if update_target_url "$UPDATED_API_FILE" "$ESBUrl"; then
+            echo "  ✓ Target URL updated to: $ESBUrl"
+        else
+            echo "  ⚠ Warning: Failed to update target URL" >&2
+        fi
+        
+        # Validate the updated YAML
+        echo "5) Validating updated YAML..."
+        if ! "$APIC_CMD" validate "$UPDATED_API_FILE"; then
+            echo "  ✗ Validation failed for updated YAML" >&2
+            rm -f "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
+            rm -rf "$TEMP_API_DIR"
+            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+            continue
+        fi
+        echo "  ✓ Validation passed"
+        
+        # Update the draft API
+        echo "6) Updating draft API in API Connect..."
         if "$APIC_CMD" draft-apis:update "${x_ibm_name}:1.0.0" \
             --server "$APIC_SERVER" \
             --org "$APIC_ORG" \
@@ -488,24 +509,12 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
         fi
         
         # Cleanup temp files
-        rm -f "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
-        rm -rf "$TEMP_API_DIR"
-        
-    else
-        # API doesn't exist - create new one (original logic)
-        echo "  ℹ API doesn't exist, creating new..."
-        if "$APIC_CMD" draft-apis:create \
-            --org "$APIC_ORG" \
-            --server "$APIC_SERVER" \
-            "$OUTPUT_FILE"; then
-            echo "  ✓ Draft API created successfully"
-            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
-        else
-            echo "  ✗ Failed to create draft API" >&2
-            FAILURE_COUNT=$((FAILURE_COUNT + 1))
-        fi
-        rm -rf "$TEMP_API_DIR"
+        rm -f "$UPDATED_API_FILE"
     fi
+
+    # Cleanup common temp files
+    rm -f "$TEMP_SCHEMA_FILE"
+    rm -rf "$TEMP_API_DIR"
 
 done
 exec 3<&-
