@@ -345,3 +345,188 @@ else
     echo "⚠ Completed with $SUCCESS_COUNT successes and $FAILURE_COUNT failures"
 fi
 echo "========================================"
+
+# ------------------------------
+# Step 6: Product Update and Publish
+# ------------------------------
+# Configuration for Product
+PRODUCT_NAME="internal-services"
+PRODUCT_VERSION="1.0.0"
+PRODUCT_TITLE="Internal Services"
+CATALOG_NAME="internal"
+PRODUCT_FILE="${OutputDirectory}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml"
+BACKUP_DIR="${OutputDirectory}/.backup"
+
+# Create backup directory
+mkdir -p "$BACKUP_DIR"
+
+echo ""
+echo "========================================"
+echo "Step 6: Updating Product and Publishing to Catalog"
+echo "========================================"
+echo "  Product: $PRODUCT_NAME v$PRODUCT_VERSION"
+echo "  Catalog: $CATALOG_NAME"
+echo ""
+
+# ------------------------------
+# 6.1: Collect all API references from services.txt
+# ------------------------------
+echo "6.1) Collecting API references from services.txt..."
+
+# Array to store API references
+declare -a API_REFS=()
+
+exec 4< "$InputFile"
+while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawServiceName" ]]; do
+    # Remove Windows line endings and trim whitespace
+    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
+    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
+    
+    # Skip blank lines or comments
+    [ -z "$ServiceName" ] && continue
+    case "$ServiceName" in
+        \#* ) continue ;;
+    esac
+    
+    # Generate x_ibm_name (same logic as main loop)
+    x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    
+    # Add to array
+    API_REFS+=("$x_ibm_name")
+    echo "  - Found API: $x_ibm_name"
+done
+exec 4<&-
+
+echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
+
+# ------------------------------
+# 6.2: Generate Product YAML
+# ------------------------------
+echo ""
+echo "6.2) Generating Product YAML..."
+
+# Build the apis section dynamically
+APIS_SECTION=""
+for api_name in "${API_REFS[@]}"; do
+    APIS_SECTION+="  ${api_name}:
+    \$ref: ${api_name}_1.0.0.yaml
+"
+done
+
+# Create the product YAML file
+cat > "$PRODUCT_FILE" << EOF
+product: 1.0.0
+info:
+  name: ${PRODUCT_NAME}
+  title: ${PRODUCT_TITLE}
+  version: ${PRODUCT_VERSION}
+
+apis:
+${APIS_SECTION}
+visibility:
+  view:
+    type: public
+  subscribe:
+    type: authenticated
+
+plans:
+  default-plan:
+    title: Default Plan
+    description: Default consumption plan
+    approval: false
+    rate-limits:
+      default:
+        value: 100/hour
+EOF
+
+echo "  ✓ Generated product YAML: $PRODUCT_FILE"
+
+# ------------------------------
+# 6.3: Backup existing product (for reversibility)
+# ------------------------------
+echo ""
+echo "6.3) Backing up existing product (if exists)..."
+
+BACKUP_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
+if "$APIC_CMD" draft-products:get "${PRODUCT_NAME}:${PRODUCT_VERSION}" \
+    --server "$APIC_SERVER" \
+    --org "$APIC_ORG" \
+    --output "$BACKUP_DIR" 2>/dev/null; then
+    # Rename to backup file
+    if [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" ]; then
+        mv "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" "$BACKUP_FILE"
+        echo "  ✓ Backed up existing product to: $BACKUP_FILE"
+    fi
+else
+    echo "  ℹ No existing product found (will create new)"
+fi
+
+# ------------------------------
+# 6.4: Create or Update draft product
+# ------------------------------
+echo ""
+echo "6.4) Creating/Updating draft product..."
+
+# Try to update first; if it fails (product doesn't exist), create new
+if "$APIC_CMD" draft-products:update "${PRODUCT_NAME}:${PRODUCT_VERSION}" \
+    --server "$APIC_SERVER" \
+    --org "$APIC_ORG" \
+    "$PRODUCT_FILE" 2>/dev/null; then
+    echo "  ✓ Draft product updated successfully"
+else
+    echo "  ℹ Product doesn't exist, creating new draft..."
+    if "$APIC_CMD" draft-products:create \
+        --server "$APIC_SERVER" \
+        --org "$APIC_ORG" \
+        "$PRODUCT_FILE"; then
+        echo "  ✓ Draft product created successfully"
+    else
+        echo "  ✗ Failed to create draft product" >&2
+        echo ""
+        echo "========================================"
+        echo "⚠ Product creation failed. APIs were created but product was not published."
+        echo "   To rollback, you can restore from: $BACKUP_FILE (if exists)"
+        echo "========================================"
+        exit 1
+    fi
+fi
+
+# ------------------------------
+# 6.5: Publish product to catalog
+# ------------------------------
+echo ""
+echo "6.5) Publishing product to catalog '$CATALOG_NAME'..."
+
+if "$APIC_CMD" products:publish \
+    --server "$APIC_SERVER" \
+    --org "$APIC_ORG" \
+    --catalog "$CATALOG_NAME" \
+    "$PRODUCT_FILE"; then
+    echo "  ✓ Product published successfully to catalog '$CATALOG_NAME'"
+else
+    echo "  ✗ Failed to publish product to catalog" >&2
+    echo ""
+    echo "========================================"
+    echo "⚠ Publication failed. The draft product was created but not published."
+    echo "   To rollback the draft product, run:"
+    echo "   $APIC_CMD draft-products:delete ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG"
+    echo "   Or restore from backup: $BACKUP_FILE (if exists)"
+    echo "========================================"
+    exit 1
+fi
+
+# ------------------------------
+# Final Summary
+# ------------------------------
+echo ""
+echo "========================================"
+echo "✓ COMPLETE: All operations finished successfully"
+echo "========================================"
+echo "  APIs created/updated: ${#API_REFS[@]}"
+echo "  Product: $PRODUCT_NAME v$PRODUCT_VERSION"
+echo "  Published to catalog: $CATALOG_NAME"
+echo ""
+echo "  Backup location: $BACKUP_FILE"
+echo "  To rollback, restore the backup and run:"
+echo "    $APIC_CMD draft-products:update ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG $BACKUP_FILE"
+echo "========================================"

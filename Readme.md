@@ -43,3 +43,27 @@ so the script can inject the converted schema at the correct indentation.
 2. Ensure `template.yaml` contains `{{SCHEMA_PLACEHOLDER}}`.
 3. Place JSON schemas in `schemas/` (optional).
 4. Run `yamlBuilderEnh.sh`.
+
+## Product Update & Publish (Step 6)
+After processing all APIs, the script automatically:
+1. Collects all API references from `services.txt`
+2. Generates a product YAML (`internal-services_1.0.0.yaml`)
+3. Backs up existing product (if any) for reversibility
+4. Creates or updates the draft product in API Connect
+5. Publishes the product to the `internal` catalog
+
+### Product Configuration
+The following values can be modified in the script:
+- `PRODUCT_NAME`: Name of the product (default: `internal-services`)
+- `PRODUCT_VERSION`: Version of the product (default: `1.0.0`)
+- `CATALOG_NAME`: Target catalog for publishing (default: `internal`)
+
+### Rollback
+If you need to rollback changes:
+1. Backup files are stored in `API-yamls/.backup/`
+2. To restore a previous product state:
+```bash
+apic draft-products:update internal-services:1.0.0 \
+    --server $APIC_SERVER --org $APIC_ORG \
+    API-yamls/.backup/internal-services_1.0.0_backup.yaml
+```
