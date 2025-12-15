@@ -38,11 +38,26 @@ so the script can inject the converted schema at the correct indentation.
 - Generated YAML files are saved to `API-yamls/`
 - Script exits with code 0 on success; non-zero if failures occurred.
 
+## Configuration
+The script loads settings from `config.env` (if exists). You can also set environment variables directly.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `APIC_ORG` | `apic-sit` | API Connect organization |
+| `APIC_SERVER` | `https://...` | APIC Management server URL |
+| `INPUT_FILE` | `services.txt` | Services input file |
+| `TEMPLATE_FILE` | `template.yaml` | API template file |
+| `OUTPUT_DIRECTORY` | `API-yamls` | Generated YAML output |
+| `PRODUCT_NAME` | `internal-services` | Product name |
+| `PRODUCT_VERSION` | `1.0.0` | Product version |
+| `CATALOG_NAME` | `internal` | Target catalog |
+
 ## Quick Steps
-1. Populate `services.txt`.
-2. Ensure `template.yaml` contains `{{SCHEMA_PLACEHOLDER}}`.
-3. Place JSON schemas in `schemas/` (optional).
-4. Run `yamlBuilderEnh.sh`.
+1. **Configure**: Edit `config.env` with your environment settings.
+2. Populate `services.txt`.
+3. Ensure `template.yaml` contains `{{SCHEMA_PLACEHOLDER}}`.
+4. Place JSON schemas in `schemas/` (optional).
+5. Run `yamlBuilderEnh.sh`.
 
 ## Product Update & Publish (Step 6)
 

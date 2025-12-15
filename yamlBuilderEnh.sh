@@ -2,17 +2,30 @@
 set -euo pipefail
 
 # ------------------------------
-# Configuration variables
+# Load Configuration
 # ------------------------------
-InputFile="services.txt"
-TemplateFile="template.yaml"
-OutputDirectory="API-yamls"
-SchemasDirectory="schemas"
+# Configuration can be overridden by:
+# 1. Setting environment variables before running
+# 2. Creating a config.env file in the same directory
+CONFIG_FILE="${CONFIG_FILE:-config.env}"
+if [ -f "$CONFIG_FILE" ]; then
+    echo "Loading configuration from: $CONFIG_FILE"
+    source "$CONFIG_FILE"
+fi
 
+# ------------------------------
+# Configuration variables (with defaults)
+# ------------------------------
+InputFile="${INPUT_FILE:-services.txt}"
+TemplateFile="${TEMPLATE_FILE:-template.yaml}"
+OutputDirectory="${OUTPUT_DIRECTORY:-API-yamls}"
+SchemasDirectory="${SCHEMAS_DIRECTORY:-schemas}"
+
+APIC_ORG="${APIC_ORG:-apic-sit}"
+APIC_SERVER="${APIC_SERVER:-https://apic-sit-mgmt-api-manager-bab-sit-cp4i.apps.babsitaro.albtests.com}"
+
+# Create output directory
 mkdir -p "$OutputDirectory"
-
-APIC_ORG="apic-sit"
-APIC_SERVER="https://apic-sit-mgmt-api-manager-bab-sit-cp4i.apps.babsitaro.albtests.com"
 
 # Tracking variables
 SUCCESS_COUNT=0
@@ -486,11 +499,11 @@ echo "========================================"
 # ------------------------------
 # Step 6: Product Update and Publish
 # ------------------------------
-# Configuration for Product
-PRODUCT_NAME="internal-services"
-PRODUCT_VERSION="1.0.0"
-PRODUCT_TITLE="Internal Services"
-CATALOG_NAME="internal"
+# Configuration for Product (loaded from config.env with defaults)
+PRODUCT_NAME="${PRODUCT_NAME:-internal-services}"
+PRODUCT_VERSION="${PRODUCT_VERSION:-1.0.0}"
+PRODUCT_TITLE="${PRODUCT_TITLE:-Internal Services}"
+CATALOG_NAME="${CATALOG_NAME:-internal}"
 PRODUCT_FILE="${OutputDirectory}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml"
 BACKUP_DIR="${OutputDirectory}/.backup"
 
