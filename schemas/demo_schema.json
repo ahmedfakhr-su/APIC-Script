@@ -16,7 +16,7 @@
               "type": "string",
               "enum": ["JSON", "XML"],
               "example": "JSON",
-              "description": "Message format type"
+              "description": " type"
             },
             "cif": {
               "type": "string",
