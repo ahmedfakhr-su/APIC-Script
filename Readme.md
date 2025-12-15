@@ -45,6 +45,18 @@ so the script can inject the converted schema at the correct indentation.
 4. Run `yamlBuilderEnh.sh`.
 
 ## Product Update & Publish (Step 6)
+
+## API Update Path (Step 5)
+When an API already exists in API Connect, the script now:
+1. Detects the existing API using `apic draft-apis:get`
+2. Pulls the current YAML definition
+3. Replaces the `{OperationName}Request` schema section with the new schema from `services.txt`
+4. Validates the updated YAML
+5. Updates the API using `apic draft-apis:update`
+
+This ensures schema changes are propagated to existing APIs without manual intervention.
+
+## Product Update & Publish (Step 6)
 After processing all APIs, the script automatically:
 1. Collects all API references from `services.txt`
 2. Generates a product YAML (`internal-services_1.0.0.yaml`)

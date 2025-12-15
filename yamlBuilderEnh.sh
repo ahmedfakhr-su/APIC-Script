@@ -178,6 +178,74 @@ except Exception as e:
 EOF
 }
 
+# Replace schema section in an existing API YAML file
+# Uses indentation-based detection to find and replace the {OperationName}Request schema
+replace_schema_section() {
+    local yaml_file="$1"
+    local operation_name="$2"
+    local new_schema_file="$3"
+    local output_file="$4"
+    
+    # Pattern to match: "{OperationName}Request:" with any leading whitespace
+    local pattern="${operation_name}Request:"
+    
+    # Use awk to:
+    # 1. Find the line matching the pattern
+    # 2. Record its indentation level
+    # 3. Skip all subsequent lines that have greater indentation (nested content)
+    # 4. Insert new schema content
+    # 5. Continue with the rest of the file
+    awk -v pattern="$pattern" -v schema_file="$new_schema_file" '
+    BEGIN { in_schema = 0; schema_indent = 0 }
+    {
+        # Check if this is the schema header line we are looking for
+        if ($0 ~ pattern ":") {
+            # Found the schema header - print it
+            print $0
+            
+            # Calculate indentation of this line
+            match($0, /^[[:space:]]*/)
+            schema_indent = RLENGTH
+            
+            # Insert new schema content
+            while ((getline line < schema_file) > 0) {
+                print line
+            }
+            close(schema_file)
+            
+            # Mark that we are now inside the old schema section to skip
+            in_schema = 1
+            next
+        }
+        
+        # If we are inside the old schema section, check indentation to know when to stop skipping
+        if (in_schema) {
+            # Calculate indentation of current line
+            match($0, /^[[:space:]]*/)
+            current_indent = RLENGTH
+            
+            # Skip empty lines
+            if ($0 ~ /^[[:space:]]*$/) {
+                next
+            }
+            
+            # If current indentation is greater than schema header, skip this line (its nested content)
+            if (current_indent > schema_indent) {
+                next
+            }
+            
+            # We have reached a line with same or less indentation - stop skipping
+            in_schema = 0
+            print $0
+            next
+        }
+        
+        # Normal line - print as-is
+        print $0
+    }
+    ' "$yaml_file" > "$output_file"
+}
+
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
@@ -321,17 +389,86 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     fi
     echo "  ✓ YAML validation passed"
 
-    # Create draft API in IBM API Connect
-    echo "5) Creating draft API in API Connect..."
-    if ! "$APIC_CMD" draft-apis:create \
-        --org "$APIC_ORG" \
+    # Create or Update draft API in IBM API Connect
+    echo "5) Creating/Updating draft API in API Connect..."
+    
+    # Temp directory for existing API retrieval
+    TEMP_API_DIR="${OutputDirectory}/.temp_api"
+    mkdir -p "$TEMP_API_DIR"
+    
+    # Check if API already exists by trying to get it
+    EXISTING_API_FILE="${TEMP_API_DIR}/${x_ibm_name}_1.0.0.yaml"
+    
+    if "$APIC_CMD" draft-apis:get "${x_ibm_name}:1.0.0" \
         --server "$APIC_SERVER" \
-        "$OUTPUT_FILE"; then
-        echo "  ⚠ Warning: Draft creation failed (may already exist)" >&2
-        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        --org "$APIC_ORG" \
+        --output "$TEMP_API_DIR" 2>/dev/null; then
+        
+        echo "  ℹ API already exists, updating schema..."
+        
+        # API exists - need to update schema
+        # Step 5a: Load and convert the new schema from JSON to YAML
+        TEMP_NEW_SCHEMA="${OutputDirectory}/.new_schema_$$"
+        if [ -n "$SchemaPath" ] && [ -f "$SchemaPath" ]; then
+            if load_json_schema "$SchemaPath" > "$TEMP_NEW_SCHEMA"; then
+                echo "    ✓ Loaded new schema from: $SchemaPath"
+            else
+                echo "    ⚠ Failed to load schema, using empty object" >&2
+                echo "      type: object" > "$TEMP_NEW_SCHEMA"
+            fi
+        else
+            echo "    ℹ No schema path provided, using empty object"
+            echo "      type: object" > "$TEMP_NEW_SCHEMA"
+        fi
+        
+        # Step 5b: Replace schema section in existing API YAML
+        UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
+        replace_schema_section "$EXISTING_API_FILE" "$OperationName" "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
+        echo "    ✓ Schema section replaced"
+        
+        # Step 5c: Validate the updated YAML
+        echo "    Validating updated YAML..."
+        if ! "$APIC_CMD" validate "$UPDATED_API_FILE"; then
+            echo "    ✗ Validation failed for updated YAML" >&2
+            rm -f "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
+            rm -rf "$TEMP_API_DIR"
+            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+            continue
+        fi
+        echo "    ✓ Validation passed"
+        
+        # Step 5d: Update the draft API
+        if "$APIC_CMD" draft-apis:update "${x_ibm_name}:1.0.0" \
+            --server "$APIC_SERVER" \
+            --org "$APIC_ORG" \
+            "$UPDATED_API_FILE"; then
+            echo "  ✓ Draft API updated successfully"
+            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+            # Copy updated file to output directory for reference
+            cp "$UPDATED_API_FILE" "$OUTPUT_FILE"
+        else
+            echo "  ✗ Failed to update draft API" >&2
+            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        fi
+        
+        # Cleanup temp files
+        rm -f "$TEMP_NEW_SCHEMA" "$UPDATED_API_FILE"
+        rm -rf "$TEMP_API_DIR"
+        
     else
-        echo "  ✓ Draft API created successfully"
-        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+        # API doesn't exist - create new one (original logic)
+        echo "  ℹ API doesn't exist, creating new..."
+        if "$APIC_CMD" draft-apis:create \
+            --org "$APIC_ORG" \
+            --server "$APIC_SERVER" \
+            "$OUTPUT_FILE"; then
+            echo "  ✓ Draft API created successfully"
+            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+        else
+            echo "  ✗ Failed to create draft API" >&2
+            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        fi
+        rm -rf "$TEMP_API_DIR"
     fi
 
 done
