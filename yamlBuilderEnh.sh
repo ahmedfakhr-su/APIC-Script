@@ -270,6 +270,77 @@ if ! command -v python3 >/dev/null 2>&1; then
 fi
 
 # ------------------------------
+# Incremental Build Logic
+# ------------------------------
+LAST_COMMIT_FILE="${LAST_COMMIT_FILE:-API-yamls/.last_successful_commit}"
+
+# Check prerequisites for incremental mode
+check_prerequisites() {
+    if ! command -v git >/dev/null 2>&1; then
+        echo "Error: git is required for incremental mode but not found." >&2
+        return 1
+    fi
+}
+
+# Get files changed since last successful run
+get_changed_files() {
+    local current_hash
+    current_hash=$(git rev-parse HEAD 2>/dev/null) || { echo "git rev-parse failed"; return 0; }
+    
+    if [ -f "$LAST_COMMIT_FILE" ]; then
+        local prev_hash
+        prev_hash=$(cat "$LAST_COMMIT_FILE")
+        if [ -n "$prev_hash" ]; then
+            echo "  ℹ Checking changes between $prev_hash and $current_hash" >&2
+            git diff --name-only "$prev_hash" "$current_hash" 2>/dev/null || echo ""
+            return 0
+        fi
+    fi
+    # No previous hash or file, return empty (implies full build if not handled)
+    echo ""
+}
+
+# Parse arguments
+INCREMENTAL_MODE=false
+FORCE_ALL=false
+
+for arg in "$@"; do
+    case $arg in
+        --incremental)
+            INCREMENTAL_MODE=true
+            ;;
+    esac
+done
+
+CHANGED_FILES=""
+if [ "$INCREMENTAL_MODE" = true ]; then
+    echo "Mode: Incremental Build"
+    check_prerequisites || exit 1
+    
+    # Get changed files
+    CHANGED_FILES=$(get_changed_files)
+    
+    # Check for critical configuration changes that force a full build
+    # Using specific filenames or basename matching
+    if echo "$CHANGED_FILES" | grep -qE "(^|/)services\.txt$|(^|/)template\.yaml$|(^|/)config\.env$"; then
+        echo "  ⚠ Configuration changed (services/template/config), forcing FULL update."
+        FORCE_ALL=true
+    else
+        echo "  ℹ No critical configuration changes detected."
+        if [ -z "$CHANGED_FILES" ] && [ -f "$LAST_COMMIT_FILE" ]; then
+             echo "  ℹ No changes detected since last success."
+        elif [ ! -f "$LAST_COMMIT_FILE" ]; then
+             echo "  ℹ No previous success record found, running full update."
+             FORCE_ALL=true
+        fi
+    fi
+else
+    echo "Mode: Full Build (default)"
+    FORCE_ALL=true
+fi
+echo "========================================"
+
+# ------------------------------
 # Detect Toolkit executable
 # ------------------------------
 detect_apic_cmd() {
@@ -392,6 +463,28 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     
     echo "  ✓ Generated YAML: $OUTPUT_FILE"
 
+    # ------------------------------
+    # Incremental Mode Check
+    # ------------------------------
+    NEED_API_SYNC=true
+    if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ]; then
+        # Check if the schema file for this service has changed
+        if [ -n "$SchemaPath" ]; then
+            if ! echo "$CHANGED_FILES" | grep -q "$SchemaPath"; then
+                NEED_API_SYNC=false
+            fi
+        else
+            # No schema path - check if services.txt itself changed (already covered by FORCE_ALL)
+            # If no schema, and we're here, it means services.txt didn't change enough to force all,
+            # so we assume this service without schema hasn't changed.
+            NEED_API_SYNC=false
+        fi
+        
+        if [ "$NEED_API_SYNC" = false ]; then
+             echo "  ℹ Incremental: No changes detected for this service, skipping API Sync."
+             continue
+        fi
+    fi
 
     # Validate YAML file with API Connect (using name:version and required flags)
     echo "4) Validating YAML locally with API Connect..."
@@ -499,6 +592,15 @@ echo "========================================"
 # ------------------------------
 # Step 6: Product Update and Publish
 # ------------------------------
+# Check if we should proceed with product update
+PERFORM_PRODUCT_UPDATE=true
+if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ] && [ $SUCCESS_COUNT -eq 0 ]; then
+    echo "  ℹ Incremental: No APIs updated, skipping Product Update."
+    PERFORM_PRODUCT_UPDATE=false
+fi
+
+if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
+
 # Configuration for Product (loaded from config.env with defaults)
 PRODUCT_NAME="${PRODUCT_NAME:-internal-services}"
 PRODUCT_VERSION="${PRODUCT_VERSION:-1.0.0}"
@@ -543,7 +645,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawService
     
     # Add to array
     API_REFS+=("$x_ibm_name")
-    echo "  - Found API: $x_ibm_name"
+    # echo "  - Found API: $x_ibm_name" # Reduce noise
 done
 exec 4<&-
 
@@ -665,6 +767,8 @@ else
     exit 1
 fi
 
+fi # End of PERFORM_PRODUCT_UPDATE check
+
 # ------------------------------
 # Final Summary
 # ------------------------------
@@ -674,9 +778,30 @@ echo "✓ COMPLETE: All operations finished successfully"
 echo "========================================"
 echo "  APIs created/updated: ${#API_REFS[@]}"
 echo "  Product: $PRODUCT_NAME v$PRODUCT_VERSION"
-echo "  Published to catalog: $CATALOG_NAME"
-echo ""
-echo "  Backup location: $BACKUP_FILE"
-echo "  To rollback, restore the backup and run:"
-echo "    $APIC_CMD draft-products:update ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG $BACKUP_FILE"
+if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
+    echo "  Published to catalog: $CATALOG_NAME"
+    echo ""
+    echo "  Backup location: $BACKUP_FILE"
+    echo "  To rollback, restore the backup and run:"
+    echo "    $APIC_CMD draft-products:update ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG $BACKUP_FILE"
+else
+    echo "  (Product update skipped - no API changes)"
+fi
 echo "========================================"
+
+# ------------------------------
+# Save state for Incremental Mode
+# ------------------------------
+if [ "$INCREMENTAL_MODE" = true ]; then
+    if [ $FAILURE_COUNT -eq 0 ]; then
+        if command -v git >/dev/null 2>&1; then
+            current_hash=$(git rev-parse HEAD 2>/dev/null)
+            if [ -n "$current_hash" ]; then
+                echo "$current_hash" > "$LAST_COMMIT_FILE"
+                echo "  ✓ Saved incremental state ($current_hash)"
+            fi
+        fi
+    else
+        echo "  ⚠ Incremental state NOT saved due to failures"
+    fi
+fi

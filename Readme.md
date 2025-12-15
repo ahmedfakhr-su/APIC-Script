@@ -61,6 +61,21 @@ The script loads settings from `config.env` (if exists). You can also set enviro
 
 ## Product Update & Publish (Step 6)
 
+## Incremental Mode
+The script supports an incremental build mode optimized for CI/CD pipelines.
+
+```bash
+./yamlBuilderEnh.sh --incremental
+```
+
+### How it works
+1. Detects changes since the last successful run (stored in `API-yamls/.last_successful_commit`).
+2. **Generates** local YAMLs for all APIs (fast).
+3. **Skips** expensive server operations (validation, update) for APIs with no schema changes.
+4. **Forces full update** if critical files (`services.txt`, `template.yaml`, `config.env`) changed.
+5. **Updates Product** only if APIs were modified or config changed.
+6. Saves the current commit hash on success.
+
 ## API Update Path (Step 5)
 When an API already exists in API Connect, the script now:
 1. Detects the existing API using `apic draft-apis:get`
