@@ -1,6 +1,6 @@
 components:
   schemas:
-    Demo3ServiceRequest:
+    Demo2ServiceRequest:
       additionalProperties: false
       description: Demo Service Request - Complete request structure with EAIHeader
         and body
@@ -174,14 +174,14 @@ components:
       required:
       - EAIMessage
       type: object
-    Demo3ServiceResponse:
+    Demo2ServiceResponse:
       properties:
         data:
-          $ref: '#/components/schemas/Demo3ServiceResponseData'
+          $ref: '#/components/schemas/Demo2ServiceResponseData'
         result:
           $ref: '#/components/schemas/ResponseHeader'
       type: object
-    Demo3ServiceResponseData:
+    Demo2ServiceResponseData:
       description: Response data payload - customize per operation
       type: object
     RequestHeader:
@@ -260,26 +260,26 @@ components:
       type: oauth2
       x-ibm-oauth-provider: native-oauth-provider
 info:
-  title: Demo3 Service
+  title: Demo2 Service
   version: 1.0.0
-  x-ibm-name: demo3-service
+  x-ibm-name: demo2-service
 openapi: 3.0.0
 paths:
-  /demo3-service:
+  /demo2-service:
     post:
-      operationId: Demo3Service
+      operationId: Demo2Service
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Demo3ServiceRequest'
+              $ref: '#/components/schemas/Demo2ServiceRequest'
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Demo3ServiceResponse'
+                $ref: '#/components/schemas/Demo2ServiceResponse'
           description: success
 security:
 - clientID: []
@@ -316,7 +316,7 @@ x-ibm-configuration:
               verb: POST
               version: 2.0.0
           operations:
-          - Demo3Service
+          - Demo2Service
         otherwise: []
         title: operation-switch
         version: 2.0.0
@@ -329,6 +329,6 @@ x-ibm-configuration:
     target-url:
       description: URL of the proxy policy
       encoded: false
-      value: http://esb.example.com/demo2
+      value: http://esb.example.com/demo22222
   testable: true
   type: rest

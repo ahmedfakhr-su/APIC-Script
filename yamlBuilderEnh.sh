@@ -64,131 +64,7 @@ load_json_schema() {
     fi
     
     # Convert JSON to YAML with proper indentation
-    python3 - "$schema_path" <<'EOF'
-import json
-import sys
-
-def json_to_yaml(obj, indent=0):
-    """
-    Convert JSON Schema to OpenAPI-compatible YAML format.
-    Filters out JSON Schema-specific properties that aren't valid in OpenAPI 3.0.
-    Ensures 'type' appears first for better API Connect display.
-    """
-    lines = []
-    spaces = '  ' * indent
-    
-    # Properties to exclude (JSON Schema specific, not OpenAPI)
-    excluded_props = {'$schema', '$id', '$comment', 'definitions', '$defs'}
-    
-    if isinstance(obj, dict):
-        # CRITICAL: We must output 'type' FIRST for API Connect to display correctly
-        # Define the exact order - this is the order they will appear in YAML
-        property_order = [
-            'type',           # MUST BE FIRST
-            'format',
-            'title', 
-            'description',
-            'required',
-            'enum',
-            'default',
-            'example',
-            'minimum',
-            'maximum',
-            'exclusiveMinimum',
-            'exclusiveMaximum',
-            'minLength',
-            'maxLength',
-            'minItems',
-            'maxItems',
-            'pattern',
-            'properties',
-            'items',
-            'additionalProperties',
-            'allOf',
-            'oneOf',
-            'anyOf'
-        ]
-        
-        # Build ordered list of keys to process
-        all_keys = []
-        
-        # First pass: add keys in our defined order
-        for prop in property_order:
-            if prop in obj and prop not in excluded_props:
-                all_keys.append(prop)
-        
-        # Second pass: add any remaining keys alphabetically
-        remaining = sorted([k for k in obj.keys() if k not in all_keys and k not in excluded_props])
-        all_keys.extend(remaining)
-        
-        for key in all_keys:
-            value = obj[key]
-            
-            if isinstance(value, dict):
-                lines.append(f"{spaces}{key}:")
-                lines.extend(json_to_yaml(value, indent + 1))
-            elif isinstance(value, list):
-                lines.append(f"{spaces}{key}:")
-                lines.extend(json_to_yaml(value, indent + 1))
-            elif isinstance(value, bool):
-                lines.append(f"{spaces}{key}: {str(value).lower()}")
-            elif isinstance(value, str):
-                # Escape strings that might need quotes
-                if ':' in value or '#' in value or value.startswith(('*', '&', '!')) or value == '':
-                    lines.append(f"{spaces}{key}: '{value}'")
-                else:
-                    lines.append(f"{spaces}{key}: {value}")
-            elif value is None:
-                lines.append(f"{spaces}{key}: null")
-            else:
-                lines.append(f"{spaces}{key}: {value}")
-    
-    elif isinstance(obj, list):
-        for item in obj:
-            if isinstance(item, (dict, list)):
-                lines.append(f"{spaces}-")
-                nested = json_to_yaml(item, indent + 1)
-                # For nested objects/arrays, don't duplicate the indent
-                for i, nested_line in enumerate(nested):
-                    if i == 0:
-                        # First line goes on same line as dash
-                        lines[-1] = f"{spaces}- {nested_line.strip()}"
-                    else:
-                        lines.append(f"{spaces}  {nested_line.strip()}")
-            else:
-                # Simple values in array
-                if isinstance(item, str):
-                    lines.append(f"{spaces}- {item}")
-                else:
-                    lines.append(f"{spaces}- {item}")
-    
-    return lines
-
-try:
-    with open(sys.argv[1], 'r') as f:
-        schema = json.load(f)
-    
-    # Check if this is a properly structured request schema
-    if 'type' in schema and schema.get('type') == 'object' and 'properties' in schema:
-        # This is the complete request schema structure - use it directly
-        processed_schema = schema
-    else:
-        # Fallback - use as provided
-        processed_schema = schema
-    
-    # Generate YAML lines
-    yaml_lines = json_to_yaml(processed_schema, indent=0)
-    
-    # Print with base indentation of 6 spaces (to match the placeholder position)
-    for line in yaml_lines:
-        print('      ' + line)
-    
-except Exception as e:
-    print(f"Error processing schema: {e}", file=sys.stderr)
-    import traceback
-    traceback.print_exc(file=sys.stderr)
-    sys.exit(1)
-EOF
+    python3 "$(dirname "${BASH_SOURCE[0]}")/convert_json_to_yaml.py" "$schema_path"
 }
 
 # Replace schema section in an existing API YAML file
@@ -299,62 +175,7 @@ update_target_url() {
     # No, let's use a temporary python script to do this safely as we already rely on python3
     
     if command -v python3 >/dev/null 2>&1; then
-        python3 - "$yaml_file" "$new_url" <<'EOF'
-import sys
-import ruamel.yaml # Might not be installed, so fallback to simple string processing if needed?
-# Standard python doesn't have yaml. Let's stick to text processing but cleaner than sed.
-
-file_path = sys.argv[1]
-new_url = sys.argv[2]
-
-with open(file_path, 'r') as f:
-    lines = f.readlines()
-
-new_lines = []
-in_target_url = False
-in_value_block = False
-updated = False
-
-for i, line in enumerate(lines):
-    stripped = line.strip()
-    
-    if 'target-url:' in line:
-        in_target_url = True
-        new_lines.append(line)
-        continue
-        
-    if in_target_url and 'value:' in line:
-        # Check if it's "value: >-" (multiline) or "value: http..." (inline)
-        if '>-' in line:
-            in_value_block = True
-            new_lines.append(line)
-            continue
-        else:
-            # Inline value case
-            indent = line.split('value:')[0]
-            new_lines.append(f"{indent}value: {new_url}\n")
-            in_target_url = False # Done
-            updated = True
-            continue
-
-    if in_value_block:
-        # This line is the URL content
-        # Detect indentation
-        indent = line[:len(line) - len(line.lstrip())]
-        new_lines.append(f"{indent}{new_url}\n")
-        in_value_block = False
-        in_target_url = False
-        updated = True
-        continue
-        
-    # Reset if we hit another property at specific indentation? 
-    # For now, simplistic state machine is fine for our controlled template.
-    
-    new_lines.append(line)
-
-with open(file_path, 'w') as f:
-    f.writelines(new_lines)
-EOF
+        python3 "$(dirname "${BASH_SOURCE[0]}")/update_target_url.py" "$yaml_file" "$new_url"
     else
         echo "Error: Python3 required for URL update" >&2
         return 1
@@ -807,38 +628,7 @@ if [ "$PRODUCT_EXISTS" = true ]; then
     
     # Extract existing APIs section and merge
     # Use Python to properly parse and merge YAML
-    python3 << PYEOF
-import sys
-import re
-
-# Read existing product
-with open('$EXISTING_PRODUCT_FILE', 'r') as f:
-    existing_content = f.read()
-
-# Extract apis section from existing product
-apis_match = re.search(r'^apis:\s*\n((?:^  \S+:.*\n(?:^    .*\n)*)*)', existing_content, re.MULTILINE)
-existing_apis = {}
-if apis_match:
-    apis_block = apis_match.group(1)
-    # Parse each API entry
-    for line in apis_block.split('\n'):
-        if line and line.startswith('  ') and ':' in line:
-            api_name = line.split(':')[0].strip()
-            if api_name:
-                existing_apis[api_name] = True
-
-# Read new APIs from stdin
-new_api_list = """$API_REFS""".strip().replace('[', '').replace(']', '').replace('"', '').split()
-
-# Merge: combine existing and new APIs
-merged_apis = set(existing_apis.keys())
-for api in new_api_list:
-    if api:
-        merged_apis.add(api.strip())
-
-print("Merged APIs:", ' '.join(sorted(merged_apis)))
-
-PYEOF
+    python3 "$(dirname "${BASH_SOURCE[0]}")/merge_apis.py" "$EXISTING_PRODUCT_FILE" "${API_REFS[@]}"
 
     # Build merged APIs section
     MERGED_APIS_SECTION=""
@@ -913,7 +703,7 @@ plans:
     approval: false
     rate-limits:
       default:
-        value: 100/hour
+        value: 100/1hour
 EOF
 
 echo "  ✓ Generated product YAML: $PRODUCT_FILE"
@@ -939,11 +729,6 @@ else
         echo "  ✓ Draft product created successfully"
     else
         echo "  ✗ Failed to create draft product" >&2
-        echo ""
-        echo "========================================"
-        echo "⚠ Product creation failed. APIs were created but product was not published."
-        echo "   To rollback, you can restore from: $BACKUP_FILE (if exists)"
-        echo "========================================"
         exit 1
     fi
 fi
@@ -962,13 +747,6 @@ if "$APIC_CMD" products:publish \
     echo "  ✓ Product published successfully to catalog '$CATALOG_NAME'"
 else
     echo "  ✗ Failed to publish product to catalog" >&2
-    echo ""
-    echo "========================================"
-    echo "⚠ Publication failed. The draft product was created but not published."
-    echo "   To rollback the draft product, run:"
-    echo "   $APIC_CMD draft-products:delete ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG"
-    echo "   Or restore from backup: $BACKUP_FILE (if exists)"
-    echo "========================================"
     exit 1
 fi
 
@@ -987,8 +765,6 @@ if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
     echo "  Published to catalog: $CATALOG_NAME"
     echo ""
     echo "  Backup location: $BACKUP_FILE"
-    echo "  To rollback, restore the backup and run:"
-    echo "    $APIC_CMD draft-products:update ${PRODUCT_NAME}:${PRODUCT_VERSION} --server $APIC_SERVER --org $APIC_ORG $BACKUP_FILE"
 else
     echo "  (Product update skipped - no API changes)"
 fi
