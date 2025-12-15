@@ -259,7 +259,6 @@ replace_schema_section() {
     ' "$yaml_file" > "$output_file"
 }
 
-}
 
 # Update target-url in an existing API YAML file
 update_target_url() {
@@ -762,20 +761,136 @@ exec 4<&-
 echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
 
 # ------------------------------
-# 6.2: Generate Product YAML
+# 6.2: Backup existing product (for reversibility)
 # ------------------------------
 echo ""
-echo "6.2) Generating Product YAML..."
+echo "6.2) Backing up existing product (if exists)..."
 
-# Build the apis section dynamically
-APIS_SECTION=""
+BACKUP_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
+EXISTING_PRODUCT_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_existing.yaml"
+PRODUCT_EXISTS=false
+
+if "$APIC_CMD" draft-products:get "${PRODUCT_NAME}:${PRODUCT_VERSION}" \
+    --server "$APIC_SERVER" \
+    --org "$APIC_ORG" \
+    --output "$BACKUP_DIR" 2>/dev/null; then
+    # Rename to existing product file for merging
+    if [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" ]; then
+        mv "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" "$EXISTING_PRODUCT_FILE"
+        echo "  ✓ Retrieved existing product for merging"
+        PRODUCT_EXISTS=true
+        # Also create backup
+        cp "$EXISTING_PRODUCT_FILE" "$BACKUP_FILE"
+        echo "  ✓ Created backup at: $BACKUP_FILE"
+    fi
+else
+    echo "  ℹ No existing product found (will create new)"
+fi
+
+# ------------------------------
+# 6.3: Generate Product YAML with API merging
+# ------------------------------
+echo ""
+echo "6.3) Generating Product YAML..."
+
+# Build the NEW apis section from services.txt
+NEW_APIS_SECTION=""
 for api_name in "${API_REFS[@]}"; do
-    APIS_SECTION+="  ${api_name}:
+    NEW_APIS_SECTION+="  ${api_name}:
     \$ref: ${api_name}_1.0.0.yaml
 "
 done
 
-# Create the product YAML file
+# If product exists, merge with existing APIs; otherwise create new
+if [ "$PRODUCT_EXISTS" = true ]; then
+    echo "  ℹ Merging with existing APIs..."
+    
+    # Extract existing APIs section and merge
+    # Use Python to properly parse and merge YAML
+    python3 << PYEOF
+import sys
+import re
+
+# Read existing product
+with open('$EXISTING_PRODUCT_FILE', 'r') as f:
+    existing_content = f.read()
+
+# Extract apis section from existing product
+apis_match = re.search(r'^apis:\s*\n((?:^  \S+:.*\n(?:^    .*\n)*)*)', existing_content, re.MULTILINE)
+existing_apis = {}
+if apis_match:
+    apis_block = apis_match.group(1)
+    # Parse each API entry
+    for line in apis_block.split('\n'):
+        if line and line.startswith('  ') and ':' in line:
+            api_name = line.split(':')[0].strip()
+            if api_name:
+                existing_apis[api_name] = True
+
+# Read new APIs from stdin
+new_api_list = """$API_REFS""".strip().replace('[', '').replace(']', '').replace('"', '').split()
+
+# Merge: combine existing and new APIs
+merged_apis = set(existing_apis.keys())
+for api in new_api_list:
+    if api:
+        merged_apis.add(api.strip())
+
+print("Merged APIs:", ' '.join(sorted(merged_apis)))
+
+PYEOF
+
+    # Build merged APIs section
+    MERGED_APIS_SECTION=""
+    # Combine old and new APIs (preserve order: existing first, then new)
+    declare -A seen_apis
+    
+    # First, add existing APIs from the apis section
+    if [ -f "$EXISTING_PRODUCT_FILE" ]; then
+        # Extract only the apis section and parse API names
+        in_apis_section=false
+        while IFS= read -r line; do
+            # Check if we're entering the apis section
+            if [[ $line =~ ^apis:$ ]]; then
+                in_apis_section=true
+                continue
+            fi
+            
+            # Exit apis section when we hit another top-level key
+            if [ "$in_apis_section" = true ] && [[ $line =~ ^[a-z] ]] && [[ ! $line =~ ^[[:space:]] ]]; then
+                in_apis_section=false
+            fi
+            
+            # Extract API names only from the apis section (2-space indented keys ending with :)
+            if [ "$in_apis_section" = true ] && [[ $line =~ ^[[:space:]]{2}([a-z0-9-]+):$ ]]; then
+                api_name="${BASH_REMATCH[1]}"
+                if [ -n "$api_name" ] && [ -z "${seen_apis[$api_name]:-}" ]; then
+                    MERGED_APIS_SECTION+="  ${api_name}:
+    \$ref: ${api_name}_1.0.0.yaml
+"
+                    seen_apis[$api_name]=1
+                fi
+            fi
+        done < "$EXISTING_PRODUCT_FILE"
+    fi
+    
+    # Then, add new APIs not already in the product
+    for api_name in "${API_REFS[@]}"; do
+        if [ -z "${seen_apis[$api_name]:-}" ]; then
+            MERGED_APIS_SECTION+="  ${api_name}:
+    \$ref: ${api_name}_1.0.0.yaml
+"
+            seen_apis[$api_name]=1
+        fi
+    done
+    
+    FINAL_APIS_SECTION="$MERGED_APIS_SECTION"
+    echo "  ✓ Merged new and existing APIs ($(echo "$MERGED_APIS_SECTION" | grep -c '^\s*[a-z]' || echo 0) total)"
+else
+    FINAL_APIS_SECTION="$NEW_APIS_SECTION"
+fi
+
+# Create the product YAML file with merged/new APIs
 cat > "$PRODUCT_FILE" << EOF
 product: 1.0.0
 info:
@@ -784,7 +899,7 @@ info:
   version: ${PRODUCT_VERSION}
 
 apis:
-${APIS_SECTION}
+${FINAL_APIS_SECTION}
 visibility:
   view:
     type: public
@@ -802,26 +917,6 @@ plans:
 EOF
 
 echo "  ✓ Generated product YAML: $PRODUCT_FILE"
-
-# ------------------------------
-# 6.3: Backup existing product (for reversibility)
-# ------------------------------
-echo ""
-echo "6.3) Backing up existing product (if exists)..."
-
-BACKUP_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
-if "$APIC_CMD" draft-products:get "${PRODUCT_NAME}:${PRODUCT_VERSION}" \
-    --server "$APIC_SERVER" \
-    --org "$APIC_ORG" \
-    --output "$BACKUP_DIR" 2>/dev/null; then
-    # Rename to backup file
-    if [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" ]; then
-        mv "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" "$BACKUP_FILE"
-        echo "  ✓ Backed up existing product to: $BACKUP_FILE"
-    fi
-else
-    echo "  ℹ No existing product found (will create new)"
-fi
 
 # ------------------------------
 # 6.4: Create or Update draft product
