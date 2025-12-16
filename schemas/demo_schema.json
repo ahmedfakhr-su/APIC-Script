@@ -24,7 +24,6 @@
             },
             "cif": {
               "type": "string",
-              "description": "Customer Information File number",
               "example": "1234567"
             },
             "channelId": {
