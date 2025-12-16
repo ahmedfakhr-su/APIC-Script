@@ -208,18 +208,26 @@ check_prerequisites() {
 # Get files changed since last successful run
 get_changed_files() {
     local current_hash
-    current_hash=$(git rev-parse HEAD 2>/dev/null) || { echo "git rev-parse failed"; return 0; }
+    current_hash=$(git rev-parse HEAD 2>/dev/null) || { echo "git rev-parse failed" >&2; return 0; }
     
     if [ -f "$LAST_COMMIT_FILE" ]; then
+        echo "  🔍 DEBUG: File size: $(wc -c < "$LAST_COMMIT_FILE") bytes" >&2
+        echo "  🔍 DEBUG: File content (hex): $(xxd -p "$LAST_COMMIT_FILE" | head -c 100)" >&2
+        
         local prev_hash
-        prev_hash=$(cat "$LAST_COMMIT_FILE")
-        if [ -n "$prev_hash" ]; then
+        prev_hash=$(head -n 1 "$LAST_COMMIT_FILE" 2>/dev/null | tr -cd '[:alnum:]')
+        
+        echo "  🔍 DEBUG: Extracted hash: '$prev_hash' (length: ${#prev_hash})" >&2
+        
+        if [ -n "$prev_hash" ] && [ ${#prev_hash} -eq 40 ]; then
             echo "  ℹ Checking changes between $prev_hash and $current_hash" >&2
             git diff --name-only "$prev_hash" "$current_hash" 2>/dev/null || echo ""
             return 0
+        else
+            echo "  ⚠ Invalid hash format" >&2
         fi
     fi
-    # No previous hash or file, return empty (implies full build if not handled)
+    
     echo ""
 }
 
