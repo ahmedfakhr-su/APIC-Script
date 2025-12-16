@@ -5,29 +5,29 @@ info:
   version: 1.0.0
 apis:
   demo6-service:
-    $ref: API-yamls\.backup\demo6-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo6-service_1.0.0.yaml
   demo7-service:
-    $ref: API-yamls\.backup\demo7-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo7-service_1.0.0.yaml
   demo8-service:
-    $ref: API-yamls\.backup\demo8-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo8-service_1.0.0.yaml
   demo2-service:
-    $ref: API-yamls\.backup\demo2-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo2-service_1.0.0.yaml
   demo3-service:
-    $ref: API-yamls\.backup\demo3-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo3-service_1.0.0.yaml
   demo4-service:
-    $ref: API-yamls\.backup\demo4-service_1.0.0_6.yaml
+    $ref: API-yamls\.backup_temp_291\demo4-service_1.0.0.yaml
   demo11-service:
-    $ref: API-yamls\.backup\demo11-service_1.0.0_1.yaml
+    $ref: API-yamls\.backup_temp_291\demo11-service_1.0.0.yaml
   demo12-service:
-    $ref: API-yamls\.backup\demo12-service_1.0.0_1.yaml
+    $ref: API-yamls\.backup_temp_291\demo12-service_1.0.0.yaml
   demo13-service:
-    $ref: API-yamls\.backup\demo13-service_1.0.0_1.yaml
+    $ref: API-yamls\.backup_temp_291\demo13-service_1.0.0.yaml
   s-service:
-    $ref: API-yamls\.backup\s-service_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_291\s-service_1.0.0.yaml
   q-service:
-    $ref: API-yamls\.backup\q-service_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_291\q-service_1.0.0.yaml
   a-service:
-    $ref: API-yamls\.backup\a-service_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_291\a-service_1.0.0.yaml
 visibility:
   view:
     type: public

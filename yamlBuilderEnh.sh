@@ -34,6 +34,41 @@ FAILURE_COUNT=0
 # ------------------------------
 # Functions
 # ------------------------------
+# ------------------------------
+# Temporary backup handling
+# ------------------------------
+TEMP_BACKUP_DIR="${OutputDirectory}/.backup_temp_$$"
+BACKUP_DIR="${OutputDirectory}/.backup"
+
+# Trap to cleanup temp backup on script exit (failure cases)
+cleanup_temp_backup() {
+    if [ -d "$TEMP_BACKUP_DIR" ]; then
+        echo "  🧹 Cleaning up temporary backup directory..."
+        rm -rf "$TEMP_BACKUP_DIR"
+    fi
+}
+trap cleanup_temp_backup EXIT
+
+# Function to finalize backup (call at script end on success)
+finalize_backup() {
+    if [ -d "$TEMP_BACKUP_DIR" ]; then
+        echo ""
+        echo "📦 Finalizing backup..."
+        
+        # Remove old backup directory if it exists
+        if [ -d "$BACKUP_DIR" ]; then
+            echo "  ℹ Removing old backup directory..."
+            rm -rf "$BACKUP_DIR"
+        fi
+        
+        # Move temp backup to final location
+        mv "$TEMP_BACKUP_DIR" "$BACKUP_DIR"
+        echo "  ✓ Backup finalized at: $BACKUP_DIR"
+        
+        # Disable the cleanup trap since we've successfully moved the directory
+        trap - EXIT
+    fi
+}
 
 # Extract a value from a YAML file by key
 extract_yaml_value() {
@@ -578,7 +613,7 @@ PRODUCT_FILE="${OutputDirectory}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml"
 BACKUP_DIR="${OutputDirectory}/.backup"
 
 # Create backup directory
-mkdir -p "$BACKUP_DIR"
+mkdir -p "$TEMP_BACKUP_DIR"
 
 echo ""
 echo "========================================"
@@ -623,29 +658,28 @@ echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
 # 6.2: Backup existing product (for reversibility)
 # ------------------------------
 echo ""
-echo "6.2) Backing up existing product (if exists)..."
+echo "6.2) Backing up existing product to temporary location..."
 
-BACKUP_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
-EXISTING_PRODUCT_FILE="${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_existing.yaml"
+BACKUP_FILE="${TEMP_BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
+EXISTING_PRODUCT_FILE="${TEMP_BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_existing.yaml"
 PRODUCT_EXISTS=false
 
 if "$APIC_CMD" draft-products:get "${PRODUCT_NAME}:${PRODUCT_VERSION}" \
     --server "$APIC_SERVER" \
     --org "$APIC_ORG" \
-    --output "$BACKUP_DIR" 2>/dev/null; then
+    --output "$TEMP_BACKUP_DIR" 2>/dev/null; then
     # Rename to existing product file for merging
-    if [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" ]; then
-        mv "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" "$EXISTING_PRODUCT_FILE"
+    if [ -f "${TEMP_BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" ]; then
+        mv "${TEMP_BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}.yaml" "$EXISTING_PRODUCT_FILE"
         echo "  ✓ Retrieved existing product for merging"
         PRODUCT_EXISTS=true
         # Also create backup
         cp "$EXISTING_PRODUCT_FILE" "$BACKUP_FILE"
-        echo "  ✓ Created backup at: $BACKUP_FILE"
+        echo "  ✓ Created temporary backup"
     fi
 else
     echo "  ℹ No existing product found (will create new)"
 fi
-
 # ------------------------------
 # 6.3: Generate Product YAML with API merging
 # ------------------------------
@@ -801,12 +835,20 @@ echo "  APIs created/updated: ${#API_REFS[@]}"
 echo "  Product: $PRODUCT_NAME v$PRODUCT_VERSION"
 if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
     echo "  Published to catalog: $CATALOG_NAME"
-    echo ""
-    echo "  Backup location: $BACKUP_FILE"
-else
-    echo "  (Product update skipped - no API changes)"
 fi
 echo "========================================"
+
+# ------------------------------
+# Finalize backup on success
+# ------------------------------
+finalize_backup
+
+# Display final backup location
+if [ "$PERFORM_PRODUCT_UPDATE" = true ] && [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml" ]; then
+    echo ""
+    echo "  📦 Final backup location: ${BACKUP_DIR}/${PRODUCT_NAME}_${PRODUCT_VERSION}_backup.yaml"
+    echo "========================================"
+fi
 
 # ------------------------------
 # Save state for Incremental Mode

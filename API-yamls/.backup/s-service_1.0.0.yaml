@@ -58,8 +58,6 @@ components:
       type: object
     sServiceRequest:
       additionalProperties: false
-      description: Demo Service Request - Complete request structure with EAIHeader
-        and body
       properties:
         EAIMessage:
           additionalProperties: false
@@ -100,7 +98,6 @@ components:
                   properties:
                     notes:
                       description: Additional notes
-                      example: Customer initiated transaction
                       maxLength: 500
                       type: string
                     source:
@@ -138,7 +135,6 @@ components:
                   example: MOB
                   type: string
                 cif:
-                  description: Customer Information File number
                   example: 1234567
                   type: string
                 deviceInfo:
@@ -193,7 +189,7 @@ components:
                   example: EN
                   type: string
                 messageFormat:
-                  description: Message format type
+                  description: type
                   enum:
                   - JSON
                   - XML
@@ -218,17 +214,10 @@ components:
                   example: "2024-12-14T10:30:00Z"
                   format: date-time
                   type: string
-              required:
-              - channelId
-              - functionId
-              - transactionDateTime
               type: object
-          required:
-          - EAIHeader
-          - Body
           type: object
       required:
-      - EAIMessage
+      - EAIMessageTEST
       type: object
     sServiceResponse:
       properties:

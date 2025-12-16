@@ -329,6 +329,6 @@ x-ibm-configuration:
     target-url:
       description: URL of the proxy policy
       encoded: false
-      value: http://esb.example.com/demo1
+      value: http://esb.example.com/demo22222
   testable: true
   type: rest

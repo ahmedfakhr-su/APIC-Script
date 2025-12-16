@@ -89,23 +89,18 @@ components:
   schemas:
     aServiceRequest:
       type: object
-      description: Demo Service Request - Complete request structure with EAIHeader
-        and body
       required:
-      - EAIMessage
+        - EAIMessageTEST
       properties:
         EAIMessage:
           type: object
-          required:
-          - EAIHeader
-          - Body
           properties:
             Body:
               type: object
               description: Request body with business-specific data
               required:
-              - accountNumber
-              - customerId
+                - accountNumber
+                - customerId
               properties:
                 accountNumber:
                   type: string
@@ -140,7 +135,6 @@ components:
                     notes:
                       type: string
                       description: Additional notes
-                      example: Customer initiated transaction
                       maxLength: 500
                     source:
                       type: string
@@ -151,18 +145,14 @@ components:
                   type: string
                   description: Type of transaction
                   enum:
-                  - DEPOSIT
-                  - WITHDRAWAL
-                  - TRANSFER
-                  - INQUIRY
+                    - DEPOSIT
+                    - WITHDRAWAL
+                    - TRANSFER
+                    - INQUIRY
                   example: INQUIRY
               additionalProperties: false
             EAIHeader:
               type: object
-              required:
-              - channelId
-              - functionId
-              - transactionDateTime
               properties:
                 backendReferenceNumber:
                   type: string
@@ -172,14 +162,13 @@ components:
                   type: string
                   description: Channel identifier
                   enum:
-                  - MOB
-                  - WEB
-                  - ATM
-                  - BRANCH
+                    - MOB
+                    - WEB
+                    - ATM
+                    - BRANCH
                   example: MOB
                 cif:
                   type: string
-                  description: Customer Information File number
                   example: 1234567
                 deviceInfo:
                   type: object
@@ -229,15 +218,15 @@ components:
                   type: string
                   description: Language code
                   enum:
-                  - EN
-                  - AR
+                    - EN
+                    - AR
                   example: EN
                 messageFormat:
                   type: string
-                  description: Message format type
+                  description:  type
                   enum:
-                  - JSON
-                  - XML
+                    - JSON
+                    - XML
                   example: JSON
                 requesterInfo1:
                   type: string
@@ -257,7 +246,7 @@ components:
                   type: string
                   format: date-time
                   description: Transaction timestamp in ISO 8601 format
-                  example: "2024-12-14T10:30:00Z"
+                  example: '2024-12-14T10:30:00Z'
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
