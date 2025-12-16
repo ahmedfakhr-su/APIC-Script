@@ -4,7 +4,6 @@
     "EAIMessage"
   ],
   "additionalProperties": false,
-  "description": "Demo Service Request - Complete request structure with EAIHeader and body",
   "properties": {
     "EAIMessage": {
       "type": "object",
