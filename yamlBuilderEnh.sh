@@ -75,32 +75,60 @@ replace_schema_section() {
     local new_schema_file="$3"
     local output_file="$4"
     
+    echo "     Schema replacement starting..." >&2
+    echo "     YAML file: $yaml_file" >&2
+    echo "     Operation name: $operation_name" >&2
+    echo "     New schema file: $new_schema_file" >&2
+    echo "     Output file: $output_file" >&2
+    
     # Pattern to match: "{OperationName}Request:" with any leading whitespace
     local pattern="${operation_name}Request:"
+    echo "     Search pattern: '$pattern'" >&2
     
-    # Use awk to:
-    # 1. Find the line matching the pattern
-    # 2. Record its indentation level
-    # 3. Skip all subsequent lines that have greater indentation (nested content)
-    # 4. Insert new schema content
-    # 5. Continue with the rest of the file
+    # Check if pattern exists in file
+    if grep -n "$pattern" "$yaml_file"; then
+        echo "  ✅ Pattern FOUND in file (line numbers shown above)" >&2
+    else
+        echo "  ❌ Pattern NOT FOUND in file!" >&2
+        echo "     Searching for similar patterns..." >&2
+        grep -n "Request:" "$yaml_file" | head -5 >&2
+    fi
+    
+    # Show schema file content (first 10 lines)
+    echo "  📄 New schema content (first 10 lines):" >&2
+    head -10 "$new_schema_file" | sed 's/^/       /' >&2
+    
+    # THE ACTUAL REPLACEMENT (with debug output)
     awk -v pattern="$pattern" -v schema_file="$new_schema_file" '
-    BEGIN { in_schema = 0; schema_indent = 0 }
+    BEGIN { 
+        in_schema = 0
+        schema_indent = 0
+        found_pattern = 0
+        lines_skipped = 0
+    }
     {
         # Check if this is the schema header line we are looking for
-        if ($0 ~ pattern ":") {
+        # BUG FIX: Remove extra ":" - pattern already has it!
+        if (match($0, pattern)) {
+            found_pattern = 1
+            print "  ✅ MATCHED line " NR ": " $0 > "/dev/stderr"
+            
             # Found the schema header - print it
             print $0
             
             # Calculate indentation of this line
             match($0, /^[[:space:]]*/)
             schema_indent = RLENGTH
+            print "  📏 Schema indent level: " schema_indent > "/dev/stderr"
             
             # Insert new schema content
+            line_count = 0
             while ((getline line < schema_file) > 0) {
                 print line
+                line_count++
             }
             close(schema_file)
+            print "  ✅ Inserted " line_count " lines of new schema" > "/dev/stderr"
             
             # Mark that we are now inside the old schema section to skip
             in_schema = 1
@@ -120,11 +148,15 @@ replace_schema_section() {
             
             # If current indentation is greater than schema header, skip this line (its nested content)
             if (current_indent > schema_indent) {
+                lines_skipped++
                 next
             }
             
             # We have reached a line with same or less indentation - stop skipping
+            print "  🛑 Stopped skipping at line " NR " (skipped " lines_skipped " lines)" > "/dev/stderr"
+            print "     Continuing from: " $0 > "/dev/stderr"
             in_schema = 0
+            lines_skipped = 0
             print $0
             next
         }
@@ -132,8 +164,23 @@ replace_schema_section() {
         # Normal line - print as-is
         print $0
     }
+    END {
+        if (found_pattern == 0) {
+            print "  ❌ ERROR: Pattern was NEVER matched in entire file!" > "/dev/stderr"
+        }
+    }
     ' "$yaml_file" > "$output_file"
+    
+     echo "  Replacement complete. Checking result..." >&2
+    if [ -f "$output_file" ]; then
+        local line_count_old=$(wc -l < "$yaml_file")
+        local line_count_new=$(wc -l < "$output_file")
+        # echo "     Old file: $line_count_old lines" >&2
+        # echo "     New file: $line_count_new lines" >&2
+        # echo "     Difference: $((line_count_new - line_count_old)) lines" >&2
+    fi
 }
+
 
 
 # Update target-url in an existing API YAML file
@@ -145,34 +192,7 @@ update_target_url() {
     local escaped_url
     escaped_url=$(printf '%s' "$new_url" | sed -e 's/[\/&]/\\&/g')
     
-    # Use sed to find "target-url:" and replace the NEXT occurrence of "value: >-" or "value:" with the new URL
-    # We look for the pattern:
-    #     target-url:
-    #       value: >-
-    #         OLD_URL
-    # OR potentially simple value: OLD_URL
-    
-    # Strategy: 
-    # 1. Search for 'target-url:'
-    # 2. In the block following it, find 'value: ...' and replace it.
-    
-    # Since our script generates:
-    #     target-url:
-    #       value: >-
-    #         {{ESBUrl}}
-    
-    # We will replace the line containing the URL itself, which is the line AFTER "value: >-"
-    # OR if it was flattened, replace the value line.
-    
-    # Let's try a robust approach for the generated format:
-    # Match lines like: "        http..." which come after "value: >-" under "target-url:"
-    # This is tricky with simple sed.
-    
-    # Simplified approach: Replace the known structure
-    # We assume the file has "value: >-" followed by the URL on next line
-    
-    # We will simply overwrite the logic to use Python for this part as well to be safe?
-    # No, let's use a temporary python script to do this safely as we already rely on python3
+
     
     if command -v python3 >/dev/null 2>&1; then
         python3 "$(dirname "${BASH_SOURCE[0]}")/update_target_url.py" "$yaml_file" "$new_url"
