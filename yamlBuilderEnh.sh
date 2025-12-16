@@ -340,7 +340,8 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ]; then
         # Check if the schema file for this service has changed
         if [ -n "$SchemaPath" ]; then
-            if ! echo "$CHANGED_FILES" | grep -q "$SchemaPath"; then
+            # Use -F to treat the pattern as a fixed string (safe for paths with dots/special chars)
+            if ! echo "$CHANGED_FILES" | grep -F -q "$SchemaPath"; then
                 NEED_API_SYNC=false
             fi
         else
