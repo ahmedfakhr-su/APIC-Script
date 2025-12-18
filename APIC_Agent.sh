@@ -751,7 +751,54 @@ if [ "$PRODUCT_EXISTS" = true ]; then
 else
     FINAL_APIS_SECTION="$NEW_APIS_SECTION"
 fi
+# ------------------------------
+# 6.3.5: Ensure all referenced API YAML files exist locally
+# ------------------------------
+echo ""
+echo "6.3.5) Checking for missing API YAML files..."
 
+# Get list of all APIs we're about to reference in the product
+declare -a all_product_apis=()
+
+# Parse FINAL_APIS_SECTION to extract API names
+while IFS= read -r line; do
+    if [[ $line =~ ^[[:space:]]{2}([a-z0-9-]+):$ ]]; then
+        api_name="${BASH_REMATCH[1]}"
+        if [ -n "$api_name" ]; then
+            all_product_apis+=("$api_name")
+        fi
+    fi
+done <<< "$FINAL_APIS_SECTION"
+
+# Check each API and copy from temp backup if missing
+missing_count=0
+copied_count=0
+
+for api_name in "${all_product_apis[@]}"; do
+    api_file="${OutputDirectory}/${api_name}_1.0.0.yaml"
+    
+    # Check if API YAML file exists in output directory
+    if [ ! -f "$api_file" ]; then
+        echo "  ⚠ Missing: ${api_name}_1.0.0.yaml"
+        missing_count=$((missing_count + 1))
+        
+        # Try to copy from temp backup folder
+        backup_api_file="${TEMP_BACKUP_DIR}/${api_name}_1.0.0.yaml"
+        if [ -f "$backup_api_file" ]; then
+            cp "$backup_api_file" "$api_file"
+            echo "    ✓ Copied from backup"
+            copied_count=$((copied_count + 1))
+        else
+            echo "    ✗ Not found in backup either - product creation may fail" >&2
+        fi
+    fi
+done
+
+if [ $missing_count -eq 0 ]; then
+    echo "  ✓ All API YAML files present (${#all_product_apis[@]} total)"
+elif [ $copied_count -gt 0 ]; then
+    echo "  ✓ Copied $copied_count missing API YAML files from backup"
+fi
 # Create the product YAML file with merged/new APIs
 cat > "$PRODUCT_FILE" << EOF
 product: 1.0.0

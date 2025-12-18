@@ -1,4 +1,4 @@
-Authenticate User Mock - Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
+Authenticate User Mock Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
 Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
 ISO XML Transformer | http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer | schemas/iso-xml-transformer.json
 Manage Digital Loan | http://manage-digi-loan-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngDgLn | schemas/manage-digi-loan.json
