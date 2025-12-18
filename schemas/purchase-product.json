@@ -4,7 +4,7 @@
   "properties": {
     "EAIMessage": {
       "type": "object",
-      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "description": "Enterprise Application Integration envelope containing header metadata",
       "additionalProperties": false,
       "properties": {
         "EAIHeader": {
