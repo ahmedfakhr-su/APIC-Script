@@ -1,0 +1,441 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string",
+              "description": "Message payload format (JSON or XML)"
+            },
+            "FE_Ref_No": {
+              "type": "string",
+              "description": "Frontend system reference number"
+            },
+            "FunctnId": {
+              "type": "string",
+              "description": "Identifier of the business function being invoked"
+            },
+            "Lang": {
+              "type": "string",
+              "description": "Request language code"
+            },
+            "ChnlId": {
+              "type": "string",
+              "description": "Channel from which the request originated"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "UsrDfn": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string",
+              "description": "Indicates whether the transaction can be reversed"
+            },
+            "CIF": {
+              "type": "string",
+              "description": "Customer Information File number"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string",
+              "description": "Backend system reference number"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "TmStmp": {
+              "type": "string"
+            },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
+            "Mobl_No": {
+              "type": "string"
+            },
+            "Vrfd_Mbl_No": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "MFA_Mobl_Status": {
+              "type": "string"
+            },
+            "outputType": {
+              "type": "string"
+            },
+            "Reg_Chnl_Id": {
+              "type": "string"
+            },
+            "Reg_Date": {
+              "type": "string"
+            },
+            "Exctn_Md": {
+              "type": "string"
+            },
+            "ID_Tp": {
+              "type": "string"
+            },
+            "NIN": {
+              "type": "string"
+            },
+            "Ntnlty": {
+              "type": "string"
+            },
+            "ID_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ID_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "ID_Tp": {
+                      "type": "string"
+                    },
+                    "ID_No": {
+                      "type": "string"
+                    },
+                    "ID_Iss_Plc": {
+                      "type": "string"
+                    },
+                    "ID_Expry_Dt_H": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Bsc_Info": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Ttl": {
+                  "type": "string"
+                },
+                "Ntnlty": {
+                  "type": "string"
+                },
+                "DOB_G": {
+                  "type": "string"
+                },
+                "DOB_H": {
+                  "type": "string"
+                },
+                "POB_CTY": {
+                  "type": "string"
+                },
+                "Gndr": {
+                  "type": "string"
+                },
+                "Edctn_Lvl": {
+                  "type": "string"
+                },
+                "Prfrrd_Lang": {
+                  "type": "string"
+                },
+                "Nm_1_En": {
+                  "type": "string"
+                },
+                "Nm_1_Ar": {
+                  "type": "string"
+                },
+                "Nm_2_En": {
+                  "type": "string"
+                },
+                "Nm_2_Ar": {
+                  "type": "string"
+                },
+                "Nm_3_En": {
+                  "type": "string"
+                },
+                "Nm_3_Ar": {
+                  "type": "string"
+                },
+                "Nm_4_En": {
+                  "type": "string"
+                },
+                "Nm_4_Ar": {
+                  "type": "string"
+                }
+              }
+            },
+            "Addrss_Dtls": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Rsdnc_Cty": {
+                  "type": "string"
+                },
+                "Rsdnc_Dstrct": {
+                  "type": "string"
+                },
+                "Rsdnc_Strt": {
+                  "type": "string"
+                },
+                "Rsdnc_Bldng_No": {
+                  "type": "string"
+                },
+                "Mbl_No": {
+                  "type": "string"
+                },
+                "Mail_Tp": {
+                  "type": "string"
+                },
+                "Cty": {
+                  "type": "string"
+                },
+                "Cntry": {
+                  "type": "string"
+                },
+                "Strt": {
+                  "type": "string"
+                },
+                "Dstrct": {
+                  "type": "string"
+                },
+                "Phn_No": {
+                  "type": "string"
+                },
+                "Fax_No": {
+                  "type": "string"
+                },
+                "Wrk_Fax": {
+                  "type": "string"
+                },
+                "Wrk_Phn_No": {
+                  "type": "string"
+                },
+                "Wsl_Bldng_No": {
+                  "type": "string"
+                },
+                "Wsl_Zip_Cd": {
+                  "type": "string"
+                },
+                "Wsl_Unit_No": {
+                  "type": "string"
+                },
+                "Wsl_Adtnl_Cd": {
+                  "type": "string"
+                },
+                "Email": {
+                  "type": "string"
+                }
+              }
+            },
+            "Emplyr_Dtls": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Sctr": {
+                  "type": "string"
+                },
+                "Pstn": {
+                  "type": "string"
+                }
+              }
+            },
+            "Addtnl_Info": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Incmng_Frgn_Trnsfr_Amt": {
+                  "type": "string"
+                },
+                "Outgng_Frgn_Trnsfr_Amt": {
+                  "type": "string"
+                },
+                "Auth_Md": {
+                  "type": "string"
+                },
+                "Auth_Dt": {
+                  "type": "string"
+                },
+                "Prcd_Cust_Acct_Opn_Flg": {
+                  "type": "string"
+                }
+              }
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "Hm_Cntry_Dtls": {
+              "type": "string"
+            },
+            "Mbl_No": {
+              "type": "string"
+            },
+            "VIP_Flg": {
+              "type": "string"
+            },
+            "Grdn_Info": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "DOB_G": {
+                  "type": "string"
+                },
+                "DOB_H": {
+                  "type": "string"
+                },
+                "Rsdnc_Addrss": {
+                  "type": "string"
+                }
+              }
+            },
+            "Gurd_NIN": {
+              "type": "string"
+            },
+            "Actn": {
+              "type": "string"
+            },
+            "messageFormat": {
+              "type": "string",
+              "description": "Message payload format (JSON or XML)"
+            },
+            "channelId": {
+              "type": "string",
+              "description": "Channel from which the request originated"
+            },
+            "Mnthly_Incm": {
+              "type": "string"
+            },
+            "ID_Expry_Dt_H": {
+              "type": "string"
+            },
+            "Auth_Key": {
+              "type": "string"
+            },
+            "IAM_Updt_Dt": {
+              "type": "string"
+            },
+            "Digi_KYC_Elgblty_Flg": {
+              "type": "string"
+            },
+            "Digi_KYC_Elgblty_Rsn": {
+              "type": "string"
+            },
+            "Dsclmr_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Dsclmr_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Dsclmr_Tp": {
+                      "type": "string"
+                    },
+                    "Dsclmr_Cnfrmd": {
+                      "type": "string"
+                    },
+                    "Dsclmr_Cnfrmd_Chnl": {
+                      "type": "string"
+                    },
+                    "Dsclmr_Cnfrmd_Dt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Athrztn_Actn": {
+              "type": "string"
+            },
+            "Vsa_Dtls": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Vsa_No": {
+                  "type": "string"
+                },
+                "Expctd_Arvl_Dt": {
+                  "type": "string"
+                }
+              }
+            },
+            "EAIRtrnCdDesc": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

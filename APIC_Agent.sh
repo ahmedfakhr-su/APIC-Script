@@ -534,9 +534,19 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
         # ------------------------------
         echo "4) Updating existing API with new schema..."
         
+        # Extract the ACTUAL operation name from the existing API (to handle case differences)
+        ACTUAL_OPERATION_NAME=$(grep -o '[A-Za-z0-9]*Request:' "$EXISTING_API_FILE" | head -1 | sed 's/Request://')
+        
+        if [ -z "$ACTUAL_OPERATION_NAME" ]; then
+            echo "  ⚠ Warning: Could not detect operation name from existing API, using derived name: $OperationName" >&2
+            ACTUAL_OPERATION_NAME="$OperationName"
+        else
+            echo "  ℹ Detected operation name from existing API: $ACTUAL_OPERATION_NAME"
+        fi
+        
         # Replace schema section in existing API YAML (using already-loaded schema)
         UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
-        replace_schema_section "$EXISTING_API_FILE" "$OperationName" "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
+        replace_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
         echo "  ✓ Schema section replaced"
         
         # Update target-url (ensure it matches services.txt)

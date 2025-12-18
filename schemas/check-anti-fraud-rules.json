@@ -1,0 +1,223 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string",
+              "description": "Message payload format (JSON or XML)"
+            },
+            "CIF": {
+              "type": "string",
+              "description": "Customer Information File number"
+            },
+            "Lang": {
+              "type": "string",
+              "description": "Request language code"
+            },
+            "ChnlId": {
+              "type": "string",
+              "description": "Channel from which the request originated"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "FunctnId": {
+              "type": "string",
+              "description": "Identifier of the business function being invoked"
+            },
+            "RvrslOptn": {
+              "type": "string",
+              "description": "Indicates whether the transaction can be reversed"
+            },
+            "FE_Ref_No": {
+              "type": "string",
+              "description": "Frontend system reference number"
+            },
+            "Tmstmp": {
+              "type": "string",
+              "description": "Request timestamp in ISO 8601 format"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Loan_Amt": {
+              "type": "string"
+            },
+            "Loan_ID": {
+              "type": "string"
+            },
+            "Clndr": {
+              "type": "string"
+            },
+            "Flat_Rate": {
+              "type": "string"
+            },
+            "Tenor": {
+              "type": "string"
+            },
+            "Instllmnt_Day": {
+              "type": "string"
+            },
+            "Prncpl_Liq_Acct": {
+              "type": "string"
+            },
+            "Prft_Liq_Acct": {
+              "type": "string"
+            },
+            "Chrg_Liq_Acct": {
+              "type": "string"
+            },
+            "Loan_Ref": {
+              "type": "string"
+            },
+            "Insrnc_Amt": {
+              "type": "string"
+            },
+            "Fnl_Mtrty_Dt": {
+              "type": "string"
+            },
+            "Blln_Pymnt": {
+              "type": "string"
+            },
+            "Invc_Amt": {
+              "type": "string"
+            },
+            "Invc_Amt_Rcvd": {
+              "type": "string"
+            },
+            "DBR_Prcnt": {
+              "type": "string"
+            },
+            "Dwn_Pymnt": {
+              "type": "string"
+            },
+            "Cust_Emplyr_Phn_No": {
+              "type": "string"
+            },
+            "Cust_Age": {
+              "type": "string"
+            },
+            "Cust_Slry": {
+              "type": "string"
+            },
+            "Cust_Occptn": {
+              "type": "string"
+            },
+            "Cust_Emplyr": {
+              "type": "string"
+            },
+            "Cust_Dprtmnt": {
+              "type": "string"
+            },
+            "Cust_Emplymnt_Dt": {
+              "type": "string"
+            },
+            "Srv_Prd": {
+              "type": "string"
+            },
+            "Slry_Trnsfr": {
+              "type": "string"
+            },
+            "Asst_Tp": {
+              "type": "string"
+            },
+            "Agnt": {
+              "type": "string"
+            },
+            "Dwn_Pymnt_Bnk": {
+              "type": "string"
+            },
+            "Insrnc_Dscnt": {
+              "type": "string"
+            },
+            "Insrnc_Frst_Prm": {
+              "type": "string"
+            },
+            "Pymnt_Optn": {
+              "type": "string"
+            },
+            "Rcvr_Cst": {
+              "type": "string"
+            },
+            "Prft_Insrnc_Pymnt": {
+              "type": "string"
+            },
+            "Dl_Tp": {
+              "type": "string"
+            },
+            "Chnl_Id": {
+              "type": "string"
+            },
+            "Rbt_Amt": {
+              "type": "string"
+            },
+            "Rbt_In_PO": {
+              "type": "string"
+            },
+            "Rbt_Mgnt_Amt": {
+              "type": "string"
+            },
+            "Rbt_Mgnt_Vat_Amt": {
+              "type": "string"
+            },
+            "Insrnc_Amt_Wth_VAT": {
+              "type": "string"
+            },
+            "Dwn_Pymnnt_VAT": {
+              "type": "string"
+            },
+            "Rbt_Prcnt": {
+              "type": "string"
+            },
+            "Mngt_Prcnt": {
+              "type": "string"
+            },
+            "Chrg_Fees": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Chrg_Fee": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "Chrg_Cd": {
+                        "type": "string"
+                      },
+                      "Chrg_Amt": {
+                        "type": "string"
+                      },
+                      "Chrg_Pymnt_Tp": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

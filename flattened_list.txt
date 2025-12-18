@@ -1,5 +1,5 @@
-Authenticate User Mock - Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
-Authenticate User Mock - Change Password | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd | schemas/authenticate-user.json
+Authenticate User Mock Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
+Authenticate User Mock Change Password | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd | schemas/authenticate-user.json
 Get Account Transactions List | http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList | schemas/get-account-transactions-list.json
 Get Customer Accounts List | http://get-cust-accts-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-accts-list | schemas/get-cust-accts-list.json
 Manage Customer Account Request | http://manage-customer-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageCustomerAccountRequest | schemas/manage-customer-account.json
@@ -52,7 +52,7 @@ Corporate Banking Disable User | http://manage-ldap-user-http-bab-sit-cp4i.apps.
 Corporate Banking Register User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/register-user | schemas/manage-ldap-user.json
 Corporate Banking Delete User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/delete-user | schemas/manage-ldap-user.json
 Corporate Banking Reset Password | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/reset-password | schemas/manage-ldap-user.json
-CRM Get LOV | http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | schemas/get-lov.json
+Get LOV | http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | schemas/get-lov.json
 Get Customer Details | http://get-cust-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDetails | schemas/get-cust-details.json
 Get Customer Loan Deposit List | http://get-customer-loan-deposit-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerLoanDepositList | schemas/get-customer-loan-deposit-list.json
 Get Owner Share | http://customer-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOwnerShare | schemas/customer-services.json
@@ -79,7 +79,7 @@ Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.
 Verify Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument | schemas/manage-digital-document.json
 Manage Nafath Authentication | http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNafathAuth | schemas/manage-nafath-authentication.json
 Manage Nafath Authentication Callback | http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNfthAthntctnCllbkReq | schemas/manage-nafath-authentication.json
-Natheer Watchlist | http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist | schemas/manage-natheer-watchlist.json
+Manage Natheer Watchlist | http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist | schemas/manage-natheer-watchlist.json
 Manage Outbound | http://manage-outbound-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manageoutbound | schemas/manage-outbound.json
 Manage T24 Accounting | http://manage-t24-accounting-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24Accounting | schemas/manage-t24-accounting.json
 Manage T24 User | http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24User | schemas/manage-t24-user.json

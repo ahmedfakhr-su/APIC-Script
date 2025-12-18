@@ -1,18 +1,48 @@
+ATM Get Mini Statement | http://atm-get-mini-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ATMGetMiniStatement | schemas/atm-get-mini-statement.json
+Authenticate Tokens | http://authenticate-tokens-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AuthenticateTokens | schemas/authenticate-tokens.json
 Authenticate User Mock Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
-Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
+Authenticate User Mock Change Password | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd | schemas/authenticate-user.json
+Authenticate User | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authenticate/user | schemas/authenticate-user.json
+Check Authorization Rules | http://check-authorization-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authorization/rules | schemas/check-authorization-rules.json
+Check Anti Fraud Rules | http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules | schemas/check-anti-fraud-rules.json
+EB Get Beneficiary List | http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList | schemas/eb-get-beneficiary-list.json
+Get Beneficiary Details | http://get-beneficiary-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBeneficiaryDetails | schemas/get-beneficiary-details.json
 ISO XML Transformer | http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer | schemas/iso-xml-transformer.json
+Get Available Commodity | http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity | schemas/get-available-commodity.json
+Get Commodity Order Status | http://get-commodity-order-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCommodityOrderStatus | schemas/get-commodity-order-status.json
+Get Customer Refunds | http://get-customer-refunds-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getcustomerrefunds | schemas/get-customer-refunds.json
+Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
+Get IPS Proxy List | http://get-ips-proxy-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-ips-proxy-list | schemas/get-ips-proxy-list.json
+Get LOV | http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | schemas/get-lov.json
+Get Western Union Fees | http://get-western-union-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWestrenUnionFees | schemas/get-western-union-fees.json
+Get Yakeen Info | http://get-yakeen-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetYakeenInfo | schemas/get-yakeen-info.json
 Manage Digital Loan | http://manage-digi-loan-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngDgLn | schemas/manage-digi-loan.json
+Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument | schemas/manage-digital-document.json
+Verify Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument | schemas/manage-digital-document.json
+Manage LD | http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD | schemas/manage-ld.json
+Manage Natheer Watchlist | http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist | schemas/manage-natheer-watchlist.json
+Manage Registered Bills | http://manage-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageRegisteredBills | schemas/manage-registered-bills.json
+Manage Wakala Deals | http://manage-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | schemas/manage-wakala-deals.json
+Merge Customer Registered Bills | http://merge-customer-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MergeCustRgstrdBillsReq | schemas/merge-customer-registered-bills.json
+Manage Customer Limits | http://mng-cust-limits-http-bab-sit-cp4i.apps.babsitaro.albtests.com/mng-cust-limits | schemas/mng-cust-limits.json
+Manage SSR End Of Day Process | http://mng-ssr-eod-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageSSREndOfDayProcess | schemas/mng-ssr-eod-process.json
 Purchase Product | http://purchase-product-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PurchaseProduct | schemas/purchase-product.json
-SADAD Cutoff Bank Serial | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSerl | schemas/sadad-cut-off.json
-SADAD Cutoff Bank Split | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSplit | schemas/sadad-cut-off.json
-SADAD Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadCutOff | schemas/sadad-cut-off.json
-SADAD Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadReconciliation | schemas/sadad-cut-off.json
-SADAD Refund Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundCutOff | schemas/sadad-cut-off.json
-SADAD Refund Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundReconciliation | schemas/sadad-cut-off.json
+Request Card | http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard | schemas/request-card.json
 SADAD Settlement | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement | schemas/sadad-settlement-process.json
 SADAD Settlement Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementRequest | schemas/sadad-settlement-process.json
 SADAD Settlement SBA SRA Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SBASRARequest | schemas/sadad-settlement-process.json
 SADAD Settlement SBA SRA Result Reply | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sadad/settlement/sba-sra-result-reply | schemas/sadad-settlement-process.json
 SADAD Settlement SRA Customer Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SRACustRequest | schemas/sadad-settlement-process.json
 SADAD Settlement SRA Customer Result Reply | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementSraCustResultReply | schemas/sadad-settlement-process.json
+SADAD Cutoff Bank Serial | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSerl | schemas/sadad-cut-off.json
+SADAD Cutoff Bank Split | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSplit | schemas/sadad-cut-off.json
+SADAD Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadCutOff | schemas/sadad-cut-off.json
+SADAD Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadReconciliation | schemas/sadad-cut-off.json
+SADAD Refund Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundCutOff | schemas/sadad-cut-off.json
+SADAD Refund Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundReconciliation | schemas/sadad-cut-off.json
+Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification | schemas/send-instant-notification.json
+TransFast Create Transaction | http://trans-fast-create-transaction-http-bab-sit-cp4i.apps.babsitaro.albtests.com/trans-fast-create-transaction | schemas/trans-fast-create-transaction.json
 Update Charge Card Info | http://update-charge-card-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateChargeCardInfo | schemas/update-charge-card-info.json
+Update Customer Info | http://update-customer-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/update-custumer-info | schemas/update-customer-info.json
+Western Union Send Money Store | http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyStore | schemas/western-union-send-money.json
+Western Union Send Money Validation | http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyValidation | schemas/western-union-send-money.json
