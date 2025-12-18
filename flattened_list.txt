@@ -38,7 +38,6 @@ Get Charge Card List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.alb
 Get Charge Card Transaction List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardTransactionList | schemas/card-services.json
 Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
 Instant Card Issuance | http://instant-card-issuance-http-bab-sit-cp4i.apps.babsitaro.albtests.com/InstantCardIssuance | schemas/instant-card-issuance.json
-Cards Two Minutes Scheduler | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Two_Minutes_Scheduler | schemas/card-services.json
 Pin Assignment | http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignment | schemas/pin-assignment.json
 Request Card | http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard | schemas/request-card.json
 Update Card Status | http://update-card-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardStatus | schemas/update-card-status.json

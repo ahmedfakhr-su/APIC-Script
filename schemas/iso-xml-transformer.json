@@ -10,8 +10,7 @@
         "EAIHeader": {
           "type": "object",
           "description": "Technical and routing metadata required for request processing and tracking",
-          "additionalProperties": false,
-          "properties": {}
+          "additionalProperties": false
         },
         "Body": {
           "type": "object",
