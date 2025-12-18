@@ -851,18 +851,16 @@ if [ "$PERFORM_PRODUCT_UPDATE" = true ] && [ -f "${BACKUP_DIR}/${PRODUCT_NAME}_$
 fi
 
 # ------------------------------
-# Save state for Incremental Mode
+# Save state for successful runs (for future incremental builds)
 # ------------------------------
-if [ "$INCREMENTAL_MODE" = true ]; then
-    if [ $FAILURE_COUNT -eq 0 ]; then
-        if command -v git >/dev/null 2>&1; then
-            current_hash=$(git rev-parse HEAD 2>/dev/null)
-            if [ -n "$current_hash" ]; then
-                echo "$current_hash" > "$LAST_COMMIT_FILE"
-                echo "  ✓ Saved incremental state ($current_hash)"
-            fi
+if [ $FAILURE_COUNT -eq 0 ]; then
+    if command -v git >/dev/null 2>&1; then
+        current_hash=$(git rev-parse HEAD 2>/dev/null)
+        if [ -n "$current_hash" ]; then
+            echo "$current_hash" > "$LAST_COMMIT_FILE"
+            echo "  ✓ Saved incremental state ($current_hash)"
         fi
-    else
-        echo "  ⚠ Incremental state NOT saved due to failures"
     fi
+else
+    echo "  ⚠ Incremental state NOT saved due to failures"
 fi

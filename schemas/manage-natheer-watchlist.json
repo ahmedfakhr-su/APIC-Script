@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string",
+              "description": "Message payload format (JSON or XML)"
+            },
+            "Lang": {
+              "type": "string",
+              "description": "Request language code"
+            },
+            "ChnlId": {
+              "type": "string",
+              "description": "Channel from which the request originated"
+            },
+            "FunctnId": {
+              "type": "string",
+              "description": "Identifier of the business function being invoked"
+            },
+            "FE_Ref_No": {
+              "type": "string",
+              "description": "Frontend system reference number"
+            },
+            "Tmstmp": {
+              "type": "string",
+              "description": "Request timestamp in ISO 8601 format"
+            },
+            "CIF": {
+              "type": "string",
+              "description": "Customer Information File number"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "RvrslOptn": {
+              "type": "string",
+              "description": "Indicates whether the transaction can be reversed"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Prsns_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Prsn_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Prsn_Id": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "Brth_Dt": {
+                      "type": "string"
+                    },
+                    "ID_Tp": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "Card_No": {
+              "type": "string"
+            },
+            "Expry_Dt": {
+              "type": "string"
+            },
+            "Mskd_Card_No": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

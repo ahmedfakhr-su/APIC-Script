@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string",
+              "description": "Message payload format (JSON or XML)"
+            },
+            "CIF": {
+              "type": "string",
+              "description": "Customer Information File number"
+            },
+            "Lang": {
+              "type": "string",
+              "description": "Request language code"
+            },
+            "ChnlId": {
+              "type": "string",
+              "description": "Channel from which the request originated"
+            },
+            "FunctnId": {
+              "type": "string",
+              "description": "Identifier of the business function being invoked"
+            },
+            "RvrslOptn": {
+              "type": "string",
+              "description": "Indicates whether the transaction can be reversed"
+            },
+            "FE_Ref_No": {
+              "type": "string",
+              "description": "Frontend system reference number"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "UsrDfn": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string",
+              "description": "Backend system reference number"
+            },
+            "Tmstmp": {
+              "type": "string",
+              "description": "Request timestamp in ISO 8601 format"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "SSR_Ref_No": {
+              "type": "string"
+            },
+            "Ovrrd_Clss": {
+              "type": "string"
+            },
+            "PrcDt": {
+              "type": "string"
+            },
+            "Sttlmnt": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "From_Acct": {
+                  "type": "string"
+                },
+                "To_Acct": {
+                  "type": "string"
+                },
+                "Amt": {
+                  "type": "string"
+                }
+              }
+            },
+            "CMS_Rplcmnt_No": {
+              "type": "string"
+            },
+            "Ctx_Rrn": {
+              "type": "string"
+            },
+            "Ctx_Stn": {
+              "type": "string"
+            },
+            "Ctx_Rvrsl": {
+              "type": "string"
+            },
+            "T24_Rvrsl": {
+              "type": "string"
+            },
+            "Ctx_Acct_No": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
