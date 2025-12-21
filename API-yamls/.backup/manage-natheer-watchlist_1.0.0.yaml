@@ -1,0 +1,247 @@
+components:
+  schemas:
+    ManageNatheerWatchlistRequest:
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header
+            metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                Card_No:
+                  type: string
+                Expry_Dt:
+                  type: string
+                Mskd_Card_No:
+                  type: string
+                Prsns_Lst:
+                  additionalProperties: false
+                  properties:
+                    Prsn_Dtls:
+                      additionalProperties: false
+                      properties:
+                        Brth_Dt:
+                          type: string
+                        ID_Tp:
+                          type: string
+                        Prsn_Id:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                  type: object
+                Sgmnt:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing
+                and tracking
+              properties:
+                CIF:
+                  description: Customer Information File number
+                  type: string
+                ChnlId:
+                  description: Channel from which the request originated
+                  type: string
+                FE_Ref_No:
+                  description: Frontend system reference number
+                  type: string
+                FunctnId:
+                  description: Identifier of the business function being invoked
+                  type: string
+                Lang:
+                  description: Request language code
+                  type: string
+                MsgFrmt:
+                  description: Message payload format (JSON or XML)
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  description: Indicates whether the transaction can be reversed
+                  type: string
+                Tmstmp:
+                  description: Request timestamp in ISO 8601 format
+                  type: string
+              type: object
+          type: object
+      type: object
+    ManageNatheerWatchlistResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ManageNatheerWatchlistResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    ManageNatheerWatchlistResponseData:
+      description: Response data payload - customize per operation
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            description: Response code
+            type: string
+          info:
+            description: Response message
+            type: string
+        type: object
+      type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Manage Natheer Watchlist
+  version: 1.0.0
+  x-ibm-name: manage-natheer-watchlist
+openapi: 3.0.0
+paths:
+  /manage-natheer-watchlist:
+    post:
+      operationId: ManageNatheerWatchlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageNatheerWatchlistRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageNatheerWatchlistResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - ManageNatheerWatchlist
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist
+  testable: true
+  type: rest

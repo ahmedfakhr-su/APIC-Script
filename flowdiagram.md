@@ -1,145 +1,71 @@
 ```mermaid
 flowchart TD
-    Start([Start Script]) --> LoadConfig[Load Configuration]
-    LoadConfig --> InitVars[Initialize Variables and Directories]
-    InitVars --> SetupTrap[Setup Cleanup Trap]
-    SetupTrap --> CheckCmds{Check Required Commands}
+    Start([Start Script]) --> Init[Initialize:<br/>Load config.env<br/>Parse arguments]
     
-    CheckCmds -->|Missing| Error1[Error: apic/python3 not found]
-    Error1 --> Exit1([Exit 1])
-    CheckCmds -->|OK| ParseArgs[Parse Command Line Arguments]
+    Init --> ModeDecision{<b>MODE DECISION</b><br/>--incremental flag?}
     
-    ParseArgs --> ModeCheck{Build Mode?}
-    ModeCheck -->|Incremental| CheckGit{Git Available?}
-    ModeCheck -->|Full Build| SetFullMode[Set FORCE_ALL = true]
+    ModeDecision -->|No| FullBuild[<b>FULL BUILD MODE</b><br/>Process all services<br/>FORCE_ALL = true]
+    ModeDecision -->|Yes| IncrementalSetup[<b>INCREMENTAL MODE</b><br/>Get changed files via git]
     
-    CheckGit -->|No| Exit2([Exit 1])
-    CheckGit -->|Yes| GetChanges[Get Changed Files Since Last Commit]
-    GetChanges --> CheckConfig{Config Files Changed?}
+    IncrementalSetup --> CriticalCheck{Critical files changed?<br/>services.txt, template.yaml,<br/>config.env}
     
-    CheckConfig -->|Yes| ForceAll[Set FORCE_ALL = true]
-    CheckConfig -->|No| CheckEmpty{Any Changes?}
-    CheckEmpty -->|No| CheckCommitFile{Last Commit File Exists?}
-    CheckCommitFile -->|Yes| SetIncremental[Incremental Mode Active]
-    CheckCommitFile -->|No| ForceAll
-    CheckEmpty -->|Yes| SetIncremental
+    CriticalCheck -->|Yes| ForceFull[Override to FULL BUILD<br/>FORCE_ALL = true]
+    CriticalCheck -->|No| IncrementalActive[<b>INCREMENTAL ACTIVE</b><br/>Only process changed schemas<br/>FORCE_ALL = false]
     
-    ForceAll --> DetectAPIC
-    SetFullMode --> DetectAPIC
-    SetIncremental --> DetectAPIC
+    FullBuild --> Login[Login to API Connect]
+    ForceFull --> Login
+    IncrementalActive --> Login
     
-    DetectAPIC[Detect APIC Executable] --> Login[Login to APIC via SSO]
+    Login --> ServiceLoop[<b>FOR EACH SERVICE</b><br/>in services.txt]
     
-    Login -->|Failed| Exit3([Exit 1])
-    Login -->|Success| StartLoop[Start Processing services.txt]
+    ServiceLoop --> ServiceCondition1{<b>CONDITIONAL 1</b><br/>Incremental mode AND<br/>schema not changed?}
     
-    StartLoop --> ReadLine[Read Service Line]
-    ReadLine --> ValidLine{Valid Line?}
+    ServiceCondition1 -->|Yes - SKIP| NextService[Skip this service<br/>Continue to next]
+    ServiceCondition1 -->|No - PROCESS| ServiceCondition2{<b>CONDITIONAL 2</b><br/>API already exists<br/>in API Connect?}
     
-    ValidLine -->|Blank/Comment| ReadLine
-    ValidLine -->|Valid| ParseService[Parse Service Data]
+    ServiceCondition2 -->|No| PathCreate[<b>CREATE PATH</b><br/>1. Generate from template<br/>2. Validate<br/>3. Create draft API]
+    ServiceCondition2 -->|Yes| PathUpdate[<b>UPDATE PATH</b><br/>1. Get existing API<br/>2. Replace schema<br/>3. Update target-url<br/>4. Validate<br/>5. Update draft API]
     
-    ParseService --> IncrementalCheck{Incremental Mode Active?}
-    IncrementalCheck -->|Yes| SchemaChanged{Schema File Changed?}
-    SchemaChanged -->|No| Skip[Skip Service]
-    Skip --> MoreServices
-    SchemaChanged -->|Yes| CheckExists
-    IncrementalCheck -->|No| CheckExists
+    PathCreate --> OperationResult{Success?}
+    PathUpdate --> OperationResult
     
-    CheckExists[Check if API Exists] --> APIExists{API Exists?}
+    OperationResult -->|Yes| IncSuccess[SUCCESS_COUNT++]
+    OperationResult -->|No| IncFailure[FAILURE_COUNT++]
     
-    APIExists -->|Yes| SetExists[API_EXISTS = true]
-    APIExists -->|No| SetNew[API_EXISTS = false]
+    IncSuccess --> NextService
+    IncFailure --> NextService
+    NextService --> ServiceLoop
     
-    SetExists --> LoadSchema1
-    SetNew --> LoadSchema1
+    ServiceLoop -->|All Done| ProductCondition{<b>CONDITIONAL 3</b><br/>Perform Product Update?<br/><br/>Skip if: Incremental mode<br/>AND no APIs updated<br/>SUCCESS_COUNT = 0}
     
-    LoadSchema1{Schema Provided?}
-    LoadSchema1 -->|Yes| ConvertSchema[Convert JSON Schema to YAML]
-    LoadSchema1 -->|No| EmptySchema[Use Empty Object Schema]
+    ProductCondition -->|Skip| FinalReport[Display Summary<br/>Skip product publish]
+    ProductCondition -->|Perform| ProductFlow[<b>PRODUCT UPDATE</b><br/>1. Collect all APIs<br/>2. Backup existing<br/>3. Merge API lists<br/>4. Generate product YAML<br/>5. Create/Update draft<br/>6. Publish to catalog]
     
-    ConvertSchema --> PathBranch
-    EmptySchema --> PathBranch
+    ProductFlow --> ProductResult{Success?}
+    ProductResult -->|No| Exit1([Exit with Error])
+    ProductResult -->|Yes| FinalReport
     
-    PathBranch{API_EXISTS?}
+    FinalReport --> SaveCondition{<b>CONDITIONAL 4</b><br/>Save incremental state?<br/><br/>Only if:<br/>FAILURE_COUNT = 0}
     
-    PathBranch -->|false - Create New| GenTemplate[Generate YAML from Template]
-    GenTemplate --> ReplaceSchema[Replace Schema Placeholder]
-    ReplaceSchema --> Validate1[Validate YAML]
+    SaveCondition -->|Yes| SaveCommit[Save current git commit<br/>to .last_successful_commit<br/><br/>Used as baseline for<br/>next incremental run]
+    SaveCondition -->|No| SkipSave[Skip state save<br/>Keep previous commit hash]
     
-    Validate1 -->|Failed| Fail1[Increment FAILURE_COUNT]
-    Fail1 --> Cleanup1[Cleanup Temp Files]
-    Cleanup1 --> MoreServices
+    SaveCommit --> End([Success])
+    SkipSave --> End
     
-    Validate1 -->|Success| CreateAPI[Create Draft API]
-    CreateAPI -->|Failed| Fail2[Increment FAILURE_COUNT]
-    CreateAPI -->|Success| Success1[Increment SUCCESS_COUNT]
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style Exit1 fill:#ffe1e1
     
-    Fail2 --> Cleanup2[Cleanup Temp Files]
-    Success1 --> Cleanup2
-    Cleanup2 --> MoreServices
+    style ModeDecision fill:#fff3e1,stroke:#ff9800,stroke-width:3px
+    style ServiceCondition1 fill:#fff3e1,stroke:#ff9800,stroke-width:3px
+    style ServiceCondition2 fill:#fff3e1,stroke:#ff9800,stroke-width:3px
+    style ProductCondition fill:#fff3e1,stroke:#ff9800,stroke-width:3px
+    style SaveCondition fill:#fff3e1,stroke:#ff9800,stroke-width:3px
     
-    PathBranch -->|true - Update Existing| ReplaceSchemaSection[Replace Schema Section in Existing YAML]
-    ReplaceSchemaSection --> UpdateURL[Update Target URL]
-    UpdateURL --> Validate2[Validate Updated YAML]
-    
-    Validate2 -->|Failed| Fail3[Increment FAILURE_COUNT]
-    Fail3 --> Cleanup3[Cleanup Temp Files]
-    Cleanup3 --> MoreServices
-    
-    Validate2 -->|Success| UpdateAPI[Update Draft API]
-    UpdateAPI -->|Failed| Fail4[Increment FAILURE_COUNT]
-    UpdateAPI -->|Success| Success2[Increment SUCCESS_COUNT]
-    
-    Fail4 --> Cleanup4[Cleanup Temp Files]
-    Success2 --> Cleanup4
-    Cleanup4 --> MoreServices
-    
-    MoreServices{More Services?}
-    MoreServices -->|Yes| ReadLine
-    MoreServices -->|No| CheckProduct
-    
-    CheckProduct{Should Update Product?}
-    CheckProduct -->|No Updates in Incremental| SkipProduct[Skip Product Update]
-    CheckProduct -->|Yes| CollectAPIs[Collect All API References]
-    
-    CollectAPIs --> BackupProduct[Backup Existing Product]
-    BackupProduct --> ProductExists{Product Exists?}
-    
-    ProductExists -->|Yes| MergeAPIs[Merge Existing and New APIs]
-    ProductExists -->|No| UseNewAPIs[Use Only New APIs]
-    
-    MergeAPIs --> GenProduct
-    UseNewAPIs --> GenProduct
-    
-    GenProduct[Generate Product YAML] --> UpdateProduct[Try Update Product]
-    
-    UpdateProduct -->|Failed| CreateProduct[Create New Product]
-    UpdateProduct -->|Success| PublishProduct
-    CreateProduct -->|Failed| Exit4([Exit 1])
-    CreateProduct -->|Success| PublishProduct
-    
-    PublishProduct[Publish to Catalog] -->|Failed| Exit5([Exit 1])
-    PublishProduct -->|Success| Finalize
-    
-    SkipProduct --> Finalize
-    
-    Finalize[Finalize Backup] --> SaveState{No Failures?}
-    
-    SaveState -->|Yes| SaveCommit[Save Git Commit Hash]
-    SaveState -->|No| DisplaySummary
-    SaveCommit --> DisplaySummary
-    
-    DisplaySummary[Display Summary] --> End([Script Complete])
-    
-    style Start fill:#90EE90
-    style End fill:#90EE90
-    style Exit1 fill:#FFB6C1
-    style Exit2 fill:#FFB6C1
-    style Exit3 fill:#FFB6C1
-    style Exit4 fill:#FFB6C1
-    style Exit5 fill:#FFB6C1
-    style PathBranch fill:#FFE4B5
-    style ModeCheck fill:#FFE4B5
-    style CheckProduct fill:#FFE4B5
+    style FullBuild fill:#e3f2fd
+    style IncrementalActive fill:#e3f2fd
+    style PathCreate fill:#f3e5f5
+    style PathUpdate fill:#fff9c4
+    style ProductFlow fill:#e1f5fe
     ```

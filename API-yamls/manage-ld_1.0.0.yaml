@@ -1,0 +1,435 @@
+components:
+  schemas:
+    ManageLDRequest:
+      type: object
+      properties:
+        EAIMessage:
+          type: object
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              type: object
+              description: Business request payload specific to the service operation
+              properties:
+                Agnt:
+                  type: string
+                Algnmnt_Scr:
+                  type: string
+                Applctn_Srl_No:
+                  type: string
+                Asst_Tp:
+                  type: string
+                Blln_Pymnt:
+                  type: string
+                Chnl_Id:
+                  type: string
+                Chrg_Fees:
+                  type: string
+                Chrg_Liq_Acct:
+                  type: string
+                Clndr:
+                  type: string
+                Cust_Age:
+                  type: string
+                Cust_Dprtmnt:
+                  type: string
+                Cust_Emplymnt_Dt:
+                  type: string
+                Cust_Emplyr:
+                  type: string
+                Cust_Emplyr_Phn_No:
+                  type: string
+                Cust_Occptn:
+                  type: string
+                Cust_Slry:
+                  type: string
+                DBR_Prcnt:
+                  type: string
+                Dl_Tp:
+                  type: string
+                Dwn_Pymnnt_VAT:
+                  type: string
+                Dwn_Pymnt:
+                  type: string
+                Dwn_Pymnt_Bnk:
+                  type: string
+                Flat_Rate:
+                  type: string
+                Fnl_Dcsn:
+                  type: string
+                Fnl_Mtrty_Dt:
+                  type: string
+                Frst_Instllmnt_Dt:
+                  type: string
+                Her_Slry_Trnsfr_Flg:
+                  type: string
+                ID_No:
+                  type: string
+                Insrnc_Amt:
+                  type: string
+                Insrnc_Amt_Wth_VAT:
+                  type: string
+                Insrnc_Dscnt:
+                  type: string
+                Insrnc_Frst_Prm:
+                  type: string
+                Instllmnt_Day:
+                  type: string
+                Invc_Amt:
+                  type: string
+                Invc_Amt_Rcvd:
+                  type: string
+                LD_Dtls:
+                  type: object
+                  properties:
+                    Attr1:
+                      type: string
+                    Attr10:
+                      type: string
+                    Attr11:
+                      type: string
+                    Attr12:
+                      type: string
+                    Attr13:
+                      type: string
+                    Attr14:
+                      type: string
+                    Attr15:
+                      type: string
+                    Attr16:
+                      type: string
+                    Attr17:
+                      type: string
+                    Attr18:
+                      type: string
+                    Attr19:
+                      type: string
+                    Attr2:
+                      type: string
+                    Attr20:
+                      type: string
+                    Attr21:
+                      type: string
+                    Attr22:
+                      type: string
+                    Attr24:
+                      type: string
+                    Attr25:
+                      type: string
+                    Attr26:
+                      type: string
+                    Attr27:
+                      type: string
+                    Attr28:
+                      type: string
+                    Attr29:
+                      type: string
+                    Attr3:
+                      type: string
+                    Attr30:
+                      type: string
+                    Attr31:
+                      type: string
+                    Attr33:
+                      type: string
+                    Attr34:
+                      type: string
+                    Attr35:
+                      type: string
+                    Attr36:
+                      type: string
+                    Attr37:
+                      type: string
+                    Attr38:
+                      type: string
+                    Attr39:
+                      type: string
+                    Attr40:
+                      type: string
+                    Attr41:
+                      type: string
+                    Attr43:
+                      type: string
+                    Attr44:
+                      type: string
+                    Attr45:
+                      type: string
+                    Attr46:
+                      type: string
+                    Attr49:
+                      type: string
+                    Attr5:
+                      type: string
+                    Attr51:
+                      type: string
+                    Attr6:
+                      type: string
+                    Attr68:
+                      type: string
+                    Attr8:
+                      type: string
+                    Attr9:
+                      type: string
+                  additionalProperties: false
+                Loan_Amt:
+                  type: string
+                Loan_ID:
+                  type: string
+                Loan_Ref:
+                  type: string
+                Mngt_Prcnt:
+                  type: string
+                Mnthly_Instlmnt_Amnt:
+                  type: string
+                Mrchnt_Ctgry_Cd:
+                  type: string
+                Old_Ref_Ld:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Orgnl_Data_Val:
+                  type: string
+                Ovrrd_Clss:
+                  type: string
+                Prft_Amnt:
+                  type: string
+                Prft_Insrnc_Pymnt:
+                  type: string
+                Prft_Liq_Acct:
+                  type: string
+                Prncpl_Liq_Acct:
+                  type: string
+                Pymnt_Optn:
+                  type: string
+                Rbt_Amt:
+                  type: string
+                Rbt_In_PO:
+                  type: string
+                Rbt_Mgnt_Amt:
+                  type: string
+                Rbt_Mgnt_Vat_Amt:
+                  type: string
+                Rbt_Prcnt:
+                  type: string
+                Rcvr_Cst:
+                  type: string
+                SIMAH_Scr:
+                  type: string
+                Slry_Trnsfr:
+                  type: string
+                Srv_Prd:
+                  type: string
+                Tenor:
+                  type: string
+                Trx_Md:
+                  type: string
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                  description: Backend system reference number
+                CIF:
+                  type: string
+                  description: Customer Information File number
+                ChnlId:
+                  type: string
+                  description: Channel from which the request originated
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                  description: Frontend system reference number
+                FunctnId:
+                  type: string
+                  description: Identifier of the business function being invoked
+                Lang:
+                  type: string
+                  description: Request language code
+                MsgFrmt:
+                  type: string
+                  description: Message payload format (JSON or XML)
+                Rqstr_Info1:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info2:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info3:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info4:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info5:
+                  type: string
+                  description: Additional requester-provided metadata field
+                RvrslOptn:
+                  type: string
+                  description: Indicates whether the transaction can be reversed
+                Tmstmp:
+                  type: string
+                  description: Request timestamp in ISO 8601 format
+                UsrDfn:
+                  type: string
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    ManageLDRequestData:
+      type: object
+    ManageLDResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ManageLDResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    ManageLDResponseData:
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            type: string
+          info:
+            type: string
+        type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Manage LD
+  version: 1.0.0
+  x-ibm-name: manage-ld
+openapi: 3.0.0
+paths:
+  /manage-ld:
+    post:
+      operationId: ManageLD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageLDRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageLDResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - ManageLD
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD
+  testable: true
+  type: rest

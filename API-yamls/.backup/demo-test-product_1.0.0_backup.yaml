@@ -4,66 +4,102 @@ info:
   title: demo-test-product
   version: 1.0.0
 apis:
-  demo6-service:
-    $ref: API-yamls\.backup_temp_298\demo6-service_1.0.0.yaml
-  demo7-service:
-    $ref: API-yamls\.backup_temp_298\demo7-service_1.0.0.yaml
-  demo8-service:
-    $ref: API-yamls\.backup_temp_298\demo8-service_1.0.0.yaml
-  demo2-service:
-    $ref: API-yamls\.backup_temp_298\demo2-service_1.0.0.yaml
-  demo3-service:
-    $ref: API-yamls\.backup_temp_298\demo3-service_1.0.0.yaml
-  demo4-service:
-    $ref: API-yamls\.backup_temp_298\demo4-service_1.0.0.yaml
-  demo11-service:
-    $ref: API-yamls\.backup_temp_298\demo11-service_1.0.0.yaml
-  demo12-service:
-    $ref: API-yamls\.backup_temp_298\demo12-service_1.0.0.yaml
-  demo13-service:
-    $ref: API-yamls\.backup_temp_298\demo13-service_1.0.0.yaml
-  s-service:
-    $ref: API-yamls\.backup_temp_298\s-service_1.0.0.yaml
-  q-service:
-    $ref: API-yamls\.backup_temp_298\q-service_1.0.0.yaml
-  a-service:
-    $ref: API-yamls\.backup_temp_298\a-service_1.0.0.yaml
-  authenticate-user-mock---authenticate:
-    $ref: API-yamls\.backup_temp_298\authenticate-user-mock---authenticate_1.0.0.yaml
   get-dr-cards-list:
-    $ref: API-yamls\.backup_temp_298\get-dr-cards-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-dr-cards-list_1.0.0.yaml
   iso-xml-transformer:
-    $ref: API-yamls\.backup_temp_298\iso-xml-transformer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\iso-xml-transformer_1.0.0.yaml
   manage-digital-loan:
-    $ref: API-yamls\.backup_temp_298\manage-digital-loan_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-digital-loan_1.0.0.yaml
   purchase-product:
-    $ref: API-yamls\.backup_temp_298\purchase-product_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\purchase-product_1.0.0.yaml
   sadad-cutoff-bank-serial:
-    $ref: API-yamls\.backup_temp_298\sadad-cutoff-bank-serial_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff-bank-serial_1.0.0.yaml
   sadad-cutoff-bank-split:
-    $ref: API-yamls\.backup_temp_298\sadad-cutoff-bank-split_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff-bank-split_1.0.0.yaml
   sadad-cutoff:
-    $ref: API-yamls\.backup_temp_298\sadad-cutoff_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff_1.0.0.yaml
   sadad-reconciliation:
-    $ref: API-yamls\.backup_temp_298\sadad-reconciliation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-reconciliation_1.0.0.yaml
   sadad-refund-cutoff:
-    $ref: API-yamls\.backup_temp_298\sadad-refund-cutoff_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-refund-cutoff_1.0.0.yaml
   sadad-refund-reconciliation:
-    $ref: API-yamls\.backup_temp_298\sadad-refund-reconciliation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-refund-reconciliation_1.0.0.yaml
   sadad-settlement:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement_1.0.0.yaml
   sadad-settlement-request:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-request_1.0.0.yaml
   sadad-settlement-sba-sra-request:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement-sba-sra-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sba-sra-request_1.0.0.yaml
   sadad-settlement-sba-sra-result-reply:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement-sba-sra-result-reply_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sba-sra-result-reply_1.0.0.yaml
   sadad-settlement-sra-customer-request:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement-sra-customer-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sra-customer-request_1.0.0.yaml
   sadad-settlement-sra-customer-result-reply:
-    $ref: API-yamls\.backup_temp_298\sadad-settlement-sra-customer-result-reply_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sra-customer-result-reply_1.0.0.yaml
   update-charge-card-info:
-    $ref: API-yamls\.backup_temp_298\update-charge-card-info_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\update-charge-card-info_1.0.0.yaml
+  authenticate-user-mock-authenticate:
+    $ref: API-yamls\.backup_temp_284\authenticate-user-mock-authenticate_1.0.0.yaml
+  atm-get-mini-statement:
+    $ref: API-yamls\.backup_temp_284\atm-get-mini-statement_1.0.0.yaml
+  authenticate-tokens:
+    $ref: API-yamls\.backup_temp_284\authenticate-tokens_1.0.0.yaml
+  authenticate-user-mock-change-password:
+    $ref: API-yamls\.backup_temp_284\authenticate-user-mock-change-password_1.0.0.yaml
+  authenticate-user:
+    $ref: API-yamls\.backup_temp_284\authenticate-user_1.0.0.yaml
+  check-authorization-rules:
+    $ref: API-yamls\.backup_temp_284\check-authorization-rules_1.0.0.yaml
+  check-anti-fraud-rules:
+    $ref: API-yamls\.backup_temp_284\check-anti-fraud-rules_1.0.0.yaml
+  eb-get-beneficiary-list:
+    $ref: API-yamls\.backup_temp_284\eb-get-beneficiary-list_1.0.0.yaml
+  get-beneficiary-details:
+    $ref: API-yamls\.backup_temp_284\get-beneficiary-details_1.0.0.yaml
+  get-available-commodity:
+    $ref: API-yamls\.backup_temp_284\get-available-commodity_1.0.0.yaml
+  get-commodity-order-status:
+    $ref: API-yamls\.backup_temp_284\get-commodity-order-status_1.0.0.yaml
+  get-customer-refunds:
+    $ref: API-yamls\.backup_temp_284\get-customer-refunds_1.0.0.yaml
+  get-ips-proxy-list:
+    $ref: API-yamls\.backup_temp_284\get-ips-proxy-list_1.0.0.yaml
+  get-lov:
+    $ref: API-yamls\.backup_temp_284\get-lov_1.0.0.yaml
+  get-western-union-fees:
+    $ref: API-yamls\.backup_temp_284\get-western-union-fees_1.0.0.yaml
+  get-yakeen-info:
+    $ref: API-yamls\.backup_temp_284\get-yakeen-info_1.0.0.yaml
+  manage-digital-document:
+    $ref: API-yamls\.backup_temp_284\manage-digital-document_1.0.0.yaml
+  verify-manage-digital-document:
+    $ref: API-yamls\.backup_temp_284\verify-manage-digital-document_1.0.0.yaml
+  manage-ld:
+    $ref: API-yamls\.backup_temp_284\manage-ld_1.0.0.yaml
+  manage-natheer-watchlist:
+    $ref: API-yamls\.backup_temp_284\manage-natheer-watchlist_1.0.0.yaml
+  manage-registered-bills:
+    $ref: API-yamls\.backup_temp_284\manage-registered-bills_1.0.0.yaml
+  manage-wakala-deals:
+    $ref: API-yamls\.backup_temp_284\manage-wakala-deals_1.0.0.yaml
+  merge-customer-registered-bills:
+    $ref: API-yamls\.backup_temp_284\merge-customer-registered-bills_1.0.0.yaml
+  manage-customer-limits:
+    $ref: API-yamls\.backup_temp_284\manage-customer-limits_1.0.0.yaml
+  manage-ssr-end-of-day-process:
+    $ref: API-yamls\.backup_temp_284\manage-ssr-end-of-day-process_1.0.0.yaml
+  request-card:
+    $ref: API-yamls\.backup_temp_284\request-card_1.0.0.yaml
+  send-instant-notification:
+    $ref: API-yamls\.backup_temp_284\send-instant-notification_1.0.0.yaml
+  transfast-create-transaction:
+    $ref: API-yamls\.backup_temp_284\transfast-create-transaction_1.0.0.yaml
+  update-customer-info:
+    $ref: API-yamls\.backup_temp_284\update-customer-info_1.0.0.yaml
+  western-union-send-money-store:
+    $ref: API-yamls\.backup_temp_284\western-union-send-money-store_1.0.0.yaml
+  western-union-send-money-validation:
+    $ref: API-yamls\.backup_temp_284\western-union-send-money-validation_1.0.0.yaml
 visibility:
   view:
     type: public
@@ -80,19 +116,6 @@ plans:
       default:
         value: 100/1hour
     apis:
-      demo6-service: {}
-      demo7-service: {}
-      demo8-service: {}
-      demo2-service: {}
-      demo3-service: {}
-      demo4-service: {}
-      demo11-service: {}
-      demo12-service: {}
-      demo13-service: {}
-      s-service: {}
-      q-service: {}
-      a-service: {}
-      authenticate-user-mock---authenticate: {}
       get-dr-cards-list: {}
       iso-xml-transformer: {}
       manage-digital-loan: {}
@@ -110,5 +133,36 @@ plans:
       sadad-settlement-sra-customer-request: {}
       sadad-settlement-sra-customer-result-reply: {}
       update-charge-card-info: {}
+      authenticate-user-mock-authenticate: {}
+      atm-get-mini-statement: {}
+      authenticate-tokens: {}
+      authenticate-user-mock-change-password: {}
+      authenticate-user: {}
+      check-authorization-rules: {}
+      check-anti-fraud-rules: {}
+      eb-get-beneficiary-list: {}
+      get-beneficiary-details: {}
+      get-available-commodity: {}
+      get-commodity-order-status: {}
+      get-customer-refunds: {}
+      get-ips-proxy-list: {}
+      get-lov: {}
+      get-western-union-fees: {}
+      get-yakeen-info: {}
+      manage-digital-document: {}
+      verify-manage-digital-document: {}
+      manage-ld: {}
+      manage-natheer-watchlist: {}
+      manage-registered-bills: {}
+      manage-wakala-deals: {}
+      merge-customer-registered-bills: {}
+      manage-customer-limits: {}
+      manage-ssr-end-of-day-process: {}
+      request-card: {}
+      send-instant-notification: {}
+      transfast-create-transaction: {}
+      update-customer-info: {}
+      western-union-send-money-store: {}
+      western-union-send-money-validation: {}
 gateways:
 - datapower-api-gateway

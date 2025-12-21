@@ -1,0 +1,242 @@
+components:
+  schemas:
+    ManageSSREndOfDayProcessRequest:
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header
+            metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                CMS_Rplcmnt_No:
+                  type: string
+                Ctx_Acct_No:
+                  type: string
+                Ctx_Rrn:
+                  type: string
+                Ctx_Rvrsl:
+                  type: string
+                Ctx_Stn:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Ovrrd_Clss:
+                  type: string
+                PrcDt:
+                  type: string
+                SSR_Ref_No:
+                  type: string
+                Sttlmnt:
+                  additionalProperties: false
+                  properties:
+                    Amt:
+                      type: string
+                    From_Acct:
+                      type: string
+                    To_Acct:
+                      type: string
+                  type: object
+                T24_Rvrsl:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing
+                and tracking
+              properties:
+                BE_Ref_No:
+                  description: Backend system reference number
+                  type: string
+                CIF:
+                  description: Customer Information File number
+                  type: string
+                ChnlId:
+                  description: Channel from which the request originated
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  description: Frontend system reference number
+                  type: string
+                FunctnId:
+                  description: Identifier of the business function being invoked
+                  type: string
+                Lang:
+                  description: Request language code
+                  type: string
+                MsgFrmt:
+                  description: Message payload format (JSON or XML)
+                  type: string
+                RvrslOptn:
+                  description: Indicates whether the transaction can be reversed
+                  type: string
+                Tmstmp:
+                  description: Request timestamp in ISO 8601 format
+                  type: string
+                UsrDfn:
+                  type: string
+              type: object
+          type: object
+      type: object
+    ManageSSREndOfDayProcessResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ManageSSREndOfDayProcessResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    ManageSSREndOfDayProcessResponseData:
+      description: Response data payload - customize per operation
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            description: Response code
+            type: string
+          info:
+            description: Response message
+            type: string
+        type: object
+      type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Manage SSR End Of Day Process
+  version: 1.0.0
+  x-ibm-name: manage-ssr-end-of-day-process
+openapi: 3.0.0
+paths:
+  /manage-ssr-end-of-day-process:
+    post:
+      operationId: ManageSSREndOfDayProcess
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageSSREndOfDayProcessRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageSSREndOfDayProcessResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - ManageSSREndOfDayProcess
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://mng-ssr-eod-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageSSREndOfDayProcess
+  testable: true
+  type: rest

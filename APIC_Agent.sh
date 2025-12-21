@@ -524,7 +524,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
             echo "  ✓ Draft API created successfully"
             SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
         else
-            echo "  ✗ Failed to create draft API" >&2
+            echo "  ✗ Failed to create draft API in API Connect" >&2
             FAILURE_COUNT=$((FAILURE_COUNT + 1))
         fi
         
@@ -578,7 +578,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
             # Copy updated file to output directory for reference
             cp "$UPDATED_API_FILE" "$OUTPUT_FILE"
         else
-            echo "  ✗ Failed to update draft API" >&2
+            echo "  ✗ Failed to update draft API in API Connect" >&2
             FAILURE_COUNT=$((FAILURE_COUNT + 1))
         fi
         

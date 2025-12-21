@@ -1,0 +1,280 @@
+components:
+  schemas:
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            description: Response code
+            type: string
+          info:
+            description: Response message
+            type: string
+        type: object
+      type: object
+    SADADSettlementSRACustomerResultReplyRequest:
+      type: object
+      properties:
+        EAIMessage:
+          type: object
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              type: object
+              description: Business request payload specific to the service operation
+              properties:
+                EAIRtrnCdDesc:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Status:
+                  type: object
+                  properties:
+                    Severity:
+                      type: string
+                    ShortDesc:
+                      type: string
+                    StatusCode:
+                      type: string
+                  additionalProperties: false
+                XferAddRq:
+                  type: object
+                  properties:
+                    PrcDt:
+                      type: string
+                    XferInfo:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          CurAmt:
+                            type: string
+                          DepAcctIdFrom:
+                            type: object
+                            properties:
+                              AcctId:
+                                type: string
+                              AcctType:
+                                type: string
+                              BankId:
+                                type: string
+                            additionalProperties: false
+                          DepAcctIdTo:
+                            type: object
+                            properties:
+                              AcctId:
+                                type: string
+                              AcctType:
+                                type: string
+                              BankId:
+                                type: string
+                            additionalProperties: false
+                          PmtId:
+                            type: string
+                        additionalProperties: false
+                  additionalProperties: false
+                XferResultRq:
+                  type: object
+                  properties:
+                    FilePathName:
+                      type: string
+                    PrcDt:
+                      type: string
+                  additionalProperties: false
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                  description: Backend system reference number
+                CIF:
+                  type: string
+                  description: Customer Information File number
+                ChnlId:
+                  type: string
+                  description: Channel from which the request originated
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                  description: Frontend system reference number
+                FunctnId:
+                  type: string
+                  description: Identifier of the business function being invoked
+                Lang:
+                  type: string
+                  description: Request language code
+                MsgFrmt:
+                  type: string
+                  description: Message payload format (JSON or XML)
+                Rqstr_Info1:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info2:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info3:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info4:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info5:
+                  type: string
+                  description: Additional requester-provided metadata field
+                RvrslOptn:
+                  type: string
+                  description: Indicates whether the transaction can be reversed
+                UsrDfn:
+                  type: string
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    SADADSettlementSRACustomerResultReplyResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/SADADSettlementSRACustomerResultReplyResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    SADADSettlementSRACustomerResultReplyResponseData:
+      description: Response data payload - customize per operation
+      type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: SADAD Settlement SRA Customer Result Reply
+  version: 1.0.0
+  x-ibm-name: sadad-settlement-sra-customer-result-reply
+openapi: 3.0.0
+paths:
+  /sadad-settlement-sra-customer-result-reply:
+    post:
+      operationId: SADADSettlementSRACustomerResultReply
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SADADSettlementSRACustomerResultReplyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SADADSettlementSRACustomerResultReplyResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - SADADSettlementSRACustomerResultReply
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementSraCustResultReply
+  testable: true
+  type: rest

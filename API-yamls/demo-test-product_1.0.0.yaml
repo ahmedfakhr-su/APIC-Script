@@ -1,0 +1,118 @@
+product: 1.0.0
+info:
+  name: demo-test-product
+  title: demo-test-product
+  version: 1.0.0
+
+apis:
+  get-dr-cards-list:
+    $ref: get-dr-cards-list_1.0.0.yaml
+  iso-xml-transformer:
+    $ref: iso-xml-transformer_1.0.0.yaml
+  manage-digital-loan:
+    $ref: manage-digital-loan_1.0.0.yaml
+  purchase-product:
+    $ref: purchase-product_1.0.0.yaml
+  sadad-cutoff-bank-serial:
+    $ref: sadad-cutoff-bank-serial_1.0.0.yaml
+  sadad-cutoff-bank-split:
+    $ref: sadad-cutoff-bank-split_1.0.0.yaml
+  sadad-cutoff:
+    $ref: sadad-cutoff_1.0.0.yaml
+  sadad-reconciliation:
+    $ref: sadad-reconciliation_1.0.0.yaml
+  sadad-refund-cutoff:
+    $ref: sadad-refund-cutoff_1.0.0.yaml
+  sadad-refund-reconciliation:
+    $ref: sadad-refund-reconciliation_1.0.0.yaml
+  sadad-settlement:
+    $ref: sadad-settlement_1.0.0.yaml
+  sadad-settlement-request:
+    $ref: sadad-settlement-request_1.0.0.yaml
+  sadad-settlement-sba-sra-request:
+    $ref: sadad-settlement-sba-sra-request_1.0.0.yaml
+  sadad-settlement-sba-sra-result-reply:
+    $ref: sadad-settlement-sba-sra-result-reply_1.0.0.yaml
+  sadad-settlement-sra-customer-request:
+    $ref: sadad-settlement-sra-customer-request_1.0.0.yaml
+  sadad-settlement-sra-customer-result-reply:
+    $ref: sadad-settlement-sra-customer-result-reply_1.0.0.yaml
+  update-charge-card-info:
+    $ref: update-charge-card-info_1.0.0.yaml
+  authenticate-user-mock-authenticate:
+    $ref: authenticate-user-mock-authenticate_1.0.0.yaml
+  atm-get-mini-statement:
+    $ref: atm-get-mini-statement_1.0.0.yaml
+  authenticate-tokens:
+    $ref: authenticate-tokens_1.0.0.yaml
+  authenticate-user-mock-change-password:
+    $ref: authenticate-user-mock-change-password_1.0.0.yaml
+  authenticate-user:
+    $ref: authenticate-user_1.0.0.yaml
+  check-authorization-rules:
+    $ref: check-authorization-rules_1.0.0.yaml
+  check-anti-fraud-rules:
+    $ref: check-anti-fraud-rules_1.0.0.yaml
+  eb-get-beneficiary-list:
+    $ref: eb-get-beneficiary-list_1.0.0.yaml
+  get-beneficiary-details:
+    $ref: get-beneficiary-details_1.0.0.yaml
+  get-available-commodity:
+    $ref: get-available-commodity_1.0.0.yaml
+  get-commodity-order-status:
+    $ref: get-commodity-order-status_1.0.0.yaml
+  get-customer-refunds:
+    $ref: get-customer-refunds_1.0.0.yaml
+  get-ips-proxy-list:
+    $ref: get-ips-proxy-list_1.0.0.yaml
+  get-lov:
+    $ref: get-lov_1.0.0.yaml
+  get-western-union-fees:
+    $ref: get-western-union-fees_1.0.0.yaml
+  get-yakeen-info:
+    $ref: get-yakeen-info_1.0.0.yaml
+  manage-digital-document:
+    $ref: manage-digital-document_1.0.0.yaml
+  verify-manage-digital-document:
+    $ref: verify-manage-digital-document_1.0.0.yaml
+  manage-ld:
+    $ref: manage-ld_1.0.0.yaml
+  manage-natheer-watchlist:
+    $ref: manage-natheer-watchlist_1.0.0.yaml
+  manage-registered-bills:
+    $ref: manage-registered-bills_1.0.0.yaml
+  manage-wakala-deals:
+    $ref: manage-wakala-deals_1.0.0.yaml
+  merge-customer-registered-bills:
+    $ref: merge-customer-registered-bills_1.0.0.yaml
+  manage-customer-limits:
+    $ref: manage-customer-limits_1.0.0.yaml
+  manage-ssr-end-of-day-process:
+    $ref: manage-ssr-end-of-day-process_1.0.0.yaml
+  request-card:
+    $ref: request-card_1.0.0.yaml
+  send-instant-notification:
+    $ref: send-instant-notification_1.0.0.yaml
+  transfast-create-transaction:
+    $ref: transfast-create-transaction_1.0.0.yaml
+  update-customer-info:
+    $ref: update-customer-info_1.0.0.yaml
+  western-union-send-money-store:
+    $ref: western-union-send-money-store_1.0.0.yaml
+  western-union-send-money-validation:
+    $ref: western-union-send-money-validation_1.0.0.yaml
+
+visibility:
+  view:
+    type: public
+  subscribe:
+    type: authenticated
+
+plans:
+  default-plan:
+    title: Default Plan
+    description: Default consumption plan
+    approval: false
+    rate-limits:
+      default:
+        value: 100/1hour

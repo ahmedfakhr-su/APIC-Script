@@ -1,0 +1,288 @@
+components:
+  schemas:
+    GetAvailableCommodityRequest:
+      type: object
+      properties:
+        EAIMessage:
+          type: object
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              type: object
+              description: Business request payload specific to the service operation
+              properties:
+                Amnt:
+                  type: string
+                Crncy:
+                  type: string
+                Sgmnt:
+                  type: string
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                CIF:
+                  type: string
+                  description: Customer Information File number
+                ChnlId:
+                  type: string
+                  description: Channel from which the request originated
+                FE_Ref_No:
+                  type: string
+                  description: Frontend system reference number
+                FunctnId:
+                  type: string
+                  description: Identifier of the business function being invoked
+                Lang:
+                  type: string
+                  description: Request language code
+                MsgFrmt:
+                  type: string
+                  description: Message payload format (JSON or XML)
+                Rqstr_Info1:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info10:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info11:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info12:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info13:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info15:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info16:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info2:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info3:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info4:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info5:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info6:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info7:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info8:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info9:
+                  type: string
+                  description: Additional requester-provided metadata field
+                RvrslOptn:
+                  type: string
+                  description: Indicates whether the transaction can be reversed
+                Tmstmp:
+                  type: string
+                  description: Request timestamp in ISO 8601 format
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    GetAvailableCommodityRequestData:
+      properties:
+        amount:
+          type: string
+        chargeTypeId:
+          type: string
+        cmsReplacementNumber:
+          type: string
+        creditAccount:
+          type: string
+        debitAccount:
+          type: string
+        subFunctionId:
+          type: string
+        t24Application:
+          type: string
+        userDefined1:
+          type: string
+        userDefined2:
+          type: string
+        userDefined3:
+          type: string
+        userDefined4:
+          type: string
+      type: object
+    GetAvailableCommodityResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetAvailableCommodityResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    GetAvailableCommodityResponseData:
+      properties:
+        chargeAmount:
+          type: string
+        chargeTotalAmount:
+          type: string
+        chargeVatAmount:
+          type: string
+        chargeVatPercentage:
+          type: string
+        userDefined1:
+          type: string
+        userDefined2:
+          type: string
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            type: string
+          info:
+            type: string
+        type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Get Available Commodity
+  version: 1.0.0
+  x-ibm-name: get-available-commodity
+openapi: 3.0.0
+paths:
+  /get-available-commodity:
+    post:
+      operationId: GetAvailableCommodity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAvailableCommodityRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAvailableCommodityResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - GetAvailableCommodity
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity
+  testable: true
+  type: rest
