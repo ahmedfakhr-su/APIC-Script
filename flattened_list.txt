@@ -33,9 +33,9 @@ Get Billers List | http://get-billers-list-http-bab-sit-cp4i.apps.babsitaro.albt
 Charge Card CA Transfer | http://charge-card-ca-transfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardCATransfer | schemas/charge-card-ca-transfer.json
 Charge Card Payment | http://charge-card-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardPayment | schemas/charge-card-payment.json
 Charge Card Update Limit | http://charge-card-update-limit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardUpdateLimit | schemas/charge-card-update-limit.json
-Get Card Bin Product List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCardBinProductList | schemas/card-services.json
-Get Charge Card List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList | schemas/card-services.json
-Get Charge Card Transaction List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardTransactionList | schemas/card-services.json
+Get Card Bin Product List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCardBinProductList | schemas/get-card-bin-product-list.json
+Get Charge Card List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList | schemas/get-charge-card-list.json
+Get Charge Card Transaction List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardTransactionList | schemas/get-charge-card-transaction-list.json
 Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
 Instant Card Issuance | http://instant-card-issuance-http-bab-sit-cp4i.apps.babsitaro.albtests.com/InstantCardIssuance | schemas/instant-card-issuance.json
 Pin Assignment | http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignment | schemas/pin-assignment.json
@@ -72,7 +72,7 @@ Manage Standing Order | http://manage-standing-order-http-bab-sit-cp4i.apps.babs
 Remittance Calculator | http://remittance-calculator-http-bab-sit-cp4i.apps.babsitaro.albtests.com/remittance-calculator | schemas/remittance-calculator.json
 AML Lock Sanction Inquiry | http://aml-lock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AMLLock_Snctn_Inqry | schemas/aml-lock.json
 Check Anti Fraud Rules | http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules | schemas/check-anti-fraud-rules.json
-Get CIF Legal ID | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCIFLegalID | schemas/card-services.json
+Get CIF Legal ID | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCIFLegalID | schemas/get-cif-legal-id.json
 Get Digital Document Request List | http://get-digi-document-request-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetDigiDocmntRqstList | schemas/get-digi-document-request-list.json
 Get Outbound Status | http://get-outbound-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOutboundStatus | schemas/get-outbound-status.json
 Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument | schemas/manage-digital-document.json
