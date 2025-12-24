@@ -13,20 +13,16 @@
           "additionalProperties": false,
           "properties": {
             "CIF": {
-              "type": "string",
-              "description": "Customer Information File number"
+              "type": "string"
             },
             "Lang": {
-              "type": "string",
-              "description": "Request language code"
+              "type": "string"
             },
             "ChnlId": {
-              "type": "string",
-              "description": "Channel from which the request originated"
+              "type": "string"
             },
             "FunctnId": {
-              "type": "string",
-              "description": "Identifier of the business function being invoked"
+              "type": "string"
             },
             "Rqstr_Info1": {
               "type": "string",
@@ -45,6 +41,64 @@
               "description": "Additional requester-provided metadata field"
             },
             "EAIRtrnCd": {
+              "type": "string"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
               "type": "string"
             }
           }
@@ -71,6 +125,9 @@
                   }
                 }
               }
+            },
+            "Acct_No": {
+              "type": "string"
             }
           }
         }

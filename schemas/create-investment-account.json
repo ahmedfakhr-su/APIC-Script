@@ -1,0 +1,159 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "InvestorAccountReq": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Header": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "TimeStamp": {
+              "type": "string"
+            },
+            "FragmentID": {
+              "type": "string"
+            },
+            "IsLast": {
+              "type": "string"
+            },
+            "ReturnCode": {
+              "type": "string"
+            }
+          }
+        },
+        "CustomerDetail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "CIF": {
+              "type": "string"
+            },
+            "IdNumber": {
+              "type": "string"
+            },
+            "IdType": {
+              "type": "string"
+            },
+            "FamilyNameEN": {
+              "type": "string"
+            },
+            "FirstNameEN": {
+              "type": "string"
+            },
+            "SecondNameEN": {
+              "type": "string"
+            },
+            "FamilyNameAR": {
+              "type": "string"
+            },
+            "FirstNameAR": {
+              "type": "string"
+            },
+            "SecondNameAR": {
+              "type": "string"
+            },
+            "PoBox": {
+              "type": "string"
+            },
+            "ZIP": {
+              "type": "string"
+            },
+            "StreetName": {
+              "type": "string"
+            },
+            "Country": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "Nationality": {
+              "type": "string"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "Occupation": {
+              "type": "string"
+            },
+            "CashAccounts": {
+              "type": "string"
+            },
+            "CustomerGroup": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "DOBGregorian": {
+              "type": "string"
+            },
+            "DOBHijri": {
+              "type": "string"
+            },
+            "Gender": {
+              "type": "string"
+            },
+            "MaritalStatus": {
+              "type": "string"
+            },
+            "ExternalReference": {
+              "type": "string"
+            },
+            "PreferedLanguage": {
+              "type": "string"
+            },
+            "ExpiryDate": {
+              "type": "string"
+            },
+            "ExpiryDateHijri": {
+              "type": "string"
+            },
+            "RelationshipManager": {
+              "type": "string"
+            },
+            "ArabicCity": {
+              "type": "string"
+            },
+            "WASELBuildingNo": {
+              "type": "string"
+            },
+            "WASELZipCode": {
+              "type": "string"
+            },
+            "WASELAdditionalCode": {
+              "type": "string"
+            },
+            "WASELUnitNo": {
+              "type": "string"
+            },
+            "WASELDistrict": {
+              "type": "string"
+            },
+            "MailAddressType": {
+              "type": "string"
+            },
+            "District": {
+              "type": "string"
+            },
+            "BuildingNo": {
+              "type": "string"
+            },
+            "Sector": {
+              "type": "string"
+            },
+            "Segment": {
+              "type": "string"
+            }
+          }
+        },
+        "TransactionID": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

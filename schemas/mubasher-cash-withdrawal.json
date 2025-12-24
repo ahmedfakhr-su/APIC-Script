@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "MsgRoot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Header": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "FragmentID": {
+              "type": "string"
+            },
+            "IsLast": {
+              "type": "string"
+            },
+            "ReturnCode": {
+              "type": "string"
+            },
+            "TimeStamp": {
+              "type": "string"
+            }
+          }
+        },
+        "TransactionData": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "BeneficiaryAccount": {
+              "type": "string"
+            },
+            "BeneficiaryBIC": {
+              "type": "string"
+            },
+            "CreditAmount": {
+              "type": "string"
+            },
+            "CreditCurrency": {
+              "type": "string"
+            },
+            "CreditValueDate": {
+              "type": "string"
+            },
+            "DebitAmount": {
+              "type": "string"
+            },
+            "DebitCurrency": {
+              "type": "string"
+            },
+            "DebitValueDate": {
+              "type": "string"
+            },
+            "Narration": {
+              "type": "string"
+            },
+            "OmnibusBIC": {
+              "type": "string"
+            },
+            "OmnibusAccountID": {
+              "type": "string"
+            },
+            "OmnibusCustomerDetails": {
+              "type": "string"
+            },
+            "TransactionID": {
+              "type": "string"
+            },
+            "TxnType": {
+              "type": "string"
+            },
+            "VirtualAccNo": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

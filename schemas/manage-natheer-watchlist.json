@@ -13,32 +13,28 @@
           "additionalProperties": false,
           "properties": {
             "MsgFrmt": {
-              "type": "string",
-              "description": "Message payload format (JSON or XML)"
+              "type": "string"
             },
             "Lang": {
-              "type": "string",
-              "description": "Request language code"
+              "type": "string"
             },
             "ChnlId": {
-              "type": "string",
-              "description": "Channel from which the request originated"
+              "type": "string"
             },
             "FunctnId": {
-              "type": "string",
-              "description": "Identifier of the business function being invoked"
+              "type": "string"
             },
             "FE_Ref_No": {
-              "type": "string",
-              "description": "Frontend system reference number"
+              "type": "string"
             },
             "Tmstmp": {
-              "type": "string",
-              "description": "Request timestamp in ISO 8601 format"
+              "type": "string"
             },
             "CIF": {
-              "type": "string",
-              "description": "Customer Information File number"
+              "type": "string"
+            },
+            "Sgmnt": {
+              "type": "string"
             },
             "Rqstr_Info4": {
               "type": "string",
@@ -65,8 +61,7 @@
               "description": "Additional requester-provided metadata field"
             },
             "RvrslOptn": {
-              "type": "string",
-              "description": "Indicates whether the transaction can be reversed"
+              "type": "string"
             }
           }
         },
@@ -98,9 +93,6 @@
                   }
                 }
               }
-            },
-            "Sgmnt": {
-              "type": "string"
             },
             "Card_No": {
               "type": "string"

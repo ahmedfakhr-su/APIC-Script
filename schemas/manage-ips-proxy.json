@@ -1,0 +1,161 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Tmstmp": {
+              "type": "string"
+            },
+            "Rqsts_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Rqst_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Acct_Nm": {
+                      "type": "string"
+                    },
+                    "Acct_Tp": {
+                      "type": "string"
+                    },
+                    "Acct_Vl": {
+                      "type": "string"
+                    },
+                    "Bsnss_Nm": {
+                      "type": "string"
+                    },
+                    "Bsnss_Rgstrtn_Dt": {
+                      "type": "string"
+                    },
+                    "Dsply_Nm_En": {
+                      "type": "string"
+                    },
+                    "Dsply_Nm_Ar": {
+                      "type": "string"
+                    },
+                    "Prxy_Tp": {
+                      "type": "string"
+                    },
+                    "Prxy_Vl": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

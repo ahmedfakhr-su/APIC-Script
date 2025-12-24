@@ -69,45 +69,54 @@
               "description": "Additional requester-provided metadata field"
             },
             "MsgFrmt": {
-              "type": "string",
-              "description": "Message payload format (JSON or XML)"
+              "type": "string"
             },
             "ChnlId": {
-              "type": "string",
-              "description": "Channel from which the request originated"
+              "type": "string"
             },
             "FunctnId": {
-              "type": "string",
-              "description": "Identifier of the business function being invoked"
+              "type": "string"
             },
             "CIF": {
-              "type": "string",
-              "description": "Customer Information File number"
+              "type": "string"
             },
             "Lang": {
-              "type": "string",
-              "description": "Request language code"
+              "type": "string"
             },
             "EAIRtrnCd": {
               "type": "string"
             },
             "RvrslOptn": {
-              "type": "string",
-              "description": "Indicates whether the transaction can be reversed"
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
             },
             "FE_Ref_No": {
-              "type": "string",
-              "description": "Frontend system reference number"
+              "type": "string"
             },
             "BE_Ref_No": {
-              "type": "string",
-              "description": "Backend system reference number"
+              "type": "string"
             },
             "Tmstmp": {
-              "type": "string",
-              "description": "Request timestamp in ISO 8601 format"
+              "type": "string"
+            },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "Ovrrd_Clss": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
             },
             "UsrDfn": {
+              "type": "string"
+            },
+            "Mrchnt_Ctgry_Cd": {
+              "type": "string"
+            },
+            "Sgmnt": {
               "type": "string"
             }
           }
@@ -117,9 +126,6 @@
           "description": "Business request payload specific to the service operation",
           "additionalProperties": false,
           "properties": {
-            "OrgnlMsgId": {
-              "type": "string"
-            },
             "CMS_Rplcmnt_No": {
               "type": "string"
             },
@@ -132,22 +138,7 @@
             "CMS_Acct_No": {
               "type": "string"
             },
-            "Trx_Md": {
-              "type": "string"
-            },
-            "Ovrrd_Clss": {
-              "type": "string"
-            },
-            "Orgnl_Data_Val": {
-              "type": "string"
-            },
-            "Mrchnt_Ctgry_Cd": {
-              "type": "string"
-            },
             "T24_Ref_No": {
-              "type": "string"
-            },
-            "Sgmnt": {
               "type": "string"
             },
             "New_Lmt": {

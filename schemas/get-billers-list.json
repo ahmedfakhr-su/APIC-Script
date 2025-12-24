@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "Rqstr_Info1": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info2": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info3": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info4": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info5": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info6": {
+              "type": ["string", "null"],
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": ["string", "null"],
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info12": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info13": {
+              "type": "string"
+            },
+            "Rqstr_Info14": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info15": {
+              "type": ["string", "null"]
+            },
+            "Rqstr_Info16": {
+              "type": ["string", "null"]
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": ["string", "null"]
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "EAIRtrnCd": {
+              "type": ["string", "null"]
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": ["string", "null"]
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": ["string", "null"]
+            },
+            "Tmstmp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Tmstmp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "Biller_Stts": {
+              "type": "string"
+            },
+            "IncBillerDtl": {
+              "type": "string"
+            },
+            "Biller_Category": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

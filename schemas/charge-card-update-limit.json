@@ -13,24 +13,22 @@
           "additionalProperties": false,
           "properties": {
             "MsgFrmt": {
-              "type": "string",
-              "description": "Message payload format (JSON or XML)"
+              "type": "string"
             },
             "FE_Ref_No": {
-              "type": "string",
-              "description": "Frontend system reference number"
+              "type": "string"
             },
             "FunctnId": {
-              "type": "string",
-              "description": "Identifier of the business function being invoked"
+              "type": "string"
             },
             "Lang": {
-              "type": "string",
-              "description": "Request language code"
+              "type": "string"
             },
             "ChnlId": {
-              "type": "string",
-              "description": "Channel from which the request originated"
+              "type": "string"
+            },
+            "TmStmp": {
+              "type": "string"
             },
             "Rqstr_Info1": {
               "type": "string",
@@ -51,13 +49,17 @@
             "UsrDfn": {
               "type": "string"
             },
+            "Trx_Md": {
+              "type": "string"
+            },
             "RvrslOptn": {
-              "type": "string",
-              "description": "Indicates whether the transaction can be reversed"
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
             },
             "CIF": {
-              "type": "string",
-              "description": "Customer Information File number"
+              "type": "string"
             },
             "Rqstr_Info3": {
               "type": "string",
@@ -102,9 +104,17 @@
             "EAIRtrnCd": {
               "type": "string"
             },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
             "BE_Ref_No": {
-              "type": "string",
-              "description": "Backend system reference number"
+              "type": "string"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "EAIRtrnCdDesc": {
+              "type": "string"
             }
           }
         },
@@ -113,25 +123,19 @@
           "description": "Business request payload specific to the service operation",
           "additionalProperties": false,
           "properties": {
-            "TmStmp": {
-              "type": "string"
-            },
-            "Trx_Md": {
-              "type": "string"
-            },
-            "Orgnl_Data_Val": {
-              "type": "string"
-            },
             "Mobl_No": {
               "type": "string"
             },
             "Vrfd_Mbl_No": {
               "type": "string"
             },
-            "OrgnlMsgId": {
+            "Email": {
               "type": "string"
             },
-            "Email": {
+            "lang": {
+              "type": "string"
+            },
+            "Tmstmp": {
               "type": "string"
             },
             "outputType": {
@@ -370,6 +374,14 @@
               "type": "string",
               "description": "Channel from which the request originated"
             },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
             "Mnthly_Incm": {
               "type": "string"
             },
@@ -426,9 +438,6 @@
                   "type": "string"
                 }
               }
-            },
-            "EAIRtrnCdDesc": {
-              "type": "string"
             }
           }
         }

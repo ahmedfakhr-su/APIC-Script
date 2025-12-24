@@ -13,16 +13,16 @@
           "additionalProperties": false,
           "properties": {
             "MsgFrmt": {
-              "type": "string",
-              "description": "Message payload format (JSON or XML)"
+              "type": "string"
             },
             "CIF": {
-              "type": "string",
-              "description": "Customer Information File number"
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
             },
             "ChnlId": {
-              "type": "string",
-              "description": "Channel from which the request originated"
+              "type": "string"
             },
             "Rqstr_Info1": {
               "type": "string",
@@ -44,28 +44,38 @@
               "type": "string",
               "description": "Additional requester-provided metadata field"
             },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "Ovrrd_Clss": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
             "FunctnId": {
-              "type": "string",
-              "description": "Identifier of the business function being invoked"
+              "type": "string"
             },
             "RvrslOptn": {
-              "type": "string",
-              "description": "Indicates whether the transaction can be reversed"
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
             },
             "FE_Ref_No": {
-              "type": "string",
-              "description": "Frontend system reference number"
+              "type": "string"
             },
             "EAIRtrnCd": {
               "type": "string"
             },
             "BE_Ref_No": {
-              "type": "string",
-              "description": "Backend system reference number"
+              "type": "string"
             },
             "Tmstmp": {
-              "type": "string",
-              "description": "Request timestamp in ISO 8601 format"
+              "type": "string"
+            },
+            "Mrchnt_Ctgry_Cd": {
+              "type": "string"
             }
           }
         },
@@ -77,19 +87,7 @@
             "lang": {
               "type": "string"
             },
-            "Trx_Md": {
-              "type": "string"
-            },
-            "Ovrrd_Clss": {
-              "type": "string"
-            },
-            "Orgnl_Data_Val": {
-              "type": "string"
-            },
-            "OrgnlMsgId": {
-              "type": "string"
-            },
-            "Mrchnt_Ctgry_Cd": {
+            "Tmstmp": {
               "type": "string"
             },
             "Brdr_No": {

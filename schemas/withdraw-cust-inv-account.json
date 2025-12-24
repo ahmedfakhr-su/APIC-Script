@@ -1,0 +1,100 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Msg_Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Vrtul_Acct_No": {
+              "type": "string"
+            },
+            "CR_Amt": {
+              "type": "string"
+            },
+            "Bnfcry_Acct_No": {
+              "type": "string"
+            },
+            "DR_Cry": {
+              "type": "string"
+            },
+            "CR_Cry": {
+              "type": "string"
+            },
+            "DR_Vlu_Dt": {
+              "type": "string"
+            },
+            "Omni_Bus_Acct_Id": {
+              "type": "string"
+            }
+          }
+        },
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "TmStmp": {
+              "type": "string"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "UsrDfn": {
+              "type": "string"
+            },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -135,7 +135,6 @@ Cash Deposit | http://cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com
 Cash Withdrawal And POS | http://cashwdandpos-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashWithdrawalAndPOS | schemas/cashwdandpos.json
 GL Account Notification | http://gl-account-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLAccountNotification | schemas/gl-account-notification.json
 Keycloak Auth | http://keycloak-bab-sit-cp4i.apps.babsitaro.albtests.com/auth | schemas/keycloak.json
-Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification-soap.json
 Tanfeeth Manage Attachment | http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/TanfeethManageAttachment | schemas/tanfeeth-manage-attachment.json
 Tanfeeth Manage Attachment SOAP | http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ | schemas/tanfeeth-manage-attachment.json
 Western Union Multi CSC | http://western-union-multi-csc-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionMultiCSC | schemas/western-union-multi-csc.json
@@ -165,4 +164,4 @@ Tanfeeth Inquiry FIDeductionInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps
 Tanfeeth Inquiry FIGetAcctsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetAcctsInfo | schemas/tanfeeth-inquiry-soap.json
 Tanfeeth Inquiry FIUpdateCRInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateCRInfo | schemas/tanfeeth-inquiry-soap.json
 Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service | schemas/send-instant-notification-soap.json
-
+Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification-soap.json

@@ -2,43 +2,24 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "EAIMessage": {
+    "ISOXML": {
       "type": "object",
-      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
       "additionalProperties": false,
       "properties": {
-        "EAIHeader": {
-          "type": "object",
-          "description": "Technical and routing metadata required for request processing and tracking",
-          "additionalProperties": false
+        "MTI": {
+          "type": "string"
         },
-        "Body": {
-          "type": "object",
-          "description": "Business request payload specific to the service operation",
-          "additionalProperties": false,
-          "properties": {
-            "ISOXML": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "MTI": {
-                  "type": "string"
-                },
-                "DE007": {
-                  "type": "string"
-                },
-                "DE011": {
-                  "type": "string"
-                },
-                "DE032": {
-                  "type": "string"
-                },
-                "DE070": {
-                  "type": "string"
-                }
-              }
-            }
-          }
+        "DE007": {
+          "type": "string"
+        },
+        "DE011": {
+          "type": "string"
+        },
+        "DE032": {
+          "type": "string"
+        },
+        "DE070": {
+          "type": "string"
         }
       }
     }

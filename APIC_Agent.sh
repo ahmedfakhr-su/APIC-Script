@@ -28,8 +28,11 @@ APIC_SERVER="${APIC_SERVER:-https://apic-sit-mgmt-api-manager-bab-sit-cp4i.apps.
 mkdir -p "$OutputDirectory"
 
 # Tracking variables
+
 SUCCESS_COUNT=0
 FAILURE_COUNT=0
+CREATED_COUNT=0
+UPDATED_COUNT=0
 
 # ------------------------------
 # Functions
@@ -523,6 +526,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
             "$OUTPUT_FILE"; then
             echo "  ✓ Draft API created successfully"
             SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+            CREATED_COUNT=$((CREATED_COUNT + 1))
         else
             echo "  ✗ Failed to create draft API in API Connect" >&2
             FAILURE_COUNT=$((FAILURE_COUNT + 1))
@@ -575,6 +579,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
             "$UPDATED_API_FILE"; then
             echo "  ✓ Draft API updated successfully"
             SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+            UPDATED_COUNT=$((UPDATED_COUNT + 1))
             # Copy updated file to output directory for reference
             cp "$UPDATED_API_FILE" "$OUTPUT_FILE"
         else
@@ -595,10 +600,12 @@ exec 3<&-
 
 echo ""
 echo "========================================"
-if [[ $FAILURE_COUNT -eq 0 ]]; then
-    echo "✓ All services processed successfully"
-else
-    echo "⚠ Completed with $SUCCESS_COUNT successes and $FAILURE_COUNT failures"
+echo "API Processing Summary:"
+echo "  ✓ Created: $CREATED_COUNT"
+echo "  ✓ Updated: $UPDATED_COUNT"
+echo "  ✓ Total Success: $SUCCESS_COUNT"
+if [[ $FAILURE_COUNT -gt 0 ]]; then
+    echo "  ✗ Failed: $FAILURE_COUNT"
 fi
 echo "========================================"
 
@@ -888,10 +895,20 @@ echo ""
 echo "========================================"
 echo "✓ COMPLETE: All operations finished successfully"
 echo "========================================"
-echo "  APIs created/updated: ${#API_REFS[@]}"
-echo "  Product: $PRODUCT_NAME v$PRODUCT_VERSION"
+echo ""
+echo "API Statistics:"
+echo "  - APIs Created: $CREATED_COUNT"
+echo "  - APIs Updated: $UPDATED_COUNT"
+echo "  - Total Processed: $SUCCESS_COUNT"
+if [[ $FAILURE_COUNT -gt 0 ]]; then
+    echo "  - Failed: $FAILURE_COUNT"
+fi
+echo ""
+echo "Product:"
+echo "  - Name: $PRODUCT_NAME v$PRODUCT_VERSION"
+echo "  - Total APIs in Product: ${#API_REFS[@]}"
 if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
-    echo "  Published to catalog: $CATALOG_NAME"
+    echo "  - Published to catalog: $CATALOG_NAME"
 fi
 echo "========================================"
 

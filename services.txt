@@ -1,48 +1,138 @@
-ATM Get Mini Statement | http://atm-get-mini-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ATMGetMiniStatement | schemas/atm-get-mini-statement.json
-Authenticate Tokens | http://authenticate-tokens-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AuthenticateTokens | schemas/authenticate-tokens.json
 Authenticate User Mock Authenticate | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | schemas/authenticate-user.json
 Authenticate User Mock Change Password | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd | schemas/authenticate-user.json
-Authenticate User | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authenticate/user | schemas/authenticate-user.json
-Check Authorization Rules | http://check-authorization-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authorization/rules | schemas/check-authorization-rules.json
-Check Anti Fraud Rules | http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules | schemas/check-anti-fraud-rules.json
-EB Get Beneficiary List | http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList | schemas/eb-get-beneficiary-list.json
-Get Beneficiary Details | http://get-beneficiary-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBeneficiaryDetails | schemas/get-beneficiary-details.json
-ISO XML Transformer | http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer | schemas/iso-xml-transformer.json
-Get Available Commodity | http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity | schemas/get-available-commodity.json
-Get Commodity Order Status | http://get-commodity-order-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCommodityOrderStatus | schemas/get-commodity-order-status.json
-Get Customer Refunds | http://get-customer-refunds-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getcustomerrefunds | schemas/get-customer-refunds.json
-Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
-Get IPS Proxy List | http://get-ips-proxy-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-ips-proxy-list | schemas/get-ips-proxy-list.json
-Get LOV | http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | schemas/get-lov.json
-Get Western Union Fees | http://get-western-union-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWestrenUnionFees | schemas/get-western-union-fees.json
-Get Yakeen Info | http://get-yakeen-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetYakeenInfo | schemas/get-yakeen-info.json
-Manage Digital Loan | http://manage-digi-loan-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngDgLn | schemas/manage-digi-loan.json
-Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument | schemas/manage-digital-document.json
-Verify Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument | schemas/manage-digital-document.json
-Manage LD | http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD | schemas/manage-ld.json
-Manage Natheer Watchlist | http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist | schemas/manage-natheer-watchlist.json
-Manage Registered Bills | http://manage-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageRegisteredBills | schemas/manage-registered-bills.json
-Manage Wakala Deals | http://manage-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | schemas/manage-wakala-deals.json
-Merge Customer Registered Bills | http://merge-customer-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MergeCustRgstrdBillsReq | schemas/merge-customer-registered-bills.json
-Manage Customer Limits | http://mng-cust-limits-http-bab-sit-cp4i.apps.babsitaro.albtests.com/mng-cust-limits | schemas/mng-cust-limits.json
-Manage SSR End Of Day Process | http://mng-ssr-eod-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageSSREndOfDayProcess | schemas/mng-ssr-eod-process.json
-Purchase Product | http://purchase-product-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PurchaseProduct | schemas/purchase-product.json
-Request Card | http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard | schemas/request-card.json
+Get Account Transactions List | http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList | schemas/get-account-transactions-list.json
+Get Customer Accounts List | http://get-cust-accts-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-accts-list | schemas/get-cust-accts-list.json
+Manage Customer Account Request | http://manage-customer-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageCustomerAccountRequest | schemas/manage-customer-account.json
+Manage Customer Account TTP Reply | http://manage-customer-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageCustomerAccountTTPReply | schemas/manage-customer-account.json
 SADAD Settlement | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement | schemas/sadad-settlement-process.json
 SADAD Settlement Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementRequest | schemas/sadad-settlement-process.json
 SADAD Settlement SBA SRA Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SBASRARequest | schemas/sadad-settlement-process.json
 SADAD Settlement SBA SRA Result Reply | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sadad/settlement/sba-sra-result-reply | schemas/sadad-settlement-process.json
 SADAD Settlement SRA Customer Request | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SRACustRequest | schemas/sadad-settlement-process.json
 SADAD Settlement SRA Customer Result Reply | http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementSraCustResultReply | schemas/sadad-settlement-process.json
+ISO XML Transformer | http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer | schemas/iso-xml-transformer.json
+Authenticate Tokens | http://authenticate-tokens-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AuthenticateTokens | schemas/authenticate-tokens.json
+Authenticate User | http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authenticate/user | schemas/authenticate-user.json
+Check Authorization Rules | http://check-authorization-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authorization/rules | schemas/check-authorization-rules.json
+EB Get Beneficiary List | http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList | schemas/eb-get-beneficiary-list.json
+Get Beneficiary Details | http://get-beneficiary-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBeneficiaryDetails | schemas/get-beneficiary-details.json
+Get Customer Dependents | http://get-customer-dependents-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDependents | schemas/get-customer-dependents.json
+Manage Beneficiary | http://manage-beneficiary-http-bab-sit-cp4i.apps.babsitaro.albtests.com/managebeneficiary | schemas/manage-beneficiary.json
+BIB Account Summary Details | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/accountsummarydetails | schemas/account-summary-details.json
+BIB Average Balance | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/averagebalance | schemas/average-balance.json
+BIB Total Assets And Liabilities | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/totalassetsandliabilities | schemas/total-assets-and-liabilities.json
+Get Billers List | http://get-billers-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | schemas/get-billers-list.json
+Charge Card Payment | http://charge-card-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardPayment | schemas/charge-card-payment.json
+Charge Card Update Limit | http://charge-card-update-limit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardUpdateLimit | schemas/charge-card-update-limit.json
+Charge Card CA Transfer | http://charge-card-ca-transfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardCATransfer | schemas/charge-card-ca-transfer.json
+Get Card Bin Product List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCardBinProductList | schemas/get-card-bin-product-list.json
+Get Charge Card List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList | schemas/get-charge-card-list.json
+Get Charge Card Transaction List | http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardTransactionList | schemas/get-charge-card-transaction-list.json
+Get DR Cards List | http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | schemas/get-dr-cards-list.json
+Instant Card Issuance | http://instant-card-issuance-http-bab-sit-cp4i.apps.babsitaro.albtests.com/InstantCardIssuance | schemas/instant-card-issuance.json
+Pin Assignment | http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignment | schemas/pin-assignment.json
+Request Card | http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard | schemas/request-card.json
+Update Card Status | http://update-card-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardStatus | schemas/update-card-status.json
+Update Charge Card Info | http://update-charge-card-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateChargeCardInfo | schemas/update-charge-card-info.json
+Get Available Commodity | http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity | schemas/get-available-commodity.json
+Get Initial Offer | http://get-initial-offer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getinitialoffer | schemas/get-initial-offer.json
+Manage LD | http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD | schemas/manage-ld.json
+Corporate Banking User Authentication | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/user-authentication | schemas/manage-ldap-user.json
+Corporate Banking Change Password | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/change-password | schemas/manage-ldap-user.json
+Corporate Banking Enable User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/enable-user | schemas/manage-ldap-user.json
+Corporate Banking Disable User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/disable-user | schemas/manage-ldap-user.json
+Corporate Banking Register User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/register-user | schemas/manage-ldap-user.json
+Corporate Banking Delete User | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/delete-user | schemas/manage-ldap-user.json
+Corporate Banking Reset Password | http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/reset-password | schemas/manage-ldap-user.json
+Get LOV | http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | schemas/get-lov.json
+Get Customer Details | http://get-cust-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDetails | schemas/get-cust-details.json
+Get Customer Loan Deposit List | http://get-customer-loan-deposit-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerLoanDepositList | schemas/get-customer-loan-deposit-list.json
+Get Wakala Deals | http://get-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWakalaDeals | schemas/get-wakala-deals.json
+Manage Wakala Deals | http://manage-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | schemas/manage-wakala-deals.json
+Get Customer Transaction List | http://get-cust-trsctn-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-trnsctn-req | schemas/get-cust-trsctn-list.json
+Manage Customer Limits | http://mng-cust-limits-http-bab-sit-cp4i.apps.babsitaro.albtests.com/mng-cust-limits | schemas/mng-cust-limits.json
+Update Customer Info | http://update-customer-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/update-custumer-info | schemas/update-customer-info.json
+Get Service Fees | http://get-service-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Get_Service_Fees | schemas/get-service-fees.json
+EB Get Exchange Rate | http://eb-get-exchange-rate-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EBGetExchangeRate | schemas/eb-get-exchange-rate.json
+Electronic Banking Fund Transfer | http://electronic-banking-fundtransfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ElectronicBankingFundTransfer | schemas/electronic-banking-fundtransfer.json
+Get IPS Proxy List | http://get-ips-proxy-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-ips-proxy-list | schemas/get-ips-proxy-list.json
+IPS Account Verification | http://ips-account-verification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ips-account-verification | schemas/ips-account-verification.json
+Manage IPS Proxy | http://manage-ips-proxy-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manage-ips-proxy | schemas/manage-ips-proxy.json
+Manage Standing Order | http://manage-standing-order-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageStandingOrder | schemas/manage-standing-order.json
+Remittance Calculator | http://remittance-calculator-http-bab-sit-cp4i.apps.babsitaro.albtests.com/remittance-calculator | schemas/remittance-calculator.json
+AML Lock Sanction Inquiry | http://aml-lock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AMLLock_Snctn_Inqry | schemas/aml-lock.json
+Check Anti Fraud Rules | http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules | schemas/check-anti-fraud-rules.json
+Get Digital Document Request List | http://get-digi-document-request-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetDigiDocmntRqstList | schemas/get-digi-document-request-list.json
+Get Outbound Status | http://get-outbound-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOutboundStatus | schemas/get-outbound-status.json
+Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument | schemas/manage-digital-document.json
+Verify Manage Digital Document | http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument | schemas/manage-digital-document.json
+Manage Nafath Authentication | http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNafathAuth | schemas/manage-nafath-authentication.json
+Manage Nafath Authentication Callback | http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNfthAthntctnCllbkReq | schemas/manage-nafath-authentication.json
+Manage Natheer Watchlist | http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist | schemas/manage-natheer-watchlist.json
+Manage Outbound | http://manage-outbound-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manageoutbound | schemas/manage-outbound.json
+Manage T24 User | http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24User | schemas/manage-t24-user.json
+Sign Documents Request | http://sign-documents-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SignDocumentsRequest | schemas/sign-documents.json
+Callback Tanfeeth Execution | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CallbackTanfeethExecution | schemas/tanfeeth-execution.json
+Tanfeeth Manage Attachment | http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/TanfeethManageAttachment | schemas/tanfeeth-manage-attachment.json
+Download SADAD Billers | http://download-sadad-billers-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DownloadSADADBillers | schemas/download-sadad-billers.json
+Get Commodity Order Status | http://get-commodity-order-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCommodityOrderStatus | schemas/get-commodity-order-status.json
+Get Customer Internal Liabilities | http://get-cust-intrnl-lblts-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-Intrnl-lblts | schemas/get-cust-intrnl-lblts.json
+Manage Digital Loan | http://manage-digi-loan-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngDgLn | schemas/manage-digi-loan.json
+Verify Mobile Number | http://verify-mobile-number-server-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyMobileNumber | schemas/verify-mobile-number-server.json
+Get MOI Service Fee | http://get-moi-service-fee-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetMOIServiceFee | schemas/get-moi-service-fee.json
+Create Investment Account | http://create-investment-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CreateInvestmentAccount | schemas/create-investment-account.json
+Mubasher Cash Deposit | http://mubasher-cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MubasherCashDeposit | schemas/mubasher-cash-deposit.json
+Mubasher Cash Withdrawal | http://mubasher-cash-withdrawal-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MubasherCashWithdrawal | schemas/mubasher-cash-withdrawal.json
+Withdraw Customer Investment Account | http://withdraw-cust-inv-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WithdrawCustomerInvsetmentAccount | schemas/withdraw-cust-inv-account.json
+Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification | schemas/send-instant-notification.json
+GL Transaction Notification Request | http://gl-transaction-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLTransactionNotifiactionRequest | schemas/gl-transaction-notification.json
+Purchase Product | http://purchase-product-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PurchaseProduct | schemas/purchase-product.json
+Get Standing Orders List | http://get-standing-orders-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Get_Standing_Orders_List | schemas/get-standing-orders-list.json
+Get Customer Refunds | http://get-customer-refunds-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getcustomerrefunds | schemas/get-customer-refunds.json
+Bill Payment Debit Card Wrapper | http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DebitCardHTTPWrapper | schemas/bill-payment.json
+Bill Payment | http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/billPayment | schemas/bill-payment.json
+Bill Payment MOI Wrapper | http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MOIHTTPWrapper | schemas/bill-payment.json
+Get Biller Services List | http://get-biller-services-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillerServicesList | schemas/get-biller-services-list.json
+Get Yakeen Info | http://get-yakeen-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetYakeenInfo | schemas/get-yakeen-info.json
+Manage Registered Bills | http://manage-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageRegisteredBills | schemas/manage-registered-bills.json
+Manage SSR End Of Day Process | http://mng-ssr-eod-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageSSREndOfDayProcess | schemas/mng-ssr-eod-process.json
+Merge Customer Registered Bills | http://merge-customer-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MergeCustRgstrdBillsReq | schemas/merge-customer-registered-bills.json
 SADAD Cutoff Bank Serial | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSerl | schemas/sadad-cut-off.json
 SADAD Cutoff Bank Split | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSplit | schemas/sadad-cut-off.json
 SADAD Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadCutOff | schemas/sadad-cut-off.json
 SADAD Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadReconciliation | schemas/sadad-cut-off.json
 SADAD Refund Cutoff | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundCutOff | schemas/sadad-cut-off.json
 SADAD Refund Reconciliation | http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundReconciliation | schemas/sadad-cut-off.json
-Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification | schemas/send-instant-notification.json
+Request Statement | http://request-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/requeststatement | schemas/request-statement.json
 TransFast Create Transaction | http://trans-fast-create-transaction-http-bab-sit-cp4i.apps.babsitaro.albtests.com/trans-fast-create-transaction | schemas/trans-fast-create-transaction.json
-Update Charge Card Info | http://update-charge-card-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateChargeCardInfo | schemas/update-charge-card-info.json
-Update Customer Info | http://update-customer-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/update-custumer-info | schemas/update-customer-info.json
+Get Western Union Fees | http://get-western-union-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWestrenUnionFees | schemas/get-western-union-fees.json
 Western Union Send Money Store | http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyStore | schemas/western-union-send-money.json
 Western Union Send Money Validation | http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyValidation | schemas/western-union-send-money.json
+Western Union Multi CSC | http://western-union-multi-csc-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionMultiCSC | schemas/western-union-multi-csc.json
+## SOAP Services
+Charge Card Transaction Notification |http://charge-card-transaction-ntfctn-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Chrg_Card_Trx_Ntfctn | schemas/charge-card-transaction-notification-soap.json
+Pin Assignment Soap | http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignmentSoap | schemas/pin-assignment-soap.json
+Manage T24 Soap | http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24Accounting_Service | schemas/manage-t24-soap.json
+Tanfeeth Execution FIBlock | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBlock| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIDenyDlng | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDenyDlng | schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIGarnish | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGarnish| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FILift | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FILift| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FITransfer | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FITransfer| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIUpdateAmt | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateAmt | schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIBanDlng | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBanDlng | schemas/tanfeeth-execution-soap.json
+Tanfeeth Inquiry FITecRptInq |http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/TecRptInq/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIAcctStmnt | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAcctStmnt | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeduction | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/ex/fi/deduction/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FICustInfoInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FICustInfoInq | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FISalaryInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/salaryinq/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetLiabsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetLiabsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetBalsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetBalsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIAccountValidation | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAccountValidation | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetDepotsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetDepotsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeathStatusNotification | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeathStatusNotification | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetSafsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetSafsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeductionInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeductionInq | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetAcctsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetAcctsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIUpdateCRInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateCRInfo | schemas/tanfeeth-inquiry-soap.json
+Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service | schemas/send-instant-notification-soap.json
+Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification-soap.json
