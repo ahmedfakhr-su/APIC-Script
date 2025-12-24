@@ -131,14 +131,38 @@ Ninja SQL | http://ninjasql-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ninjaS
 To Camel Converter | http://utilties-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ToCamelCaseConverter | schemas/utilties.json
 Yakeen Mock Token | http://yakeen-backend-mock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/token | schemas/yakeen-backend-mock.json
 Yakeen Mock | http://yakeen-backend-mock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/yakeen | schemas/yakeen-backend-mock.json
-Charge Card Transaction Notification | http://charge-card-transaction-ntfctn-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Chrg_Card_Trx_Ntfctn | schemas/charge-card-transaction-ntfctn.json
 Cash Deposit | http://cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashDeposit | schemas/cash-deposit.json
 Cash Withdrawal And POS | http://cashwdandpos-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashWithdrawalAndPOS | schemas/cashwdandpos.json
 GL Account Notification | http://gl-account-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLAccountNotification | schemas/gl-account-notification.json
 Keycloak Auth | http://keycloak-bab-sit-cp4i.apps.babsitaro.albtests.com/auth | schemas/keycloak.json
-Tanfeeth Inquiry |http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/TecRptInq/v01 | schemas/tanfeeth-inquiry.json
-Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification.json
+Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification-soap.json
 Tanfeeth Manage Attachment | http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/TanfeethManageAttachment | schemas/tanfeeth-manage-attachment.json
 Tanfeeth Manage Attachment SOAP | http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ | schemas/tanfeeth-manage-attachment.json
 Western Union Multi CSC | http://western-union-multi-csc-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionMultiCSC | schemas/western-union-multi-csc.json
 Western Union Direct Access System | http://westren-union-direct-access-sys-http-bab-sit-cp4i.apps.babsitaro.albtests.com/direct-access | schemas/westren-union-direct-access-sys.json
+Charge Card Transaction Notification |http://charge-card-transaction-ntfctn-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Chrg_Card_Trx_Ntfctn | schemas/charge-card-transaction-notification-soap.json
+Pin Assignment Soap | http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignmentSoap | schemas/pin-assignment-soap.json
+Manage T24 Soap | http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24Accounting_Service | schemas/manage-t24-soap.json
+Tanfeeth Execution FIBlock | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBlock| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIDenyDlng | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDenyDlng | schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIGarnish | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGarnish| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FILift | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FILift| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FITransfer | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FITransfer| schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIUpdateAmt | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateAmt | schemas/tanfeeth-execution-soap.json
+Tanfeeth Execution FIBanDlng | http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBanDlng | schemas/tanfeeth-execution-soap.json
+Tanfeeth Inquiry FITecRptInq |http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/TecRptInq/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIAcctStmnt | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAcctStmnt | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeduction | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/ex/fi/deduction/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FICustInfoInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FICustInfoInq | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FISalaryInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/salaryinq/v01 | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetLiabsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetLiabsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetBalsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetBalsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIAccountValidation | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAccountValidation | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetDepotsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetDepotsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeathStatusNotification | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeathStatusNotification | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetSafsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetSafsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIDeductionInq | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeductionInq | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIGetAcctsInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetAcctsInfo | schemas/tanfeeth-inquiry-soap.json
+Tanfeeth Inquiry FIUpdateCRInfo | http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateCRInfo | schemas/tanfeeth-inquiry-soap.json
+Send Instant Notification | http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service | schemas/send-instant-notification-soap.json
+
