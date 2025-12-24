@@ -18,17 +18,17 @@ Check Authorization Rules | http://check-authorization-rules-http-bab-sit-cp4i.a
 EB Get Beneficiary List | http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList | schemas/eb-get-beneficiary-list.json
 Get Beneficiary Details | http://get-beneficiary-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBeneficiaryDetails | schemas/get-beneficiary-details.json
 Manage Beneficiary | http://manage-beneficiary-http-bab-sit-cp4i.apps.babsitaro.albtests.com/managebeneficiary | schemas/manage-beneficiary.json
-BIB 103 Delivery Message | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/103deliverymessage | schemas/bib-services.json
-BIB Account Summary Details | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/accountsummarydetails | schemas/bib-services.json
-BIB Average Balance | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/averagebalance | schemas/bib-services.json
-BIB Bulk File Process | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/bulkfileprocess | schemas/bib-services.json
-BIB Bulk File Status | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/bulkfilestatus | schemas/bib-services.json
-BIB Cheque Stop | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/chequestop | schemas/bib-services.json
-BIB Cheque Summary | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/chequesummary | schemas/bib-services.json
-BIB Credit Facility By CIF | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CreditFaclityByCIF | schemas/bib-services.json
-BIB Loan LD CBX | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/ldloan | schemas/bib-services.json
-BIB Standing Order | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/StandingOrder | schemas/bib-services.json
-BIB Total Assets And Liabilities | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/totalassetsandliabilities | schemas/bib-services.json
+BIB 103 Delivery Message | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/103deliverymessage | schemas/103-delivery-message.json
+BIB Account Summary Details | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/accountsummarydetails | schemas/account-summary-details.json
+BIB Average Balance | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/averagebalance | schemas/average-balance.json
+BIB Bulk File Process | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/bulkfileprocess | schemas/bulk-file-process.json
+BIB Bulk File Status | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/bulkfilestatus | schemas/bulk-file-status.json
+BIB Cheque Stop | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/chequestop | schemas/cheque-stop.json
+BIB Cheque Summary | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/chequesummary | schemas/cheque-summary.json
+BIB Credit Facility By CIF | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CreditFaclityByCIF | schemas/credit-facility-by-cif.json
+BIB Loan LD CBX | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/ldloan | schemas/loan-ldcbx.json
+BIB Standing Order | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/StandingOrder | schemas/standing-order.json
+BIB Total Assets And Liabilities | http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/totalassetsandliabilities | schemas/total-assets-and-liabilities.json
 Get Billers List | http://get-billers-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | schemas/get-billers-list.json
 Charge Card CA Transfer | http://charge-card-ca-transfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardCATransfer | schemas/charge-card-ca-transfer.json
 Charge Card Payment | http://charge-card-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardPayment | schemas/charge-card-payment.json
@@ -135,7 +135,6 @@ Charge Card Transaction Notification | http://charge-card-transaction-ntfctn-htt
 Cash Deposit | http://cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashDeposit | schemas/cash-deposit.json
 Cash Withdrawal And POS | http://cashwdandpos-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashWithdrawalAndPOS | schemas/cashwdandpos.json
 GL Account Notification | http://gl-account-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLAccountNotification | schemas/gl-account-notification.json
-GL Customer Notification | http://gl-customer-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLCustomerNotification | schemas/gl-customer-notification.json
 Keycloak Auth | http://keycloak-bab-sit-cp4i.apps.babsitaro.albtests.com/auth | schemas/keycloak.json
 Tanfeeth Inquiry |http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/TecRptInq/v01 | schemas/tanfeeth-inquiry.json
 Update Card Request Notification |http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service | schemas/update-card-request-notification.json

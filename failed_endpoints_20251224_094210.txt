@@ -1,0 +1,66 @@
+http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate | Authenticate User Mock Authenticate | 404 Not Found
+http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd | Authenticate User Mock Change Password | 404 Not Found
+http://get-cust-accts-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-accts-list | Get Customer Accounts List | Server Error 503
+http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementRequest | SADAD Settlement Request | Connection failed
+http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SBASRARequest | SADAD Settlement SBA SRA Request | Connection failed
+http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SRACustRequest | SADAD Settlement SRA Customer Request | Connection failed
+http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer | ISO XML Transformer | Server Error 503
+http://authenticate-tokens-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AuthenticateTokens | Authenticate Tokens | Server Error 500
+http://check-authorization-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authorization/rules | Check Authorization Rules | Server Error 503
+http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList | EB Get Beneficiary List | Server Error 500
+http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/ldloan | BIB Loan LD CBX | Connection failed
+http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/StandingOrder | BIB Standing Order | 404 Not Found
+http://charge-card-ca-transfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardCATransfer | Charge Card CA Transfer | Server Error 500
+http://charge-card-update-limit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardUpdateLimit | Charge Card Update Limit | Server Error 503
+http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList | Get Charge Card List | 404 Not Found
+http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList | Get DR Cards List | Server Error 503
+http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard | Request Card | Server Error 500
+http://update-card-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardStatus | Update Card Status | Server Error 500
+http://update-charge-card-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateChargeCardInfo | Update Charge Card Info | Server Error 500
+http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity | Get Available Commodity | Server Error 500
+http://get-initial-offer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getinitialoffer | Get Initial Offer | Server Error 503
+http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD | Manage LD | Server Error 500
+http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV | Get LOV | Server Error 503
+http://get-customer-loan-deposit-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerLoanDepositList | Get Customer Loan Deposit List | Server Error 503
+http://customer-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOwnerShare | Get Owner Share | Server Error 503
+http://get-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWakalaDeals | Get Wakala Deals | Server Error 503
+http://manage-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList | Manage Wakala Deals | Server Error 503
+http://get-customer-dependents-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDependents | Get Customer Dependents | Server Error 500
+http://get-cust-trsctn-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-trnsctn-req | Get Customer Transaction List | Server Error 503
+http://mng-cust-limits-http-bab-sit-cp4i.apps.babsitaro.albtests.com/mng-cust-limits | Manage Customer Limits | Server Error 500
+http://electronic-banking-fundtransfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ElectronicBankingFundTransfer | Electronic Banking Fund Transfer | Server Error 503
+http://ips-account-verification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ips-account-verification | IPS Account Verification | Server Error 503
+http://manage-ips-proxy-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manage-ips-proxy | Manage IPS Proxy | Server Error 503
+http://remittance-calculator-http-bab-sit-cp4i.apps.babsitaro.albtests.com/remittance-calculator | Remittance Calculator | Server Error 503
+http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules | Check Anti Fraud Rules | Server Error 502
+http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCIFLegalID | Get CIF Legal ID | 404 Not Found
+http://get-outbound-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOutboundStatus | Get Outbound Status | Connection failed
+http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument | Manage Digital Document | Server Error 500
+http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument | Verify Manage Digital Document | Server Error 500
+http://manage-t24-accounting-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24Accounting | Manage T24 Accounting | Server Error 503
+http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24User | Manage T24 User | Server Error 503
+http://atm-echo-http-bab-sit-cp4i.apps.babsitaro.albtests.com/atm-echo | ATM Echo | Server Error 503
+http://download-sadad-billers-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DownloadSADADBillers | Download SADAD Billers | Server Error 503
+http://get-commodity-order-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCommodityOrderStatus | Get Commodity Order Status | Server Error 500
+http://get-cust-intrnl-lblts-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-Intrnl-lblts | Get Customer Internal Liabilities | Server Error 503
+http://verify-mobile-number-server-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyMobileNumber | Verify Mobile Number | Server Error 500
+http://get-moi-service-fee-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetMOIServiceFee | Get MOI Service Fee | Server Error 503
+http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification | Send Instant Notification | Server Error 503
+http://gl-transaction-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLTransactionNotifiactionRequest | GL Transaction Notification Request | Connection failed
+http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DebitCardHTTPWrapper | Bill Payment Debit Card Wrapper | Server Error 503
+http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/billPayment | Bill Payment | Server Error 503
+http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MOIHTTPWrapper | Bill Payment MOI Wrapper | Server Error 503
+http://manage-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageRegisteredBills | Manage Registered Bills | Server Error 503
+http://sadad-cash-refund-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SADADCashRefund/Confirm | SADAD Cash Refund Confirm | Server Error 503
+http://sadad-cash-refund-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SADADCashRefund/Validate | SADAD Cash Refund Validate | Server Error 503
+http://request-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/requeststatement | Request Statement | Server Error 503
+http://trans-fast-create-transaction-http-bab-sit-cp4i.apps.babsitaro.albtests.com/trans-fast-create-transaction | TransFast Create Transaction | Server Error 503
+http://utilties-http-bab-sit-cp4i.apps.babsitaro.albtests.com/LazyMQ | Lazy MQ | Connection failed
+http://yakeen-backend-mock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/token | Yakeen Mock Token | Server Error 503
+http://yakeen-backend-mock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/yakeen | Yakeen Mock | Server Error 503
+http://cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashDeposit | Cash Deposit | Server Error 503
+http://cashwdandpos-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CashWithdrawalAndPOS | Cash Withdrawal And POS | Server Error 503
+http://gl-account-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLAccountNotification | GL Account Notification | Server Error 503
+http://gl-customer-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLCustomerNotification | GL Customer Notification | 404 Not Found
+http://keycloak-bab-sit-cp4i.apps.babsitaro.albtests.com/auth | Keycloak Auth | Server Error 503
+http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/TanfeethManageAttachment | Tanfeeth Manage Attachment | Server Error 500
