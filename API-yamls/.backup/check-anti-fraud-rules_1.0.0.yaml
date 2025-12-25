@@ -123,22 +123,16 @@ components:
                 and tracking
               properties:
                 CIF:
-                  description: Customer Information File number
                   type: string
                 ChnlId:
-                  description: Channel from which the request originated
                   type: string
                 FE_Ref_No:
-                  description: Frontend system reference number
                   type: string
                 FunctnId:
-                  description: Identifier of the business function being invoked
                   type: string
                 Lang:
-                  description: Request language code
                   type: string
                 MsgFrmt:
-                  description: Message payload format (JSON or XML)
                   type: string
                 Rqstr_Info1:
                   description: Additional requester-provided metadata field
@@ -147,10 +141,8 @@ components:
                   description: Additional requester-provided metadata field
                   type: string
                 RvrslOptn:
-                  description: Indicates whether the transaction can be reversed
                   type: string
                 Tmstmp:
-                  description: Request timestamp in ISO 8601 format
                   type: string
               type: object
           type: object

@@ -1,0 +1,432 @@
+product: 1.0.0
+info:
+  name: internal-services
+  title: Internal Services
+  version: 1.0.0
+apis:
+  authenticate-user-mock-authenticate:
+    $ref: API-yamls\.backup_temp_386\authenticate-user-mock-authenticate_1.0.0.yaml
+  authenticate-user-mock-change-password:
+    $ref: API-yamls\.backup_temp_386\authenticate-user-mock-change-password_1.0.0.yaml
+  get-account-transactions-list:
+    $ref: API-yamls\.backup_temp_386\get-account-transactions-list_1.0.0.yaml
+  get-customer-accounts-list:
+    $ref: API-yamls\.backup_temp_386\get-customer-accounts-list_1.0.0.yaml
+  manage-customer-account-request:
+    $ref: API-yamls\.backup_temp_386\manage-customer-account-request_1.0.0.yaml
+  manage-customer-account-ttp-reply:
+    $ref: API-yamls\.backup_temp_386\manage-customer-account-ttp-reply_1.0.0.yaml
+  sadad-settlement:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement_1.0.0.yaml
+  sadad-settlement-request:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement-request_1.0.0.yaml
+  sadad-settlement-sba-sra-request:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement-sba-sra-request_1.0.0.yaml
+  sadad-settlement-sba-sra-result-reply:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement-sba-sra-result-reply_1.0.0.yaml
+  sadad-settlement-sra-customer-request:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement-sra-customer-request_1.0.0.yaml
+  sadad-settlement-sra-customer-result-reply:
+    $ref: API-yamls\.backup_temp_386\sadad-settlement-sra-customer-result-reply_1.0.0.yaml
+  iso-xml-transformer:
+    $ref: API-yamls\.backup_temp_386\iso-xml-transformer_1.0.0.yaml
+  authenticate-tokens:
+    $ref: API-yamls\.backup_temp_386\authenticate-tokens_1.0.0.yaml
+  authenticate-user:
+    $ref: API-yamls\.backup_temp_386\authenticate-user_1.0.0.yaml
+  check-authorization-rules:
+    $ref: API-yamls\.backup_temp_386\check-authorization-rules_1.0.0.yaml
+  eb-get-beneficiary-list:
+    $ref: API-yamls\.backup_temp_386\eb-get-beneficiary-list_1.0.0.yaml
+  get-beneficiary-details:
+    $ref: API-yamls\.backup_temp_386\get-beneficiary-details_1.0.0.yaml
+  get-customer-dependents:
+    $ref: API-yamls\.backup_temp_386\get-customer-dependents_1.0.0.yaml
+  manage-beneficiary:
+    $ref: API-yamls\.backup_temp_386\manage-beneficiary_1.0.0.yaml
+  bib-account-summary-details:
+    $ref: API-yamls\.backup_temp_386\bib-account-summary-details_1.0.0.yaml
+  bib-average-balance:
+    $ref: API-yamls\.backup_temp_386\bib-average-balance_1.0.0.yaml
+  bib-total-assets-and-liabilities:
+    $ref: API-yamls\.backup_temp_386\bib-total-assets-and-liabilities_1.0.0.yaml
+  get-billers-list:
+    $ref: API-yamls\.backup_temp_386\get-billers-list_1.0.0.yaml
+  charge-card-payment:
+    $ref: API-yamls\.backup_temp_386\charge-card-payment_1.0.0.yaml
+  charge-card-update-limit:
+    $ref: API-yamls\.backup_temp_386\charge-card-update-limit_1.0.0.yaml
+  charge-card-ca-transfer:
+    $ref: API-yamls\.backup_temp_386\charge-card-ca-transfer_1.0.0.yaml
+  get-card-bin-product-list:
+    $ref: API-yamls\.backup_temp_386\get-card-bin-product-list_1.0.0.yaml
+  get-charge-card-list:
+    $ref: API-yamls\.backup_temp_386\get-charge-card-list_1.0.0.yaml
+  get-charge-card-transaction-list:
+    $ref: API-yamls\.backup_temp_386\get-charge-card-transaction-list_1.0.0.yaml
+  get-dr-cards-list:
+    $ref: API-yamls\.backup_temp_386\get-dr-cards-list_1.0.0.yaml
+  instant-card-issuance:
+    $ref: API-yamls\.backup_temp_386\instant-card-issuance_1.0.0.yaml
+  pin-assignment:
+    $ref: API-yamls\.backup_temp_386\pin-assignment_1.0.0.yaml
+  request-card:
+    $ref: API-yamls\.backup_temp_386\request-card_1.0.0.yaml
+  update-card-status:
+    $ref: API-yamls\.backup_temp_386\update-card-status_1.0.0.yaml
+  update-charge-card-info:
+    $ref: API-yamls\.backup_temp_386\update-charge-card-info_1.0.0.yaml
+  get-available-commodity:
+    $ref: API-yamls\.backup_temp_386\get-available-commodity_1.0.0.yaml
+  get-initial-offer:
+    $ref: API-yamls\.backup_temp_386\get-initial-offer_1.0.0.yaml
+  manage-ld:
+    $ref: API-yamls\.backup_temp_386\manage-ld_1.0.0.yaml
+  corporate-banking-user-authentication:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-user-authentication_1.0.0.yaml
+  corporate-banking-change-password:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-change-password_1.0.0.yaml
+  corporate-banking-enable-user:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-enable-user_1.0.0.yaml
+  corporate-banking-disable-user:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-disable-user_1.0.0.yaml
+  corporate-banking-register-user:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-register-user_1.0.0.yaml
+  corporate-banking-delete-user:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-delete-user_1.0.0.yaml
+  corporate-banking-reset-password:
+    $ref: API-yamls\.backup_temp_386\corporate-banking-reset-password_1.0.0.yaml
+  get-lov:
+    $ref: API-yamls\.backup_temp_386\get-lov_1.0.0.yaml
+  get-customer-details:
+    $ref: API-yamls\.backup_temp_386\get-customer-details_1.0.0.yaml
+  get-customer-loan-deposit-list:
+    $ref: API-yamls\.backup_temp_386\get-customer-loan-deposit-list_1.0.0.yaml
+  get-wakala-deals:
+    $ref: API-yamls\.backup_temp_386\get-wakala-deals_1.0.0.yaml
+  manage-wakala-deals:
+    $ref: API-yamls\.backup_temp_386\manage-wakala-deals_1.0.0.yaml
+  get-customer-transaction-list:
+    $ref: API-yamls\.backup_temp_386\get-customer-transaction-list_1.0.0.yaml
+  manage-customer-limits:
+    $ref: API-yamls\.backup_temp_386\manage-customer-limits_1.0.0.yaml
+  update-customer-info:
+    $ref: API-yamls\.backup_temp_386\update-customer-info_1.0.0.yaml
+  get-service-fees:
+    $ref: API-yamls\.backup_temp_386\get-service-fees_1.0.0.yaml
+  eb-get-exchange-rate:
+    $ref: API-yamls\.backup_temp_386\eb-get-exchange-rate_1.0.0.yaml
+  electronic-banking-fund-transfer:
+    $ref: API-yamls\.backup_temp_386\electronic-banking-fund-transfer_1.0.0.yaml
+  get-ips-proxy-list:
+    $ref: API-yamls\.backup_temp_386\get-ips-proxy-list_1.0.0.yaml
+  ips-account-verification:
+    $ref: API-yamls\.backup_temp_386\ips-account-verification_1.0.0.yaml
+  manage-ips-proxy:
+    $ref: API-yamls\.backup_temp_386\manage-ips-proxy_1.0.0.yaml
+  manage-standing-order:
+    $ref: API-yamls\.backup_temp_386\manage-standing-order_1.0.0.yaml
+  remittance-calculator:
+    $ref: API-yamls\.backup_temp_386\remittance-calculator_1.0.0.yaml
+  aml-lock-sanction-inquiry:
+    $ref: API-yamls\.backup_temp_386\aml-lock-sanction-inquiry_1.0.0.yaml
+  check-anti-fraud-rules:
+    $ref: API-yamls\.backup_temp_386\check-anti-fraud-rules_1.0.0.yaml
+  get-digital-document-request-list:
+    $ref: API-yamls\.backup_temp_386\get-digital-document-request-list_1.0.0.yaml
+  get-outbound-status:
+    $ref: API-yamls\.backup_temp_386\get-outbound-status_1.0.0.yaml
+  manage-digital-document:
+    $ref: API-yamls\.backup_temp_386\manage-digital-document_1.0.0.yaml
+  verify-manage-digital-document:
+    $ref: API-yamls\.backup_temp_386\verify-manage-digital-document_1.0.0.yaml
+  manage-nafath-authentication:
+    $ref: API-yamls\.backup_temp_386\manage-nafath-authentication_1.0.0.yaml
+  manage-nafath-authentication-callback:
+    $ref: API-yamls\.backup_temp_386\manage-nafath-authentication-callback_1.0.0.yaml
+  manage-natheer-watchlist:
+    $ref: API-yamls\.backup_temp_386\manage-natheer-watchlist_1.0.0.yaml
+  manage-outbound:
+    $ref: API-yamls\.backup_temp_386\manage-outbound_1.0.0.yaml
+  manage-t24-user:
+    $ref: API-yamls\.backup_temp_386\manage-t24-user_1.0.0.yaml
+  sign-documents-request:
+    $ref: API-yamls\.backup_temp_386\sign-documents-request_1.0.0.yaml
+  callback-tanfeeth-execution:
+    $ref: API-yamls\.backup_temp_386\callback-tanfeeth-execution_1.0.0.yaml
+  tanfeeth-manage-attachment:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-manage-attachment_1.0.0.yaml
+  download-sadad-billers:
+    $ref: API-yamls\.backup_temp_386\download-sadad-billers_1.0.0.yaml
+  get-commodity-order-status:
+    $ref: API-yamls\.backup_temp_386\get-commodity-order-status_1.0.0.yaml
+  get-customer-internal-liabilities:
+    $ref: API-yamls\.backup_temp_386\get-customer-internal-liabilities_1.0.0.yaml
+  manage-digital-loan:
+    $ref: API-yamls\.backup_temp_386\manage-digital-loan_1.0.0.yaml
+  verify-mobile-number:
+    $ref: API-yamls\.backup_temp_386\verify-mobile-number_1.0.0.yaml
+  get-moi-service-fee:
+    $ref: API-yamls\.backup_temp_386\get-moi-service-fee_1.0.0.yaml
+  create-investment-account:
+    $ref: API-yamls\.backup_temp_386\create-investment-account_1.0.0.yaml
+  mubasher-cash-deposit:
+    $ref: API-yamls\.backup_temp_386\mubasher-cash-deposit_1.0.0.yaml
+  mubasher-cash-withdrawal:
+    $ref: API-yamls\.backup_temp_386\mubasher-cash-withdrawal_1.0.0.yaml
+  withdraw-customer-investment-account:
+    $ref: API-yamls\.backup_temp_386\withdraw-customer-investment-account_1.0.0.yaml
+  send-instant-notification:
+    $ref: API-yamls\.backup_temp_386\send-instant-notification_1.0.0.yaml
+  gl-transaction-notification-request:
+    $ref: API-yamls\.backup_temp_386\gl-transaction-notification-request_1.0.0.yaml
+  purchase-product:
+    $ref: API-yamls\.backup_temp_386\purchase-product_1.0.0.yaml
+  get-standing-orders-list:
+    $ref: API-yamls\.backup_temp_386\get-standing-orders-list_1.0.0.yaml
+  get-customer-refunds:
+    $ref: API-yamls\.backup_temp_386\get-customer-refunds_1.0.0.yaml
+  bill-payment-debit-card-wrapper:
+    $ref: API-yamls\.backup_temp_386\bill-payment-debit-card-wrapper_1.0.0.yaml
+  bill-payment:
+    $ref: API-yamls\.backup_temp_386\bill-payment_1.0.0.yaml
+  bill-payment-moi-wrapper:
+    $ref: API-yamls\.backup_temp_386\bill-payment-moi-wrapper_1.0.0.yaml
+  get-biller-services-list:
+    $ref: API-yamls\.backup_temp_386\get-biller-services-list_1.0.0.yaml
+  get-yakeen-info:
+    $ref: API-yamls\.backup_temp_386\get-yakeen-info_1.0.0.yaml
+  manage-registered-bills:
+    $ref: API-yamls\.backup_temp_386\manage-registered-bills_1.0.0.yaml
+  manage-ssr-end-of-day-process:
+    $ref: API-yamls\.backup_temp_386\manage-ssr-end-of-day-process_1.0.0.yaml
+  merge-customer-registered-bills:
+    $ref: API-yamls\.backup_temp_386\merge-customer-registered-bills_1.0.0.yaml
+  sadad-cutoff-bank-serial:
+    $ref: API-yamls\.backup_temp_386\sadad-cutoff-bank-serial_1.0.0.yaml
+  sadad-cutoff-bank-split:
+    $ref: API-yamls\.backup_temp_386\sadad-cutoff-bank-split_1.0.0.yaml
+  sadad-cutoff:
+    $ref: API-yamls\.backup_temp_386\sadad-cutoff_1.0.0.yaml
+  sadad-reconciliation:
+    $ref: API-yamls\.backup_temp_386\sadad-reconciliation_1.0.0.yaml
+  sadad-refund-cutoff:
+    $ref: API-yamls\.backup_temp_386\sadad-refund-cutoff_1.0.0.yaml
+  sadad-refund-reconciliation:
+    $ref: API-yamls\.backup_temp_386\sadad-refund-reconciliation_1.0.0.yaml
+  request-statement:
+    $ref: API-yamls\.backup_temp_386\request-statement_1.0.0.yaml
+  transfast-create-transaction:
+    $ref: API-yamls\.backup_temp_386\transfast-create-transaction_1.0.0.yaml
+  get-western-union-fees:
+    $ref: API-yamls\.backup_temp_386\get-western-union-fees_1.0.0.yaml
+  western-union-send-money-store:
+    $ref: API-yamls\.backup_temp_386\western-union-send-money-store_1.0.0.yaml
+  western-union-send-money-validation:
+    $ref: API-yamls\.backup_temp_386\western-union-send-money-validation_1.0.0.yaml
+  western-union-multi-csc:
+    $ref: API-yamls\.backup_temp_386\western-union-multi-csc_1.0.0.yaml
+  charge-card-transaction-notification:
+    $ref: API-yamls\.backup_temp_386\charge-card-transaction-notification_1.0.0.yaml
+  pin-assignment-soap:
+    $ref: API-yamls\.backup_temp_386\pin-assignment-soap_1.0.0.yaml
+  manage-t24-soap:
+    $ref: API-yamls\.backup_temp_386\manage-t24-soap_1.0.0.yaml
+  tanfeeth-execution-fiblock:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-fiblock_1.0.0.yaml
+  tanfeeth-execution-fidenydlng:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-fidenydlng_1.0.0.yaml
+  tanfeeth-execution-figarnish:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-figarnish_1.0.0.yaml
+  tanfeeth-execution-filift:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-filift_1.0.0.yaml
+  tanfeeth-execution-fitransfer:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-fitransfer_1.0.0.yaml
+  tanfeeth-execution-fiupdateamt:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-fiupdateamt_1.0.0.yaml
+  tanfeeth-execution-fibandlng:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-execution-fibandlng_1.0.0.yaml
+  tanfeeth-inquiry-fitecrptinq:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fitecrptinq_1.0.0.yaml
+  tanfeeth-inquiry-fiacctstmnt:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fiacctstmnt_1.0.0.yaml
+  tanfeeth-inquiry-fideduction:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fideduction_1.0.0.yaml
+  tanfeeth-inquiry-ficustinfoinq:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-ficustinfoinq_1.0.0.yaml
+  tanfeeth-inquiry-fisalaryinq:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fisalaryinq_1.0.0.yaml
+  tanfeeth-inquiry-figetliabsinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-figetliabsinfo_1.0.0.yaml
+  tanfeeth-inquiry-figetbalsinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-figetbalsinfo_1.0.0.yaml
+  tanfeeth-inquiry-fiaccountvalidation:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fiaccountvalidation_1.0.0.yaml
+  tanfeeth-inquiry-figetdepotsinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-figetdepotsinfo_1.0.0.yaml
+  tanfeeth-inquiry-fideathstatusnotification:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fideathstatusnotification_1.0.0.yaml
+  tanfeeth-inquiry-figetsafsinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-figetsafsinfo_1.0.0.yaml
+  tanfeeth-inquiry-fideductioninq:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fideductioninq_1.0.0.yaml
+  tanfeeth-inquiry-figetacctsinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-figetacctsinfo_1.0.0.yaml
+  tanfeeth-inquiry-fiupdatecrinfo:
+    $ref: API-yamls\.backup_temp_386\tanfeeth-inquiry-fiupdatecrinfo_1.0.0.yaml
+  update-card-request-notification:
+    $ref: API-yamls\.backup_temp_386\update-card-request-notification_1.0.0.yaml
+visibility:
+  view:
+    type: public
+    enabled: true
+  subscribe:
+    type: authenticated
+    enabled: true
+plans:
+  default-plan:
+    title: Default Plan
+    description: Default consumption plan
+    approval: false
+    rate-limits:
+      default:
+        value: 100/1hour
+    apis:
+      authenticate-user-mock-authenticate: {}
+      authenticate-user-mock-change-password: {}
+      get-account-transactions-list: {}
+      get-customer-accounts-list: {}
+      manage-customer-account-request: {}
+      manage-customer-account-ttp-reply: {}
+      sadad-settlement: {}
+      sadad-settlement-request: {}
+      sadad-settlement-sba-sra-request: {}
+      sadad-settlement-sba-sra-result-reply: {}
+      sadad-settlement-sra-customer-request: {}
+      sadad-settlement-sra-customer-result-reply: {}
+      iso-xml-transformer: {}
+      authenticate-tokens: {}
+      authenticate-user: {}
+      check-authorization-rules: {}
+      eb-get-beneficiary-list: {}
+      get-beneficiary-details: {}
+      get-customer-dependents: {}
+      manage-beneficiary: {}
+      bib-account-summary-details: {}
+      bib-average-balance: {}
+      bib-total-assets-and-liabilities: {}
+      get-billers-list: {}
+      charge-card-payment: {}
+      charge-card-update-limit: {}
+      charge-card-ca-transfer: {}
+      get-card-bin-product-list: {}
+      get-charge-card-list: {}
+      get-charge-card-transaction-list: {}
+      get-dr-cards-list: {}
+      instant-card-issuance: {}
+      pin-assignment: {}
+      request-card: {}
+      update-card-status: {}
+      update-charge-card-info: {}
+      get-available-commodity: {}
+      get-initial-offer: {}
+      manage-ld: {}
+      corporate-banking-user-authentication: {}
+      corporate-banking-change-password: {}
+      corporate-banking-enable-user: {}
+      corporate-banking-disable-user: {}
+      corporate-banking-register-user: {}
+      corporate-banking-delete-user: {}
+      corporate-banking-reset-password: {}
+      get-lov: {}
+      get-customer-details: {}
+      get-customer-loan-deposit-list: {}
+      get-wakala-deals: {}
+      manage-wakala-deals: {}
+      get-customer-transaction-list: {}
+      manage-customer-limits: {}
+      update-customer-info: {}
+      get-service-fees: {}
+      eb-get-exchange-rate: {}
+      electronic-banking-fund-transfer: {}
+      get-ips-proxy-list: {}
+      ips-account-verification: {}
+      manage-ips-proxy: {}
+      manage-standing-order: {}
+      remittance-calculator: {}
+      aml-lock-sanction-inquiry: {}
+      check-anti-fraud-rules: {}
+      get-digital-document-request-list: {}
+      get-outbound-status: {}
+      manage-digital-document: {}
+      verify-manage-digital-document: {}
+      manage-nafath-authentication: {}
+      manage-nafath-authentication-callback: {}
+      manage-natheer-watchlist: {}
+      manage-outbound: {}
+      manage-t24-user: {}
+      sign-documents-request: {}
+      callback-tanfeeth-execution: {}
+      tanfeeth-manage-attachment: {}
+      download-sadad-billers: {}
+      get-commodity-order-status: {}
+      get-customer-internal-liabilities: {}
+      manage-digital-loan: {}
+      verify-mobile-number: {}
+      get-moi-service-fee: {}
+      create-investment-account: {}
+      mubasher-cash-deposit: {}
+      mubasher-cash-withdrawal: {}
+      withdraw-customer-investment-account: {}
+      send-instant-notification: {}
+      gl-transaction-notification-request: {}
+      purchase-product: {}
+      get-standing-orders-list: {}
+      get-customer-refunds: {}
+      bill-payment-debit-card-wrapper: {}
+      bill-payment: {}
+      bill-payment-moi-wrapper: {}
+      get-biller-services-list: {}
+      get-yakeen-info: {}
+      manage-registered-bills: {}
+      manage-ssr-end-of-day-process: {}
+      merge-customer-registered-bills: {}
+      sadad-cutoff-bank-serial: {}
+      sadad-cutoff-bank-split: {}
+      sadad-cutoff: {}
+      sadad-reconciliation: {}
+      sadad-refund-cutoff: {}
+      sadad-refund-reconciliation: {}
+      request-statement: {}
+      transfast-create-transaction: {}
+      get-western-union-fees: {}
+      western-union-send-money-store: {}
+      western-union-send-money-validation: {}
+      western-union-multi-csc: {}
+      charge-card-transaction-notification: {}
+      pin-assignment-soap: {}
+      manage-t24-soap: {}
+      tanfeeth-execution-fiblock: {}
+      tanfeeth-execution-fidenydlng: {}
+      tanfeeth-execution-figarnish: {}
+      tanfeeth-execution-filift: {}
+      tanfeeth-execution-fitransfer: {}
+      tanfeeth-execution-fiupdateamt: {}
+      tanfeeth-execution-fibandlng: {}
+      tanfeeth-inquiry-fitecrptinq: {}
+      tanfeeth-inquiry-fiacctstmnt: {}
+      tanfeeth-inquiry-fideduction: {}
+      tanfeeth-inquiry-ficustinfoinq: {}
+      tanfeeth-inquiry-fisalaryinq: {}
+      tanfeeth-inquiry-figetliabsinfo: {}
+      tanfeeth-inquiry-figetbalsinfo: {}
+      tanfeeth-inquiry-fiaccountvalidation: {}
+      tanfeeth-inquiry-figetdepotsinfo: {}
+      tanfeeth-inquiry-fideathstatusnotification: {}
+      tanfeeth-inquiry-figetsafsinfo: {}
+      tanfeeth-inquiry-fideductioninq: {}
+      tanfeeth-inquiry-figetacctsinfo: {}
+      tanfeeth-inquiry-fiupdatecrinfo: {}
+      update-card-request-notification: {}
+gateways:
+- datapower-api-gateway

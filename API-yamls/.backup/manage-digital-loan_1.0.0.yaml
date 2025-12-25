@@ -32,13 +32,7 @@ components:
                   type: string
                 LD_Ref:
                   type: string
-                MQInput:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                ReplyToQMgr:
-                  type: string
-                Sgmnt:
+                Tmstmp:
                   type: string
                 lang:
                   type: string
@@ -51,24 +45,26 @@ components:
                 and tracking
               properties:
                 BE_Ref_No:
-                  description: Backend system reference number
                   type: string
                 CIF:
-                  description: Customer Information File number
                   type: string
                 ChnlId:
-                  description: Channel from which the request originated
                   type: string
                 EAIRtrnCd:
                   type: string
                 FE_Ref_No:
-                  description: Frontend system reference number
                   type: string
                 FunctnId:
-                  description: Identifier of the business function being invoked
+                  type: string
+                Lang:
+                  type: string
+                MQInput:
                   type: string
                 MsgFrmt:
-                  description: Message payload format (JSON or XML)
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                ReplyToQMgr:
                   type: string
                 Rqstr_Info1:
                   description: Additional requester-provided metadata field
@@ -110,10 +106,10 @@ components:
                   description: Additional requester-provided metadata field
                   type: string
                 RvrslOptn:
-                  description: Indicates whether the transaction can be reversed
+                  type: string
+                Sgmnt:
                   type: string
                 Tmstmp:
-                  description: Request timestamp in ISO 8601 format
                   type: string
               type: object
           type: object

@@ -21,10 +21,6 @@ components:
                   type: string
                 Ctx_Stn:
                   type: string
-                OrgnlMsgId:
-                  type: string
-                Ovrrd_Clss:
-                  type: string
                 PrcDt:
                   type: string
                 SSR_Ref_No:
@@ -48,33 +44,30 @@ components:
               properties:
                 BE_Ref_No:
                   type: string
-                  description: Backend system reference number
                 CIF:
                   type: string
-                  description: Customer Information File number
                 ChnlId:
                   type: string
-                  description: Channel from which the request originated
                 EAIRtrnCd:
                   type: string
                 FE_Ref_No:
                   type: string
-                  description: Frontend system reference number
                 FunctnId:
                   type: string
-                  description: Identifier of the business function being invoked
                 Lang:
                   type: string
-                  description: Request language code
                 MsgFrmt:
                   type: string
-                  description: Message payload format (JSON or XML)
+                OrgnlMsgId:
+                  type: string
+                Ovrrd_Clss:
+                  type: string
                 RvrslOptn:
                   type: string
-                  description: Indicates whether the transaction can be reversed
+                SSR_Ref_No:
+                  type: string
                 Tmstmp:
                   type: string
-                  description: Request timestamp in ISO 8601 format
                 UsrDfn:
                   type: string
               additionalProperties: false

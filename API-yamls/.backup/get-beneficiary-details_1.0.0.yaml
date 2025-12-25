@@ -14,7 +14,12 @@ components:
               properties:
                 Ben_Cd:
                   type: string
-                OrgnlMsgId:
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Tmstmp:
+                  type: string
+                lang:
                   type: string
                 outputType:
                   type: string
@@ -25,27 +30,22 @@ components:
                 and tracking
               properties:
                 BE_Ref_No:
-                  description: Backend system reference number
                   type: string
                 CIF:
-                  description: Customer Information File number
                   type: string
                 ChnlId:
-                  description: Channel from which the request originated
                   type: string
                 EAIRtrnCd:
                   type: string
                 FE_Ref_No:
-                  description: Frontend system reference number
                   type: string
                 FunctnId:
-                  description: Identifier of the business function being invoked
                   type: string
                 Lang:
-                  description: Request language code
                   type: string
                 MsgFrmt:
-                  description: Message payload format (JSON or XML)
+                  type: string
+                OrgnlMsgId:
                   type: string
                 Rqstr_Info1:
                   description: Additional requester-provided metadata field
@@ -90,10 +90,8 @@ components:
                   description: Additional requester-provided metadata field
                   type: string
                 RvrslOptn:
-                  description: Indicates whether the transaction can be reversed
                   type: string
                 Tmstmp:
-                  description: Request timestamp in ISO 8601 format
                   type: string
               type: object
           type: object

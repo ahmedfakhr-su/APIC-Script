@@ -1,0 +1,259 @@
+components:
+  schemas:
+    InstantCardIssuanceRequest:
+      type: object
+      properties:
+        EAIMessage:
+          type: object
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              type: object
+              description: Business request payload specific to the service operation
+              properties:
+                Acct_No:
+                  type: string
+                Addtnl:
+                  type: string
+                Card_Brnch_Cd:
+                  type: string
+                Card_Hldr_Name:
+                  type: string
+                Card_Prdct_Id:
+                  type: string
+                Cust_Address_Street:
+                  type: string
+                Cust_First_Name:
+                  type: string
+                Cust_Last_Name:
+                  type: string
+                Cust_Pstl_CODE:
+                  type: string
+                Cust_Title:
+                  type: string
+                Cust_Town_Cntry:
+                  type: string
+                Cust_Town_Cntry_AR:
+                  type: string
+                Cust_Wasel_Unit_No:
+                  type: string
+                DOB:
+                  type: string
+                Dvc_Id:
+                  type: string
+                Dvc_Trstng_Dt:
+                  type: string
+                Email:
+                  type: string
+                Idntfctn_Ref:
+                  type: string
+                Idntfctn_Tp:
+                  type: string
+                Mail_Address_Tp:
+                  type: string
+                Mbl_No:
+                  type: string
+                Mrtl_Status:
+                  type: string
+                PO_Box_No:
+                  type: string
+                Prnt_Crd:
+                  type: string
+                T24_Ref_No:
+                  type: string
+                Trgt:
+                  type: string
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                Rqstr_Info12:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info13:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info16:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info4:
+                  type: string
+                  description: Additional requester-provided metadata field
+                RvrslOptn:
+                  type: string
+                Sgmnt:
+                  type: string
+                Tmstmp:
+                  type: string
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    InstantCardIssuanceResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/InstantCardIssuanceResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    InstantCardIssuanceResponseData:
+      description: Response data payload - customize per operation
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            description: Response code
+            type: string
+          info:
+            description: Response message
+            type: string
+        type: object
+      type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Instant Card Issuance
+  version: 1.0.0
+  x-ibm-name: instant-card-issuance
+openapi: 3.0.0
+paths:
+  /instant-card-issuance:
+    post:
+      operationId: InstantCardIssuance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstantCardIssuanceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstantCardIssuanceResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - InstantCardIssuance
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://instant-card-issuance-http-bab-sit-cp4i.apps.babsitaro.albtests.com/InstantCardIssuance
+  testable: true
+  type: rest

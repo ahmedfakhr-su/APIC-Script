@@ -13,45 +13,45 @@
           "additionalProperties": false,
           "properties": {
             "Rqstr_Info1": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info2": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info3": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info4": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info5": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info6": {
-              "type": ["string", "null"],
+              "type": "string",
               "description": "Additional requester-provided metadata field"
             },
             "Rqstr_Info7": {
-              "type": ["string", "null"],
+              "type": "string",
               "description": "Additional requester-provided metadata field"
             },
             "Rqstr_Info11": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info12": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info13": {
               "type": "string"
             },
             "Rqstr_Info14": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info15": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Rqstr_Info16": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "MsgFrmt": {
               "type": "string"
@@ -63,25 +63,25 @@
               "type": "string"
             },
             "CIF": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Lang": {
               "type": "string"
             },
             "EAIRtrnCd": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "RvrslOptn": {
               "type": "string"
             },
             "OrgnlMsgId": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "FE_Ref_No": {
               "type": "string"
             },
             "BE_Ref_No": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "Tmstmp": {
               "type": "string",

@@ -18,10 +18,6 @@ components:
                     Orgntrs_Prncpl_Amt:
                       type: string
                   type: object
-                Orgnl_Data_Val:
-                  type: string
-                OrgnlMsgId:
-                  type: string
                 Pymnt_Dtls:
                   additionalProperties: false
                   properties:
@@ -47,27 +43,24 @@ components:
                 and tracking
               properties:
                 BE_Ref_No:
-                  description: Backend system reference number
                   type: string
                 CIF:
-                  description: Customer Information File number
                   type: string
                 ChnlId:
-                  description: Channel from which the request originated
                   type: string
                 EAIRtrnCd:
                   type: string
                 FE_Ref_No:
-                  description: Frontend system reference number
                   type: string
                 FunctnId:
-                  description: Identifier of the business function being invoked
                   type: string
                 Lang:
-                  description: Request language code
                   type: string
                 MsgFrmt:
-                  description: Message payload format (JSON or XML)
+                  type: string
+                Orgnl_Data_Val:
+                  type: string
+                OrgnlMsgId:
                   type: string
                 Rqstr_Info1:
                   description: Additional requester-provided metadata field
@@ -85,7 +78,6 @@ components:
                   description: Additional requester-provided metadata field
                   type: string
                 RvrslOptn:
-                  description: Indicates whether the transaction can be reversed
                   type: string
               type: object
           type: object

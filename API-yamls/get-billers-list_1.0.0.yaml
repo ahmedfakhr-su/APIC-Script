@@ -1,0 +1,475 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Get Billers List
+  x-ibm-name: get-billers-list
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: http://get-billers-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: false
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+    - operation-switch:
+        version: 2.0.0
+        title: operation-switch
+        case:
+        - operations:
+          - GetBillersList
+          execute:
+          - invoke:
+              version: 2.0.0
+              title: invoke
+              backend-type: json
+              header-control:
+                type: blocklist
+                values: []
+              parameter-control:
+                type: allowlist
+                values: []
+              timeout: 60
+              verb: POST
+              chunked-uploads: true
+              persistent-connection: true
+              target-url: $(target-url)
+              follow-redirects: false
+              inject-proxy-headers: true
+        - operations: []
+          execute:
+          - map:
+              inputs:
+                Data:
+                  schema:
+                    $ref: '#/components/schemas/GetBillersListRequest'
+                  variable: request.body
+                  content: application/json
+              outputs:
+                output:
+                  schema:
+                    type: object
+                    properties:
+                      EAIMessage:
+                        type: object
+                        properties:
+                          EAIHeader:
+                            type: object
+                            properties:
+                              MsgFrmt:
+                                type: string
+                              CIF:
+                                type: string
+                              ChnlId:
+                                type: string
+                              FunctnId:
+                                type: string
+                              Lang:
+                                type: string
+                              RvrslOptn:
+                                type: string
+                              Sgmnt:
+                                type: string
+                              Rqstr_Info1:
+                                type: string
+                              Rqstr_Info2:
+                                type: string
+                              Rqstr_Info4:
+                                type: string
+                              Rqstr_Info11:
+                                type: string
+                              Rqstr_Info12:
+                                type: string
+                              Rqstr_Info13:
+                                type: string
+                              Rqstr_Info15:
+                                type: string
+                              Rqstr_Info16:
+                                type: string
+                              FE_Ref_No:
+                                type: string
+                              BE_Ref_No:
+                                type: string
+                              Tmstmp:
+                                type: string
+                          Body:
+                            type: object
+                            properties:
+                              Biller_Stts:
+                                type: string
+                              IncBillerDtl:
+                                type: string
+                  variable: message.body
+                  content: application/json
+              actions:
+              - set: $item
+                default: Get_MOI_Srvc_Fee
+              - set: output.EAIMessage.EAIHeader.CIF
+                from: Data.header.cif
+              - set: output.EAIMessage.EAIHeader.Lang
+                from: Data.header.language
+              - set: output.EAIMessage.EAIHeader.ChnlId
+                from: Data.header.channelId
+              - set: output.EAIMessage.EAIHeader.FunctnId
+                from: Data.header.functionId
+              - set: output.EAIMessage.EAIHeader.RvrslOptn
+                from: Data.header.reversalOption
+              - set: output.EAIMessage.EAIHeader.FE_Ref_No
+                from: Data.header.frontendReferenceNumber
+              - set: output.EAIMessage.EAIHeader.BE_Ref_No
+                from: Data.header.backendReferenceNumber
+              - set: output.EAIMessage.EAIHeader.Tmstmp
+                from: Data.header.transactionDateTime
+              - set: output.EAIMessage.EAIHeader.Sgmnt
+                from: Data.header.segment
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info4
+                from: Data.header.deviceInfo.model
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info11
+                from: Data.header.deviceInfo.city
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info13
+                from: Data.header.deviceInfo.ipAddress
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info15
+                from: Data.header.deviceInfo.country
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info16
+                from: Data.header.deviceInfo.osVersion
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info12
+                from: Data.header.deviceInfo.id
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info1
+                from: Data.header.requesterInfo1
+              - set: output.EAIMessage.EAIHeader.Rqstr_Info2
+                from: Data.header.requesterInfo2
+              - set: output.EAIMessage.Body.Biller_Stts
+                from: Data.data.billerStts
+              - set: output.EAIMessage.Body.IncBillerDtl
+                from: Data.data.incBillerDetail
+              - set: output.EAIMessage.EAIHeader.MsgFrmt
+                from: Data.header.messageFormat
+              version: 2.1.0
+              title: Map Request
+              options:
+                mapEmulateV4EmptyJSONObject: false
+                mapEmulateV4DefaultRequiredProps: false
+                mapEnablePostProcessingJSON: false
+                mapReferenceLimit: 1
+          - map:
+              inputs:
+                input:
+                  schema:
+                    type: object
+                    properties:
+                      EAIMessage:
+                        type: object
+                        properties:
+                          EAIHeader:
+                            type: object
+                            properties:
+                              CIF:
+                                type: string
+                              ChnlId:
+                                type: string
+                              FunctnId:
+                                type: string
+                              Lang:
+                                type: string
+                              Sgmnt:
+                                type: string
+                              Rqstr_Info4:
+                                type: string
+                              Rqstr_Info11:
+                                type: string
+                              Rqstr_Info12:
+                                type: string
+                              Rqstr_Info13:
+                                type: string
+                              Rqstr_Info15:
+                                type: string
+                              Rqstr_Info16:
+                                type: string
+                              Tmstmp:
+                                type: string
+                              FE_Ref_No:
+                                type: string
+                              BE_Ref_No:
+                                type: string
+                              RvrslOptn:
+                                type: string
+                              EAIRtrnCd:
+                                type: string
+                              EAIRtrnCdDesc:
+                                type: string
+                          Body:
+                            type: object
+                            properties:
+                              Wkla_Dls:
+                                type: object
+                                properties:
+                                  Dls:
+                                    type: object
+                                    properties:
+                                      Trm_Dpst_Id:
+                                        type: string
+                  variable: message.body
+                  content: application/json
+              outputs:
+                output:
+                  schema:
+                    $ref: '#/components/schemas/GetBillersListResponse'
+                  variable: message.body
+                  content: application/json
+              actions:
+              - set: output.result.cif
+                from: input.EAIMessage.EAIHeader.CIF
+              - set: output.result.language
+                from: input.EAIMessage.EAIHeader.Lang
+              - set: output.result.channelId
+                from: input.EAIMessage.EAIHeader.ChnlId
+              - set: output.result.functionId
+                from: input.EAIMessage.EAIHeader.FunctnId
+              - set: output.result.reversalOption
+                from: input.EAIMessage.EAIHeader.RvrslOptn
+              - set: output.result.frontendReferenceNumber
+                from: input.EAIMessage.EAIHeader.FE_Ref_No
+              - set: output.result.backendReferenceNumber
+                from: input.EAIMessage.EAIHeader.BE_Ref_No
+              - set: output.result.transactionDateTime
+                from: input.EAIMessage.EAIHeader.Tmstmp
+              - set: output.result.code
+                from: input.EAIMessage.EAIHeader.EAIRtrnCd
+              - set: output.result.info
+                from: input.EAIMessage.EAIHeader.EAIRtrnCdDesc
+              - set: output.result.segment
+                from: input.EAIMessage.EAIHeader.Sgmnt
+              - set: output.result.deviceInfo.model
+                from: input.EAIMessage.EAIHeader.Rqstr_Info4
+              - set: output.result.deviceInfo.city
+                from: input.EAIMessage.EAIHeader.Rqstr_Info11
+              - set: output.result.deviceInfo.id
+                from: input.EAIMessage.EAIHeader.Rqstr_Info12
+              - set: output.result.deviceInfo.ipAddress
+                from: input.EAIMessage.EAIHeader.Rqstr_Info13
+              - set: output.result.deviceInfo.country
+                from: input.EAIMessage.EAIHeader.Rqstr_Info15
+              - set: output.result.deviceInfo.osVersion
+                from: input.EAIMessage.EAIHeader.Rqstr_Info16
+              - set: output.data.wakalaDetails.details.termDepositId
+                from: input.EAIMessage.Body.Wkla_Dls.Dls.Trm_Dpst_Id
+              version: 2.1.0
+              title: Map Response
+              options:
+                mapEmulateV4EmptyJSONObject: false
+                mapEmulateV4DefaultRequiredProps: false
+                mapEnablePostProcessingJSON: false
+                mapReferenceLimit: 1
+        otherwise: []
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+paths:
+  /get-billers-list:
+    post:
+      operationId: GetBillersList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBillersListRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBillersListResponse'
+components:
+  securitySchemes:
+    clientID:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Id
+      x-key-type: client_id
+    clientSecret:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Secret
+      x-key-type: client_secret
+    oAuth:
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+      flows:
+        clientCredentials:
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+          scopes:
+            Integration_scope: Integration_scope
+  schemas:
+    GetBillersListRequest:
+      type: object
+      properties:
+        EAIMessage:
+          type: object
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              type: object
+              description: Business request payload specific to the service operation
+              properties:
+                Biller_Category:
+                  type: string
+                Biller_Stts:
+                  type: string
+                IncBillerDtl:
+                  type: string
+                Tmstmp:
+                  type: string
+                  format: date-time
+              additionalProperties: false
+            EAIHeader:
+              type: object
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                MsgFrmt:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Rqstr_Info1:
+                  type: string
+                Rqstr_Info11:
+                  type: string
+                Rqstr_Info12:
+                  type: string
+                Rqstr_Info13:
+                  type: string
+                Rqstr_Info14:
+                  type: string
+                Rqstr_Info15:
+                  type: string
+                Rqstr_Info16:
+                  type: string
+                Rqstr_Info2:
+                  type: string
+                Rqstr_Info3:
+                  type: string
+                Rqstr_Info4:
+                  type: string
+                Rqstr_Info5:
+                  type: string
+                Rqstr_Info6:
+                  type: string
+                  description: Additional requester-provided metadata field
+                Rqstr_Info7:
+                  type: string
+                  description: Additional requester-provided metadata field
+                RvrslOptn:
+                  type: string
+                Tmstmp:
+                  type: string
+                  format: date-time
+              additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
+    RequestHeader:
+      type: object
+      properties:
+        messageFormat:
+          type: string
+        cif:
+          type: string
+        channelId:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        deviceInfo:
+          type: object
+          properties:
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+        frontendReferenceNumber:
+          type: string
+        backendReferenceNumber:
+          type: string
+        transactionDateTime:
+          type: string
+    GetBillersListRequestData:
+      type: object
+      properties:
+        billerStts:
+          type: string
+        incBillerDetail:
+          type: string
+    GetBillersListResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+        data:
+          $ref: '#/components/schemas/GetBillersListResponseData'
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - type: object
+        properties:
+          code:
+            type: string
+          info:
+            type: string
+    GetBillersListResponseData:
+      type: object
+      properties:
+        wakalaDetails:
+          type: object
+          properties:
+            details:
+              type: object
+              properties:
+                termDepositId:
+                  type: string
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope

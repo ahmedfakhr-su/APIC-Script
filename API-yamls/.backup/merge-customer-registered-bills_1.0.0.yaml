@@ -12,6 +12,8 @@ components:
               additionalProperties: false
               description: Business request payload specific to the service operation
               properties:
+                Acct_No:
+                  type: string
                 BillInfo:
                   items:
                     additionalProperties: false
@@ -30,19 +32,23 @@ components:
               description: Technical and routing metadata required for request processing
                 and tracking
               properties:
+                BE_Ref_No:
+                  type: string
                 CIF:
-                  description: Customer Information File number
                   type: string
                 ChnlId:
-                  description: Channel from which the request originated
                   type: string
                 EAIRtrnCd:
                   type: string
+                FE_Ref_No:
+                  type: string
                 FunctnId:
-                  description: Identifier of the business function being invoked
                   type: string
                 Lang:
-                  description: Request language code
+                  type: string
+                MsgFrmt:
+                  type: string
+                OrgnlMsgId:
                   type: string
                 Rqstr_Info1:
                   description: Additional requester-provided metadata field
@@ -55,6 +61,40 @@ components:
                   type: string
                 Rqstr_Info4:
                   description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info6:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info7:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info14:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info19:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Tmstmp:
                   type: string
               type: object
           type: object

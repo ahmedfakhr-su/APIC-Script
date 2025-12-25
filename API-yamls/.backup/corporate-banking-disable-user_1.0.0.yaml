@@ -1,85 +1,93 @@
 components:
   schemas:
-    ATMGetMiniStatementRequest:
+    CorporateBankingDisableUserRequest:
       additionalProperties: false
       properties:
-        EAIMessage:
+        data:
           additionalProperties: false
-          description: Enterprise Application Integration envelope containing header
-            metadata and business payload
           properties:
-            Body:
+            ldapchannel:
+              type: string
+            password:
+              type: string
+            userName:
+              type: string
+          type: object
+        header:
+          additionalProperties: false
+          properties:
+            backendReferenceNumber:
+              description: Backend system reference number
+              type: string
+            channelId:
+              description: Channel from which the request originated
+              type: string
+            cif:
+              description: Customer Information File number
+              type: string
+            deviceInfo:
               additionalProperties: false
-              description: Business request payload specific to the service operation
               properties:
-                Acct_No:
+                city:
                   type: string
-                Chrg_Amt:
+                country:
                   type: string
-                Chrg_VAT_Amt:
+                id:
                   type: string
-                Last_N_Trxs:
+                ipAddress:
                   type: string
-                OrgnlMsgId:
+                model:
+                  type: string
+                osVersion:
                   type: string
               type: object
-            EAIHeader:
-              additionalProperties: false
-              description: Technical and routing metadata required for request processing
-                and tracking
-              properties:
-                BE_Ref_No:
-                  description: Backend system reference number
-                  type: string
-                CIF:
-                  description: Customer Information File number
-                  type: string
-                ChnlId:
-                  description: Channel from which the request originated
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  description: Frontend system reference number
-                  type: string
-                FunctnId:
-                  description: Identifier of the business function being invoked
-                  type: string
-                Lang:
-                  description: Request language code
-                  type: string
-                MsgFrmt:
-                  description: Message payload format (JSON or XML)
-                  type: string
-                Rqstr_Info1:
-                  description: Additional requester-provided metadata field
-                  type: string
-                Rqstr_Info2:
-                  description: Additional requester-provided metadata field
-                  type: string
-                Rqstr_Info3:
-                  description: Additional requester-provided metadata field
-                  type: string
-                Rqstr_Info4:
-                  description: Additional requester-provided metadata field
-                  type: string
-                Rqstr_Info5:
-                  description: Additional requester-provided metadata field
-                  type: string
-                RvrslOptn:
-                  description: Indicates whether the transaction can be reversed
-                  type: string
-              type: object
+            eaiReturnCode:
+              type: string
+            frontendReferenceNumber:
+              description: Frontend system reference number
+              type: string
+            functionId:
+              description: Identifier of the business function being invoked
+              type: string
+            language:
+              description: Request language code
+              type: string
+            messageFormat:
+              description: Message payload format (JSON or XML)
+              type: string
+            originalMessageId:
+              type: string
+            requesterInformation1:
+              type: string
+            requesterInformation2:
+              type: string
+            requesterInformation3:
+              type: string
+            requesterInformation5:
+              type: string
+            requesterInformation6:
+              type: string
+            requesterInformation7:
+              type: string
+            requesterInformation14:
+              type: string
+            requesterInformation19:
+              type: string
+            reversalOption:
+              description: Indicates whether the transaction can be reversed
+              type: string
+            timeStamp:
+              type: string
           type: object
       type: object
-    ATMGetMiniStatementResponse:
+    CorporateBankingDisableUserResponse:
       properties:
         data:
-          $ref: '#/components/schemas/ATMGetMiniStatementResponseData'
+          $ref: '#/components/schemas/CorporateBankingDisableUserResponseData'
         result:
           $ref: '#/components/schemas/ResponseHeader'
       type: object
-    ATMGetMiniStatementResponseData:
+    CorporateBankingDisableUserResponseData:
       description: Response data payload - customize per operation
       type: object
     RequestHeader:
@@ -158,26 +166,26 @@ components:
       type: oauth2
       x-ibm-oauth-provider: native-oauth-provider
 info:
-  title: ATM Get Mini Statement
+  title: Corporate Banking Disable User
   version: 1.0.0
-  x-ibm-name: atm-get-mini-statement
+  x-ibm-name: corporate-banking-disable-user
 openapi: 3.0.0
 paths:
-  /atm-get-mini-statement:
+  /corporate-banking-disable-user:
     post:
-      operationId: ATMGetMiniStatement
+      operationId: CorporateBankingDisableUser
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ATMGetMiniStatementRequest'
+              $ref: '#/components/schemas/CorporateBankingDisableUserRequest'
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ATMGetMiniStatementResponse'
+                $ref: '#/components/schemas/CorporateBankingDisableUserResponse'
           description: success
 security:
 - clientID: []
@@ -214,7 +222,7 @@ x-ibm-configuration:
               verb: POST
               version: 2.0.0
           operations:
-          - ATMGetMiniStatement
+          - CorporateBankingDisableUser
         otherwise: []
         title: operation-switch
         version: 2.0.0
@@ -227,6 +235,6 @@ x-ibm-configuration:
     target-url:
       description: URL of the proxy policy
       encoded: false
-      value: http://atm-get-mini-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ATMGetMiniStatement
+      value: http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/disable-user
   testable: true
   type: rest

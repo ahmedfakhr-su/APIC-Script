@@ -67,10 +67,6 @@ components:
               type: object
               description: Business request payload specific to the service operation
               properties:
-                EAIRtrnCdDesc:
-                  type: string
-                OrgnlMsgId:
-                  type: string
                 Status:
                   type: object
                   properties:
@@ -132,27 +128,24 @@ components:
               properties:
                 BE_Ref_No:
                   type: string
-                  description: Backend system reference number
                 CIF:
                   type: string
-                  description: Customer Information File number
                 ChnlId:
                   type: string
-                  description: Channel from which the request originated
                 EAIRtrnCd:
+                  type: string
+                EAIRtrnCdDesc:
                   type: string
                 FE_Ref_No:
                   type: string
-                  description: Frontend system reference number
                 FunctnId:
                   type: string
-                  description: Identifier of the business function being invoked
                 Lang:
                   type: string
-                  description: Request language code
                 MsgFrmt:
                   type: string
-                  description: Message payload format (JSON or XML)
+                OrgnlMsgId:
+                  type: string
                 Rqstr_Info1:
                   type: string
                   description: Additional requester-provided metadata field
@@ -170,7 +163,6 @@ components:
                   description: Additional requester-provided metadata field
                 RvrslOptn:
                   type: string
-                  description: Indicates whether the transaction can be reversed
                 UsrDfn:
                   type: string
               additionalProperties: false

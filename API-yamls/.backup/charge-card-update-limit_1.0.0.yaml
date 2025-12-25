@@ -1,0 +1,467 @@
+components:
+  schemas:
+    ChargeCardUpdateLimitRequest:
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header
+            metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                Actn:
+                  type: string
+                Addrss_Dtls:
+                  additionalProperties: false
+                  properties:
+                    Cntry:
+                      type: string
+                    Cty:
+                      type: string
+                    Dstrct:
+                      type: string
+                    Email:
+                      type: string
+                    Fax_No:
+                      type: string
+                    Mail_Tp:
+                      type: string
+                    Mbl_No:
+                      type: string
+                    Phn_No:
+                      type: string
+                    Rsdnc_Bldng_No:
+                      type: string
+                    Rsdnc_Cty:
+                      type: string
+                    Rsdnc_Dstrct:
+                      type: string
+                    Rsdnc_Strt:
+                      type: string
+                    Strt:
+                      type: string
+                    Wrk_Fax:
+                      type: string
+                    Wrk_Phn_No:
+                      type: string
+                    Wsl_Adtnl_Cd:
+                      type: string
+                    Wsl_Bldng_No:
+                      type: string
+                    Wsl_Unit_No:
+                      type: string
+                    Wsl_Zip_Cd:
+                      type: string
+                  type: object
+                Addtnl_Info:
+                  additionalProperties: false
+                  properties:
+                    Auth_Dt:
+                      type: string
+                    Auth_Md:
+                      type: string
+                    Incmng_Frgn_Trnsfr_Amt:
+                      type: string
+                    Outgng_Frgn_Trnsfr_Amt:
+                      type: string
+                    Prcd_Cust_Acct_Opn_Flg:
+                      type: string
+                  type: object
+                Athrztn_Actn:
+                  type: string
+                Auth_Key:
+                  type: string
+                Bsc_Info:
+                  additionalProperties: false
+                  properties:
+                    DOB_G:
+                      type: string
+                    DOB_H:
+                      type: string
+                    Edctn_Lvl:
+                      type: string
+                    Gndr:
+                      type: string
+                    Nm_1_Ar:
+                      type: string
+                    Nm_1_En:
+                      type: string
+                    Nm_2_Ar:
+                      type: string
+                    Nm_2_En:
+                      type: string
+                    Nm_3_Ar:
+                      type: string
+                    Nm_3_En:
+                      type: string
+                    Nm_4_Ar:
+                      type: string
+                    Nm_4_En:
+                      type: string
+                    Ntnlty:
+                      type: string
+                    POB_CTY:
+                      type: string
+                    Prfrrd_Lang:
+                      type: string
+                    Ttl:
+                      type: string
+                  type: object
+                Digi_KYC_Elgblty_Flg:
+                  type: string
+                Digi_KYC_Elgblty_Rsn:
+                  type: string
+                Dsclmr_Lst:
+                  additionalProperties: false
+                  properties:
+                    Dsclmr_Dtls:
+                      additionalProperties: false
+                      properties:
+                        Dsclmr_Cnfrmd:
+                          type: string
+                        Dsclmr_Cnfrmd_Chnl:
+                          type: string
+                        Dsclmr_Cnfrmd_Dt:
+                          type: string
+                        Dsclmr_Tp:
+                          type: string
+                      type: object
+                  type: object
+                Email:
+                  type: string
+                Emplyr_Dtls:
+                  additionalProperties: false
+                  properties:
+                    Pstn:
+                      type: string
+                    Sctr:
+                      type: string
+                  type: object
+                Exctn_Md:
+                  type: string
+                Grdn_Info:
+                  additionalProperties: false
+                  properties:
+                    DOB_G:
+                      type: string
+                    DOB_H:
+                      type: string
+                    Rsdnc_Addrss:
+                      type: string
+                  type: object
+                Gurd_NIN:
+                  type: string
+                Hm_Cntry_Dtls:
+                  type: string
+                IAM_Updt_Dt:
+                  type: string
+                ID_Expry_Dt_H:
+                  type: string
+                ID_Lst:
+                  additionalProperties: false
+                  properties:
+                    ID_Dtls:
+                      additionalProperties: false
+                      properties:
+                        ID_Expry_Dt_H:
+                          type: string
+                        ID_Iss_Plc:
+                          type: string
+                        ID_No:
+                          type: string
+                        ID_Tp:
+                          type: string
+                      type: object
+                  type: object
+                ID_Tp:
+                  type: string
+                Mbl_No:
+                  type: string
+                Mnthly_Incm:
+                  type: string
+                Mobl_No:
+                  type: string
+                NIN:
+                  type: string
+                Ntnlty:
+                  type: string
+                Reg_Chnl_Id:
+                  type: string
+                Reg_Date:
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info7:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Sgmnt:
+                  type: string
+                Tmstmp:
+                  type: string
+                VIP_Flg:
+                  type: string
+                Vrfd_Mbl_No:
+                  type: string
+                Vsa_Dtls:
+                  additionalProperties: false
+                  properties:
+                    Expctd_Arvl_Dt:
+                      type: string
+                    Vsa_No:
+                      type: string
+                  type: object
+                channelId:
+                  description: Channel from which the request originated
+                  type: string
+                lang:
+                  type: string
+                messageFormat:
+                  description: Message payload format (JSON or XML)
+                  type: string
+                outputType:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing
+                and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                EAIRtrnCdDesc:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                MsgFrmt:
+                  type: string
+                Orgnl_Data_Val:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info3:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info6:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info7:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info14:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info19:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Sgmnt:
+                  type: string
+                TmStmp:
+                  type: string
+                Trx_Md:
+                  type: string
+                UsrDfn:
+                  type: string
+              type: object
+          type: object
+      type: object
+    ChargeCardUpdateLimitResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ChargeCardUpdateLimitResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    ChargeCardUpdateLimitResponseData:
+      description: Response data payload - customize per operation
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            description: Response code
+            type: string
+          info:
+            description: Response message
+            type: string
+        type: object
+      type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Charge Card Update Limit
+  version: 1.0.0
+  x-ibm-name: charge-card-update-limit
+openapi: 3.0.0
+paths:
+  /charge-card-update-limit:
+    post:
+      operationId: ChargeCardUpdateLimit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeCardUpdateLimitRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeCardUpdateLimitResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - ChargeCardUpdateLimit
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://charge-card-update-limit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardUpdateLimit
+  testable: true
+  type: rest

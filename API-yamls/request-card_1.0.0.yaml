@@ -23,11 +23,9 @@ components:
                   type: string
                 Fees:
                   type: string
-                OrgnlMsgId:
-                  type: string
                 Prdct_Cd:
                   type: string
-                Sgmnt:
+                Tmstmp:
                   type: string
               additionalProperties: false
             EAIHeader:
@@ -36,27 +34,22 @@ components:
               properties:
                 BE_Ref_No:
                   type: string
-                  description: Backend system reference number
                 CIF:
                   type: string
-                  description: Customer Information File number
                 ChnlId:
                   type: string
-                  description: Channel from which the request originated
                 EAIRtrnCd:
                   type: string
                 FE_Ref_No:
                   type: string
-                  description: Frontend system reference number
                 FunctnId:
                   type: string
-                  description: Identifier of the business function being invoked
                 Lang:
                   type: string
-                  description: Request language code
                 MsgFrmt:
                   type: string
-                  description: Message payload format (JSON or XML)
+                OrgnlMsgId:
+                  type: string
                 Rqstr_Info1:
                   type: string
                   description: Additional requester-provided metadata field
@@ -101,10 +94,10 @@ components:
                   description: Additional requester-provided metadata field
                 RvrslOptn:
                   type: string
-                  description: Indicates whether the transaction can be reversed
+                Sgmnt:
+                  type: string
                 Tmstmp:
                   type: string
-                  description: Request timestamp in ISO 8601 format
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
