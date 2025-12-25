@@ -243,7 +243,7 @@ update_target_url() {
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
-# Check if python3 is available for JSON and schema processing
+# Check if python3 is available for schema processing
 if ! command -v python3 >/dev/null 2>&1; then
     echo "Error: python3 is required for schema processing but not found." >&2
     echo "Please install python3 to use schema injection features." >&2
@@ -311,7 +311,7 @@ if [ "$INCREMENTAL_MODE" = true ]; then
     
     # Check for critical configuration changes that force a full build
     # Using specific filenames or basename matching
-    if echo "$CHANGED_FILES" | grep -qE "(^|/)services\.txt$|(^|/)template\.yaml$|(^|/)config\.env$"; then
+    if echo "$CHANGED_FILES" | grep -qE "(^|/)services\.json$|(^|/)template\.yaml$|(^|/)config\.env$"; then
         echo "  ⚠ Configuration changed (services/template/config), forcing FULL update."
         FORCE_ALL=true
     else
@@ -364,29 +364,27 @@ echo "✓ Successfully logged in"
 # Replace lines 208-338 in your original script with this optimized version
 
 # ------------------------------
-# Validate and count services from JSON file
+# Process each service with schema support
 # ------------------------------
-echo "Reading services from: $InputFile"
-
-# Validate JSON and get count using Python helper
-SERVICE_COUNT=$(python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" validate 2>&1)
-if [ $? -ne 0 ]; then
-    echo "Error: $SERVICE_COUNT" >&2
-    exit 1
-fi
-
-echo "✓ Successfully validated $SERVICE_COUNT services"
-
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
-# Parse JSON and read each service as pipe-separated values
-python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" full | while IFS="|" read -r ServiceName ESBUrl SchemaPath ApiTag; do
-    # Fields are already extracted from pipe-separated values by the while loop
-    # Skip if any required field is empty
-    [ -z "$ServiceName" ] && continue
-    [ -z "$ESBUrl" ] && continue
+# Use python script to parse JSON and output pipe-separated values
+# Format: API Name|Url|Schema Location|tag
+python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" full | while IFS="|" read -r rawServiceName ESBUrl SchemaPath Tag || [[ -n "$rawServiceName" ]]; do
+    # Remove Windows line endings and trim whitespace (just in case)
+    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
+    ESBUrl=$(printf '%s' "$ESBUrl" | tr -d '\r')
+    SchemaPath=$(printf '%s' "$SchemaPath" | tr -d '\r')
+
+    # Trim spaces from all fields
+    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
+    ESBUrl=$(printf '%s' "$ESBUrl" | tr -cd '[:print:]' | xargs || true)
+    SchemaPath=$(printf '%s' "$SchemaPath" | tr -cd '[:print:]' | xargs || true)
     
+    # Skip if critical data is missing
+    [ -z "$ServiceName" ] && continue
+
     # Generate derived names
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
     OperationName="${ServiceName// /}"
@@ -400,7 +398,6 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
     echo "Processing: '$ServiceName'"
     echo "  ESB URL: $ESBUrl"
     echo "  Schema:  ${SchemaPath:-"(none - using empty object)"}"
-    echo "  Tag:     ${ApiTag:-"rest"}"
     echo "========================================"
 
     # ------------------------------
@@ -409,14 +406,14 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
     NEED_API_SYNC=true
     if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ]; then
         # Check if the schema file for this service has changed
-        if [ -n "$SchemaPath" ] && [ "$SchemaPath" != "null" ]; then
+        if [ -n "$SchemaPath" ]; then
             # Use -F to treat the pattern as a fixed string (safe for paths with dots/special chars)
             if ! echo "$CHANGED_FILES" | grep -F -q "$SchemaPath"; then
                 NEED_API_SYNC=false
             fi
         else
-            # No schema path - check if services_output.json itself changed (already covered by FORCE_ALL)
-            # If no schema, and we're here, it means services_output.json didn't change enough to force all,
+            # No schema path - check if services.json itself changed (already covered by FORCE_ALL)
+            # If no schema, and we're here, it means services.json didn't change enough to force all,
             # so we assume this service without schema hasn't changed.
             NEED_API_SYNC=false
         fi
@@ -600,6 +597,7 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
     rm -rf "$TEMP_API_DIR"
 
 done
+done
 
 echo ""
 echo "========================================"
@@ -644,17 +642,19 @@ echo "  Catalog: $CATALOG_NAME"
 echo ""
 
 # ------------------------------
+# 6.1: Collect all API references from services.txt
 # ------------------------------
-# 6.1: Collect all API references from services JSON
-# ------------------------------
-echo "6.1) Collecting API references from services data..."
+echo "6.1) Collecting API references from services.json..."
 
 # Array to store API references
 declare -a API_REFS=()
 
-# Extract API names using Python helper
-python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" names | while read -r ServiceName; do
-    # Skip if empty
+# Use python script to get just the names
+python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" names | while read -r rawServiceName || [[ -n "$rawServiceName" ]]; do
+    # Remove Windows line endings
+    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
+    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
+    
     [ -z "$ServiceName" ] && continue
     
     # Generate x_ibm_name (same logic as main loop)
@@ -662,25 +662,6 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" nam
     
     # Add to array
     API_REFS+=("$x_ibm_name")
-    # echo "  - Found API: $x_ibm_name" # Reduce noise
-done
-# ------------------------------
-echo "6.1) Collecting API references from cached services data..."
-
-# Array to store API references
-declare -a API_REFS=()
-
-# Read JSON array and extract API names from cached data
-echo "$SERVICES_JSON" | jq -r '.[] | ."API Name"' | while read -r ServiceName; do
-    # Skip if empty or null
-    [ -z "$ServiceName" ] || [ "$ServiceName" = "null" ] && continue
-    
-    # Generate x_ibm_name (same logic as main loop)
-    x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-    
-    # Add to array
-    API_REFS+=("$x_ibm_name")
-    # echo "  - Found API: $x_ibm_name" # Reduce noise
 done
 
 echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
