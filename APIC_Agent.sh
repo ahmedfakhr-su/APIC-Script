@@ -243,14 +243,7 @@ update_target_url() {
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
-# Check if jq is available for JSON processing
-if ! command -v jq >/dev/null 2>&1; then
-    echo "Error: jq is required for JSON processing but not found." >&2
-    echo "Please install jq to parse the services JSON file." >&2
-    exit 1
-fi
-
-# Check if python3 is available for schema processing
+# Check if python3 is available for JSON and schema processing
 if ! command -v python3 >/dev/null 2>&1; then
     echo "Error: python3 is required for schema processing but not found." >&2
     echo "Please install python3 to use schema injection features." >&2
@@ -371,39 +364,29 @@ echo "✓ Successfully logged in"
 # Replace lines 208-338 in your original script with this optimized version
 
 # ------------------------------
-# Read and cache JSON file once
+# Validate and count services from JSON file
 # ------------------------------
 echo "Reading services from: $InputFile"
-SERVICES_JSON=$(cat "$InputFile")
 
-if [ -z "$SERVICES_JSON" ]; then
-    echo "Error: Failed to read input file or file is empty: $InputFile" >&2
+# Validate JSON and get count using Python helper
+SERVICE_COUNT=$(python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" validate 2>&1)
+if [ $? -ne 0 ]; then
+    echo "Error: $SERVICE_COUNT" >&2
     exit 1
 fi
 
-# Validate JSON format
-if ! echo "$SERVICES_JSON" | jq empty 2>/dev/null; then
-    echo "Error: Invalid JSON format in file: $InputFile" >&2
-    exit 1
-fi
-
-echo "✓ Successfully loaded $(echo "$SERVICES_JSON" | jq 'length') services"
+echo "✓ Successfully validated $SERVICE_COUNT services"
 
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
-# Read JSON array and process each object
-echo "$SERVICES_JSON" | jq -c '.[]' | while read -r service_json; do
-    # Extract fields from JSON object
-    ServiceName=$(echo "$service_json" | jq -r '."API Name"')
-    ESBUrl=$(echo "$service_json" | jq -r '.Url')
-    SchemaPath=$(echo "$service_json" | jq -r '."Schema Location"')
-    ApiTag=$(echo "$service_json" | jq -r '.tag')
+# Parse JSON and read each service as pipe-separated values
+python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" full | while IFS="|" read -r ServiceName ESBUrl SchemaPath ApiTag; do
+    # Fields are already extracted from pipe-separated values by the while loop
+    # Skip if any required field is empty
+    [ -z "$ServiceName" ] && continue
+    [ -z "$ESBUrl" ] && continue
     
-    # Skip if any required field is null or empty
-    [ -z "$ServiceName" ] || [ "$ServiceName" = "null" ] && continue
-    [ -z "$ESBUrl" ] || [ "$ESBUrl" = "null" ] && continue
-
     # Generate derived names
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
     OperationName="${ServiceName// /}"
@@ -661,7 +644,26 @@ echo "  Catalog: $CATALOG_NAME"
 echo ""
 
 # ------------------------------
-# 6.1: Collect all API references from cached services JSON
+# ------------------------------
+# 6.1: Collect all API references from services JSON
+# ------------------------------
+echo "6.1) Collecting API references from services data..."
+
+# Array to store API references
+declare -a API_REFS=()
+
+# Extract API names using Python helper
+python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" names | while read -r ServiceName; do
+    # Skip if empty
+    [ -z "$ServiceName" ] && continue
+    
+    # Generate x_ibm_name (same logic as main loop)
+    x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    
+    # Add to array
+    API_REFS+=("$x_ibm_name")
+    # echo "  - Found API: $x_ibm_name" # Reduce noise
+done
 # ------------------------------
 echo "6.1) Collecting API references from cached services data..."
 
