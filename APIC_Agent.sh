@@ -16,7 +16,7 @@ fi
 # ------------------------------
 # Configuration variables (with defaults)
 # ------------------------------
-InputFile="${INPUT_FILE:-services.json}"
+InputFile="${INPUT_FILE:-services.txt}"
 TemplateFile="${TEMPLATE_FILE:-template.yaml}"
 OutputDirectory="${OUTPUT_DIRECTORY:-API-yamls}"
 SchemasDirectory="${SCHEMAS_DIRECTORY:-schemas}"
@@ -311,7 +311,7 @@ if [ "$INCREMENTAL_MODE" = true ]; then
     
     # Check for critical configuration changes that force a full build
     # Using specific filenames or basename matching
-    if echo "$CHANGED_FILES" | grep -qE "(^|/)services\.json$|(^|/)template\.yaml$|(^|/)config\.env$"; then
+    if echo "$CHANGED_FILES" | grep -qE "(^|/)services\.txt$|(^|/)template\.yaml$|(^|/)config\.env$"; then
         echo "  ⚠ Configuration changed (services/template/config), forcing FULL update."
         FORCE_ALL=true
     else
@@ -366,13 +366,9 @@ echo "✓ Successfully logged in"
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
-# ------------------------------
-# Process each service with schema support
-# ------------------------------
-# Use python script to parse JSON and output pipe-separated values
-# Format: API Name|Url|Schema Location|tag
-python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" full | while IFS="|" read -r rawServiceName ESBUrl SchemaPath Tag || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings and trim whitespace (just in case)
+exec 3< "$InputFile"
+while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawServiceName" ]]; do
+    # Remove Windows line endings and trim whitespace
     rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
     ESBUrl=$(printf '%s' "$ESBUrl" | tr -d '\r')
     SchemaPath=$(printf '%s' "$SchemaPath" | tr -d '\r')
@@ -382,8 +378,11 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
     ESBUrl=$(printf '%s' "$ESBUrl" | tr -cd '[:print:]' | xargs || true)
     SchemaPath=$(printf '%s' "$SchemaPath" | tr -cd '[:print:]' | xargs || true)
     
-    # Skip if critical data is missing
+    # Skip blank lines or comments (lines starting with #)
     [ -z "$ServiceName" ] && continue
+    case "$ServiceName" in
+        \#* ) continue ;;
+    esac
 
     # Generate derived names
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
@@ -412,8 +411,8 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
                 NEED_API_SYNC=false
             fi
         else
-            # No schema path - check if services.json itself changed (already covered by FORCE_ALL)
-            # If no schema, and we're here, it means services.json didn't change enough to force all,
+            # No schema path - check if services.txt itself changed (already covered by FORCE_ALL)
+            # If no schema, and we're here, it means services.txt didn't change enough to force all,
             # so we assume this service without schema hasn't changed.
             NEED_API_SYNC=false
         fi
@@ -597,7 +596,7 @@ python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" ful
     rm -rf "$TEMP_API_DIR"
 
 done
-done
+exec 3<&-
 
 echo ""
 echo "========================================"
@@ -644,25 +643,31 @@ echo ""
 # ------------------------------
 # 6.1: Collect all API references from services.txt
 # ------------------------------
-echo "6.1) Collecting API references from services.json..."
+echo "6.1) Collecting API references from services.txt..."
 
 # Array to store API references
 declare -a API_REFS=()
 
-# Use python script to get just the names
-python3 "$(dirname "${BASH_SOURCE[0]}")/parse_json_services.py" "$InputFile" names | while read -r rawServiceName || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings
+exec 4< "$InputFile"
+while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawServiceName" ]]; do
+    # Remove Windows line endings and trim whitespace
     rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
     ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
     
+    # Skip blank lines or comments
     [ -z "$ServiceName" ] && continue
+    case "$ServiceName" in
+        \#* ) continue ;;
+    esac
     
     # Generate x_ibm_name (same logic as main loop)
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
     
     # Add to array
     API_REFS+=("$x_ibm_name")
+    # echo "  - Found API: $x_ibm_name" # Reduce noise
 done
+exec 4<&-
 
 echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
 
