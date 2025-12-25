@@ -16,7 +16,7 @@ fi
 # ------------------------------
 # Configuration variables (with defaults)
 # ------------------------------
-InputFile="${INPUT_FILE:-services.txt}"
+InputFile="${INPUT_FILE:-services.json}"
 TemplateFile="${TEMPLATE_FILE:-template.yaml}"
 OutputDirectory="${OUTPUT_DIRECTORY:-API-yamls}"
 SchemasDirectory="${SCHEMAS_DIRECTORY:-schemas}"
@@ -243,6 +243,13 @@ update_target_url() {
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
+# Check if jq is available for JSON processing
+if ! command -v jq >/dev/null 2>&1; then
+    echo "Error: jq is required for JSON processing but not found." >&2
+    echo "Please install jq to parse the services JSON file." >&2
+    exit 1
+fi
+
 # Check if python3 is available for schema processing
 if ! command -v python3 >/dev/null 2>&1; then
     echo "Error: python3 is required for schema processing but not found." >&2
@@ -364,25 +371,38 @@ echo "✓ Successfully logged in"
 # Replace lines 208-338 in your original script with this optimized version
 
 # ------------------------------
+# Read and cache JSON file once
+# ------------------------------
+echo "Reading services from: $InputFile"
+SERVICES_JSON=$(cat "$InputFile")
+
+if [ -z "$SERVICES_JSON" ]; then
+    echo "Error: Failed to read input file or file is empty: $InputFile" >&2
+    exit 1
+fi
+
+# Validate JSON format
+if ! echo "$SERVICES_JSON" | jq empty 2>/dev/null; then
+    echo "Error: Invalid JSON format in file: $InputFile" >&2
+    exit 1
+fi
+
+echo "✓ Successfully loaded $(echo "$SERVICES_JSON" | jq 'length') services"
+
+# ------------------------------
 # Process each service with schema support
 # ------------------------------
-exec 3< "$InputFile"
-while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings and trim whitespace
-    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
-    ESBUrl=$(printf '%s' "$ESBUrl" | tr -d '\r')
-    SchemaPath=$(printf '%s' "$SchemaPath" | tr -d '\r')
-
-    # Trim spaces from all fields
-    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
-    ESBUrl=$(printf '%s' "$ESBUrl" | tr -cd '[:print:]' | xargs || true)
-    SchemaPath=$(printf '%s' "$SchemaPath" | tr -cd '[:print:]' | xargs || true)
+# Read JSON array and process each object
+echo "$SERVICES_JSON" | jq -c '.[]' | while read -r service_json; do
+    # Extract fields from JSON object
+    ServiceName=$(echo "$service_json" | jq -r '."API Name"')
+    ESBUrl=$(echo "$service_json" | jq -r '.Url')
+    SchemaPath=$(echo "$service_json" | jq -r '."Schema Location"')
+    ApiTag=$(echo "$service_json" | jq -r '.tag')
     
-    # Skip blank lines or comments (lines starting with #)
-    [ -z "$ServiceName" ] && continue
-    case "$ServiceName" in
-        \#* ) continue ;;
-    esac
+    # Skip if any required field is null or empty
+    [ -z "$ServiceName" ] || [ "$ServiceName" = "null" ] && continue
+    [ -z "$ESBUrl" ] || [ "$ESBUrl" = "null" ] && continue
 
     # Generate derived names
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
@@ -397,6 +417,7 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     echo "Processing: '$ServiceName'"
     echo "  ESB URL: $ESBUrl"
     echo "  Schema:  ${SchemaPath:-"(none - using empty object)"}"
+    echo "  Tag:     ${ApiTag:-"rest"}"
     echo "========================================"
 
     # ------------------------------
@@ -405,14 +426,14 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     NEED_API_SYNC=true
     if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ]; then
         # Check if the schema file for this service has changed
-        if [ -n "$SchemaPath" ]; then
+        if [ -n "$SchemaPath" ] && [ "$SchemaPath" != "null" ]; then
             # Use -F to treat the pattern as a fixed string (safe for paths with dots/special chars)
             if ! echo "$CHANGED_FILES" | grep -F -q "$SchemaPath"; then
                 NEED_API_SYNC=false
             fi
         else
-            # No schema path - check if services.txt itself changed (already covered by FORCE_ALL)
-            # If no schema, and we're here, it means services.txt didn't change enough to force all,
+            # No schema path - check if services_output.json itself changed (already covered by FORCE_ALL)
+            # If no schema, and we're here, it means services_output.json didn't change enough to force all,
             # so we assume this service without schema hasn't changed.
             NEED_API_SYNC=false
         fi
@@ -596,7 +617,6 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawService
     rm -rf "$TEMP_API_DIR"
 
 done
-exec 3<&-
 
 echo ""
 echo "========================================"
@@ -641,24 +661,17 @@ echo "  Catalog: $CATALOG_NAME"
 echo ""
 
 # ------------------------------
-# 6.1: Collect all API references from services.txt
+# 6.1: Collect all API references from cached services JSON
 # ------------------------------
-echo "6.1) Collecting API references from services.txt..."
+echo "6.1) Collecting API references from cached services data..."
 
 # Array to store API references
 declare -a API_REFS=()
 
-exec 4< "$InputFile"
-while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings and trim whitespace
-    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
-    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
-    
-    # Skip blank lines or comments
-    [ -z "$ServiceName" ] && continue
-    case "$ServiceName" in
-        \#* ) continue ;;
-    esac
+# Read JSON array and extract API names from cached data
+echo "$SERVICES_JSON" | jq -r '.[] | ."API Name"' | while read -r ServiceName; do
+    # Skip if empty or null
+    [ -z "$ServiceName" ] || [ "$ServiceName" = "null" ] && continue
     
     # Generate x_ibm_name (same logic as main loop)
     x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
@@ -667,7 +680,6 @@ while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawService
     API_REFS+=("$x_ibm_name")
     # echo "  - Found API: $x_ibm_name" # Reduce noise
 done
-exec 4<&-
 
 echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
 

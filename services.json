@@ -1,0 +1,824 @@
+[
+  {
+    "API Name": "Authenticate User Mock Authenticate",
+    "Url": "http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate",
+    "Schema Location": "schemas/authenticate-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Authenticate User Mock Change Password",
+    "Url": "http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd",
+    "Schema Location": "schemas/authenticate-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Account Transactions List",
+    "Url": "http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList",
+    "Schema Location": "schemas/get-account-transactions-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Accounts List",
+    "Url": "http://get-cust-accts-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-accts-list",
+    "Schema Location": "schemas/get-cust-accts-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Customer Account Request",
+    "Url": "http://manage-customer-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageCustomerAccountRequest",
+    "Schema Location": "schemas/manage-customer-account.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Customer Account TTP Reply",
+    "Url": "http://manage-customer-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageCustomerAccountTTPReply",
+    "Schema Location": "schemas/manage-customer-account.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement Request",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementRequest",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement SBA SRA Request",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SBASRARequest",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement SBA SRA Result Reply",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sadad/settlement/sba-sra-result-reply",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement SRA Customer Request",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlement/SRACustRequest",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Settlement SRA Customer Result Reply",
+    "Url": "http://sadad-settlement-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadSettlementSraCustResultReply",
+    "Schema Location": "schemas/sadad-settlement-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "ISO XML Transformer",
+    "Url": "http://iso-xml-transformer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/iso-xml-transformer",
+    "Schema Location": "schemas/iso-xml-transformer.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Authenticate Tokens",
+    "Url": "http://authenticate-tokens-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AuthenticateTokens",
+    "Schema Location": "schemas/authenticate-tokens.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Authenticate User",
+    "Url": "http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authenticate/user",
+    "Schema Location": "schemas/authenticate-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Check Authorization Rules",
+    "Url": "http://check-authorization-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/authorization/rules",
+    "Schema Location": "schemas/check-authorization-rules.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "EB Get Beneficiary List",
+    "Url": "http://eb-get-beneficiary-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EbGetBeneficiaryList",
+    "Schema Location": "schemas/eb-get-beneficiary-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Beneficiary Details",
+    "Url": "http://get-beneficiary-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBeneficiaryDetails",
+    "Schema Location": "schemas/get-beneficiary-details.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Dependents",
+    "Url": "http://get-customer-dependents-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDependents",
+    "Schema Location": "schemas/get-customer-dependents.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Beneficiary",
+    "Url": "http://manage-beneficiary-http-bab-sit-cp4i.apps.babsitaro.albtests.com/managebeneficiary",
+    "Schema Location": "schemas/manage-beneficiary.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "BIB Account Summary Details",
+    "Url": "http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/accountsummarydetails",
+    "Schema Location": "schemas/account-summary-details.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "BIB Average Balance",
+    "Url": "http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/averagebalance",
+    "Schema Location": "schemas/average-balance.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "BIB Total Assets And Liabilities",
+    "Url": "http://bib-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib/totalassetsandliabilities",
+    "Schema Location": "schemas/total-assets-and-liabilities.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Billers List",
+    "Url": "http://get-billers-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList",
+    "Schema Location": "schemas/get-billers-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Charge Card Payment",
+    "Url": "http://charge-card-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardPayment",
+    "Schema Location": "schemas/charge-card-payment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Charge Card Update Limit",
+    "Url": "http://charge-card-update-limit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardUpdateLimit",
+    "Schema Location": "schemas/charge-card-update-limit.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Charge Card CA Transfer",
+    "Url": "http://charge-card-ca-transfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ChargeCardCATransfer",
+    "Schema Location": "schemas/charge-card-ca-transfer.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Card Bin Product List",
+    "Url": "http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCardBinProductList",
+    "Schema Location": "schemas/get-card-bin-product-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Charge Card List",
+    "Url": "http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList",
+    "Schema Location": "schemas/get-charge-card-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Charge Card Transaction List",
+    "Url": "http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardTransactionList",
+    "Schema Location": "schemas/get-charge-card-transaction-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get DR Cards List",
+    "Url": "http://get-dr-cards-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/cards/getDRCardsList",
+    "Schema Location": "schemas/get-dr-cards-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Instant Card Issuance",
+    "Url": "http://instant-card-issuance-http-bab-sit-cp4i.apps.babsitaro.albtests.com/InstantCardIssuance",
+    "Schema Location": "schemas/instant-card-issuance.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Pin Assignment",
+    "Url": "http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignment",
+    "Schema Location": "schemas/pin-assignment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Request Card",
+    "Url": "http://request-card-http-bab-sit-cp4i.apps.babsitaro.albtests.com/RequestCard",
+    "Schema Location": "schemas/request-card.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Update Card Status",
+    "Url": "http://update-card-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardStatus",
+    "Schema Location": "schemas/update-card-status.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Update Charge Card Info",
+    "Url": "http://update-charge-card-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateChargeCardInfo",
+    "Schema Location": "schemas/update-charge-card-info.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Available Commodity",
+    "Url": "http://get-available-commodity-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAvailableCommodity",
+    "Schema Location": "schemas/get-available-commodity.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Initial Offer",
+    "Url": "http://get-initial-offer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getinitialoffer",
+    "Schema Location": "schemas/get-initial-offer.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage LD",
+    "Url": "http://manage-ld-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageLD",
+    "Schema Location": "schemas/manage-ld.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking User Authentication",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/user-authentication",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Change Password",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/change-password",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Enable User",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/enable-user",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Disable User",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/disable-user",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Register User",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/register-user",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Delete User",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/delete-user",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Corporate Banking Reset Password",
+    "Url": "http://manage-ldap-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/corporate-banking/ldap/reset-password",
+    "Schema Location": "schemas/manage-ldap-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get LOV",
+    "Url": "http://get-lov-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetLOV",
+    "Schema Location": "schemas/get-lov.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Details",
+    "Url": "http://get-cust-details-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerDetails",
+    "Schema Location": "schemas/get-cust-details.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Loan Deposit List",
+    "Url": "http://get-customer-loan-deposit-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCustomerLoanDepositList",
+    "Schema Location": "schemas/get-customer-loan-deposit-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Wakala Deals",
+    "Url": "http://get-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWakalaDeals",
+    "Schema Location": "schemas/get-wakala-deals.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Wakala Deals",
+    "Url": "http://manage-wakala-deals-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillersList",
+    "Schema Location": "schemas/manage-wakala-deals.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Transaction List",
+    "Url": "http://get-cust-trsctn-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-trnsctn-req",
+    "Schema Location": "schemas/get-cust-trsctn-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Customer Limits",
+    "Url": "http://mng-cust-limits-http-bab-sit-cp4i.apps.babsitaro.albtests.com/mng-cust-limits",
+    "Schema Location": "schemas/mng-cust-limits.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Update Customer Info",
+    "Url": "http://update-customer-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/update-custumer-info",
+    "Schema Location": "schemas/update-customer-info.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Service Fees",
+    "Url": "http://get-service-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Get_Service_Fees",
+    "Schema Location": "schemas/get-service-fees.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "EB Get Exchange Rate",
+    "Url": "http://eb-get-exchange-rate-http-bab-sit-cp4i.apps.babsitaro.albtests.com/EBGetExchangeRate",
+    "Schema Location": "schemas/eb-get-exchange-rate.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Electronic Banking Fund Transfer",
+    "Url": "http://electronic-banking-fundtransfer-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ElectronicBankingFundTransfer",
+    "Schema Location": "schemas/electronic-banking-fundtransfer.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get IPS Proxy List",
+    "Url": "http://get-ips-proxy-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-ips-proxy-list",
+    "Schema Location": "schemas/get-ips-proxy-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "IPS Account Verification",
+    "Url": "http://ips-account-verification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ips-account-verification",
+    "Schema Location": "schemas/ips-account-verification.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage IPS Proxy",
+    "Url": "http://manage-ips-proxy-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manage-ips-proxy",
+    "Schema Location": "schemas/manage-ips-proxy.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Standing Order",
+    "Url": "http://manage-standing-order-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageStandingOrder",
+    "Schema Location": "schemas/manage-standing-order.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Remittance Calculator",
+    "Url": "http://remittance-calculator-http-bab-sit-cp4i.apps.babsitaro.albtests.com/remittance-calculator",
+    "Schema Location": "schemas/remittance-calculator.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "AML Lock Sanction Inquiry",
+    "Url": "http://aml-lock-http-bab-sit-cp4i.apps.babsitaro.albtests.com/AMLLock_Snctn_Inqry",
+    "Schema Location": "schemas/aml-lock.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Check Anti Fraud Rules",
+    "Url": "http://check-anti-fraud-rules-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CheckAntiFraudRules",
+    "Schema Location": "schemas/check-anti-fraud-rules.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Digital Document Request List",
+    "Url": "http://get-digi-document-request-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetDigiDocmntRqstList",
+    "Schema Location": "schemas/get-digi-document-request-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Outbound Status",
+    "Url": "http://get-outbound-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetOutboundStatus",
+    "Schema Location": "schemas/get-outbound-status.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Digital Document",
+    "Url": "http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageDigitalDocument",
+    "Schema Location": "schemas/manage-digital-document.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Verify Manage Digital Document",
+    "Url": "http://manage-digital-document-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyManageDigitalDocument",
+    "Schema Location": "schemas/manage-digital-document.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Nafath Authentication",
+    "Url": "http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNafathAuth",
+    "Schema Location": "schemas/manage-nafath-authentication.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Nafath Authentication Callback",
+    "Url": "http://manage-nafath-authentication-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngNfthAthntctnCllbkReq",
+    "Schema Location": "schemas/manage-nafath-authentication.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Natheer Watchlist",
+    "Url": "http://manage-natheer-watchlist-http-bab-sit-cp4i.apps.babsitaro.albtests.com/natheer/watchlist",
+    "Schema Location": "schemas/manage-natheer-watchlist.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Outbound",
+    "Url": "http://manage-outbound-http-bab-sit-cp4i.apps.babsitaro.albtests.com/manageoutbound",
+    "Schema Location": "schemas/manage-outbound.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage T24 User",
+    "Url": "http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24User",
+    "Schema Location": "schemas/manage-t24-user.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Sign Documents Request",
+    "Url": "http://sign-documents-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SignDocumentsRequest",
+    "Schema Location": "schemas/sign-documents.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Callback Tanfeeth Execution",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CallbackTanfeethExecution",
+    "Schema Location": "schemas/tanfeeth-execution.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Tanfeeth Manage Attachment",
+    "Url": "http://tanfeeth-manage-attachment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/TanfeethManageAttachment",
+    "Schema Location": "schemas/tanfeeth-manage-attachment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Download SADAD Billers",
+    "Url": "http://download-sadad-billers-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DownloadSADADBillers",
+    "Schema Location": "schemas/download-sadad-billers.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Commodity Order Status",
+    "Url": "http://get-commodity-order-status-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetCommodityOrderStatus",
+    "Schema Location": "schemas/get-commodity-order-status.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Internal Liabilities",
+    "Url": "http://get-cust-intrnl-lblts-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-Intrnl-lblts",
+    "Schema Location": "schemas/get-cust-intrnl-lblts.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Digital Loan",
+    "Url": "http://manage-digi-loan-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MngDgLn",
+    "Schema Location": "schemas/manage-digi-loan.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Verify Mobile Number",
+    "Url": "http://verify-mobile-number-server-http-bab-sit-cp4i.apps.babsitaro.albtests.com/VerifyMobileNumber",
+    "Schema Location": "schemas/verify-mobile-number-server.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get MOI Service Fee",
+    "Url": "http://get-moi-service-fee-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetMOIServiceFee",
+    "Schema Location": "schemas/get-moi-service-fee.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Create Investment Account",
+    "Url": "http://create-investment-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/CreateInvestmentAccount",
+    "Schema Location": "schemas/create-investment-account.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Mubasher Cash Deposit",
+    "Url": "http://mubasher-cash-deposit-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MubasherCashDeposit",
+    "Schema Location": "schemas/mubasher-cash-deposit.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Mubasher Cash Withdrawal",
+    "Url": "http://mubasher-cash-withdrawal-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MubasherCashWithdrawal",
+    "Schema Location": "schemas/mubasher-cash-withdrawal.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Withdraw Customer Investment Account",
+    "Url": "http://withdraw-cust-inv-account-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WithdrawCustomerInvsetmentAccount",
+    "Schema Location": "schemas/withdraw-cust-inv-account.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Send Instant Notification",
+    "Url": "http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification",
+    "Schema Location": "schemas/send-instant-notification.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "GL Transaction Notification Request",
+    "Url": "http://gl-transaction-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GLTransactionNotifiactionRequest",
+    "Schema Location": "schemas/gl-transaction-notification.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Purchase Product",
+    "Url": "http://purchase-product-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PurchaseProduct",
+    "Schema Location": "schemas/purchase-product.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Standing Orders List",
+    "Url": "http://get-standing-orders-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Get_Standing_Orders_List",
+    "Schema Location": "schemas/get-standing-orders-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Customer Refunds",
+    "Url": "http://get-customer-refunds-http-bab-sit-cp4i.apps.babsitaro.albtests.com/getcustomerrefunds",
+    "Schema Location": "schemas/get-customer-refunds.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Bill Payment Debit Card Wrapper",
+    "Url": "http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/DebitCardHTTPWrapper",
+    "Schema Location": "schemas/bill-payment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Bill Payment",
+    "Url": "http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/billPayment",
+    "Schema Location": "schemas/bill-payment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Bill Payment MOI Wrapper",
+    "Url": "http://bill-payment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MOIHTTPWrapper",
+    "Schema Location": "schemas/bill-payment.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Biller Services List",
+    "Url": "http://get-biller-services-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetBillerServicesList",
+    "Schema Location": "schemas/get-biller-services-list.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Yakeen Info",
+    "Url": "http://get-yakeen-info-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetYakeenInfo",
+    "Schema Location": "schemas/get-yakeen-info.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage Registered Bills",
+    "Url": "http://manage-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageRegisteredBills",
+    "Schema Location": "schemas/manage-registered-bills.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Manage SSR End Of Day Process",
+    "Url": "http://mng-ssr-eod-process-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageSSREndOfDayProcess",
+    "Schema Location": "schemas/mng-ssr-eod-process.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Merge Customer Registered Bills",
+    "Url": "http://merge-customer-registered-bills-http-bab-sit-cp4i.apps.babsitaro.albtests.com/MergeCustRgstrdBillsReq",
+    "Schema Location": "schemas/merge-customer-registered-bills.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Cutoff Bank Serial",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSerl",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Cutoff Bank Split",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/BankSplit",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Cutoff",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadCutOff",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Reconciliation",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadReconciliation",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Refund Cutoff",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundCutOff",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "SADAD Refund Reconciliation",
+    "Url": "http://sadad-cut-off-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SadadRefundReconciliation",
+    "Schema Location": "schemas/sadad-cut-off.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Request Statement",
+    "Url": "http://request-statement-http-bab-sit-cp4i.apps.babsitaro.albtests.com/requeststatement",
+    "Schema Location": "schemas/request-statement.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "TransFast Create Transaction",
+    "Url": "http://trans-fast-create-transaction-http-bab-sit-cp4i.apps.babsitaro.albtests.com/trans-fast-create-transaction",
+    "Schema Location": "schemas/trans-fast-create-transaction.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Get Western Union Fees",
+    "Url": "http://get-western-union-fees-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetWestrenUnionFees",
+    "Schema Location": "schemas/get-western-union-fees.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Western Union Send Money Store",
+    "Url": "http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyStore",
+    "Schema Location": "schemas/western-union-send-money.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Western Union Send Money Validation",
+    "Url": "http://western-union-send-money-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionSendMoneyValidation",
+    "Schema Location": "schemas/western-union-send-money.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Western Union Multi CSC",
+    "Url": "http://western-union-multi-csc-http-bab-sit-cp4i.apps.babsitaro.albtests.com/WestrenUnionMultiCSC",
+    "Schema Location": "schemas/western-union-multi-csc.json",
+    "tag": "rest"
+  },
+  {
+    "API Name": "Charge Card Transaction Notification",
+    "Url": "http://charge-card-transaction-ntfctn-http-bab-sit-cp4i.apps.babsitaro.albtests.com/Chrg_Card_Trx_Ntfctn",
+    "Schema Location": "schemas/charge-card-transaction-notification-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Pin Assignment Soap",
+    "Url": "http://pin-assignment-http-bab-sit-cp4i.apps.babsitaro.albtests.com/PinAssignmentSoap",
+    "Schema Location": "schemas/pin-assignment-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Manage T24 Soap",
+    "Url": "http://manage-t24-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/ManageT24Accounting_Service",
+    "Schema Location": "schemas/manage-t24-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FIBlock",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBlock",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FIDenyDlng",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDenyDlng",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FIGarnish",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGarnish",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FILift",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FILift",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FITransfer",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FITransfer",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FIUpdateAmt",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateAmt",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Execution FIBanDlng",
+    "Url": "http://tanfeeth-execution-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIBanDlng",
+    "Schema Location": "schemas/tanfeeth-execution-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FITecRptInq",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/TecRptInq/v01",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIAcctStmnt",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAcctStmnt",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIDeduction",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/ex/fi/deduction/v01",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FICustInfoInq",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FICustInfoInq",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FISalaryInq",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bea/ws/gi/fi/salaryinq/v01",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIGetLiabsInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetLiabsInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIGetBalsInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetBalsInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIAccountValidation",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIAccountValidation",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIGetDepotsInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetDepotsInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIDeathStatusNotification",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeathStatusNotification",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIGetSafsInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetSafsInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIDeductionInq",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIDeductionInq",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIGetAcctsInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIGetAcctsInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Tanfeeth Inquiry FIUpdateCRInfo",
+    "Url": "http://tanfeeth-inquiry-http-bab-sit-cp4i.apps.babsitaro.albtests.com/FIUpdateCRInfo",
+    "Schema Location": "schemas/tanfeeth-inquiry-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Send Instant Notification",
+    "Url": "http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service",
+    "Schema Location": "schemas/send-instant-notification-soap.json",
+    "tag": "soap"
+  },
+  {
+    "API Name": "Update Card Request Notification",
+    "Url": "http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service",
+    "Schema Location": "schemas/update-card-request-notification-soap.json",
+    "tag": "soap"
+  }
+]
