@@ -16,7 +16,7 @@ fi
 # ------------------------------
 # Configuration variables (with defaults)
 # ------------------------------
-InputFile="${INPUT_FILE:-services.txt}"
+InputFile="${INPUT_FILE:-services.json}"
 TemplateFile="${TEMPLATE_FILE:-template.yaml}"
 OutputDirectory="${OUTPUT_DIRECTORY:-API-yamls}"
 SchemasDirectory="${SCHEMAS_DIRECTORY:-schemas}"
@@ -366,17 +366,12 @@ echo "✓ Successfully logged in"
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
-exec 3< "$InputFile"
-while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&3 || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings and trim whitespace
-    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
-    ESBUrl=$(printf '%s' "$ESBUrl" | tr -d '\r')
-    SchemaPath=$(printf '%s' "$SchemaPath" | tr -d '\r')
-
-    # Trim spaces from all fields
-    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
-    ESBUrl=$(printf '%s' "$ESBUrl" | tr -cd '[:print:]' | xargs || true)
-    SchemaPath=$(printf '%s' "$SchemaPath" | tr -cd '[:print:]' | xargs || true)
+exec 3< <(jq -c '.[]' "$InputFile")
+while read -r json_item <&3; do
+    # Extract fields from JSON object
+    ServiceName=$(echo "$json_item" | jq -r '."API Name"' | tr -cd '[:print:]' | xargs)
+    ESBUrl=$(echo "$json_item" | jq -r '.Url' | tr -cd '[:print:]' | xargs)
+    SchemaPath=$(echo "$json_item" | jq -r '."Schema Location" // ""' | tr -cd '[:print:]' | xargs)
     
     # Skip blank lines or comments (lines starting with #)
     [ -z "$ServiceName" ] && continue
@@ -648,11 +643,10 @@ echo "6.1) Collecting API references from services.txt..."
 # Array to store API references
 declare -a API_REFS=()
 
-exec 4< "$InputFile"
-while IFS="|" read -r rawServiceName ESBUrl SchemaPath <&4 || [[ -n "$rawServiceName" ]]; do
-    # Remove Windows line endings and trim whitespace
-    rawServiceName=$(printf '%s' "$rawServiceName" | tr -d '\r')
-    ServiceName=$(printf '%s' "$rawServiceName" | tr -cd '[:print:]' | xargs || true)
+exec 4< <(jq -c '.[]' "$InputFile")
+while read -r json_item <&4; do
+    # Extract Service Name from JSON object
+    ServiceName=$(echo "$json_item" | jq -r '."API Name"' | tr -cd '[:print:]' | xargs)
     
     # Skip blank lines or comments
     [ -z "$ServiceName" ] && continue
