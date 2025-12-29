@@ -2,6 +2,7 @@ components:
   schemas:
     ManageT24SoapRequest:
       type: object
+      properties: {}
     ManageT24SoapResponse:
       properties:
         data:

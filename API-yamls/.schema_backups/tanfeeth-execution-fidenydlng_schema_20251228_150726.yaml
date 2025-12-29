@@ -1,0 +1,3 @@
+    TanfeethExecutionFIDenyDlngRequest:
+      type: object
+      properties: {}

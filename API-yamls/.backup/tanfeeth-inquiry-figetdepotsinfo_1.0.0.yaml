@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIGetDepotsInfoRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIGetDepotsInfoResponse:
       properties:

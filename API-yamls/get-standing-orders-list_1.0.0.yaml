@@ -1,56 +1,56 @@
 components:
   schemas:
     GetStandingOrdersListRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Acct_No:
-                  type: string
-                Stndng_Ordr_Tp:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                Rqstr_Info12:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info13:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info16:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Sgmnt:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Acct_No:
+                        type: string
+                      Stndng_Ordr_Tp:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      Rqstr_Info12:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info13:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info16:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Sgmnt:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     GetStandingOrdersListRequestData:
       properties:
         amount:

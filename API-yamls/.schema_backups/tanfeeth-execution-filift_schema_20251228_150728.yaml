@@ -1,0 +1,3 @@
+    TanfeethExecutionFILiftRequest:
+      type: object
+      properties: {}

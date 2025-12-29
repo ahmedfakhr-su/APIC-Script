@@ -1,0 +1,3 @@
+    TanfeethInquiryFIDeathStatusNotificationRequest:
+      type: object
+      properties: {}

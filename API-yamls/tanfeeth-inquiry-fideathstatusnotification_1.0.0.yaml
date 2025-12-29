@@ -1,5 +1,8 @@
 components:
   schemas:
+    TanfeethInquiryFIDeathStatusNotificationRequest:
+      type: object
+      properties: {}
     RequestHeader:
       properties:
         backendReferenceNumber:
@@ -55,8 +58,6 @@ components:
             description: Response message
             type: string
         type: object
-      type: object
-    TanfeethInquiryFIDeathStatusNotificationRequest:
       type: object
     TanfeethInquiryFIDeathStatusNotificationResponse:
       properties:

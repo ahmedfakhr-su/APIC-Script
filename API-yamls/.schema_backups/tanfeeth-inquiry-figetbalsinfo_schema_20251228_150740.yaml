@@ -1,0 +1,3 @@
+    TanfeethInquiryFIGetBalsInfoRequest:
+      type: object
+      properties: {}

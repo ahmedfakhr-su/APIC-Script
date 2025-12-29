@@ -57,117 +57,117 @@ components:
         type: object
       type: object
     SADADSettlementSRACustomerResultReplyRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Status:
-                  type: object
-                  properties:
-                    Severity:
-                      type: string
-                    ShortDesc:
-                      type: string
-                    StatusCode:
-                      type: string
-                  additionalProperties: false
-                XferAddRq:
-                  type: object
-                  properties:
-                    PrcDt:
-                      type: string
-                    XferInfo:
-                      type: array
-                      items:
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Status:
                         type: object
                         properties:
-                          CurAmt:
+                          Severity:
                             type: string
-                          DepAcctIdFrom:
-                            type: object
-                            properties:
-                              AcctId:
-                                type: string
-                              AcctType:
-                                type: string
-                              BankId:
-                                type: string
-                            additionalProperties: false
-                          DepAcctIdTo:
-                            type: object
-                            properties:
-                              AcctId:
-                                type: string
-                              AcctType:
-                                type: string
-                              BankId:
-                                type: string
-                            additionalProperties: false
-                          PmtId:
+                          ShortDesc:
+                            type: string
+                          StatusCode:
                             type: string
                         additionalProperties: false
-                  additionalProperties: false
-                XferResultRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                EAIRtrnCdDesc:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                UsrDfn:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+                      XferAddRq:
+                        type: object
+                        properties:
+                          PrcDt:
+                            type: string
+                          XferInfo:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                CurAmt:
+                                  type: string
+                                DepAcctIdFrom:
+                                  type: object
+                                  properties:
+                                    AcctId:
+                                      type: string
+                                    AcctType:
+                                      type: string
+                                    BankId:
+                                      type: string
+                                  additionalProperties: false
+                                DepAcctIdTo:
+                                  type: object
+                                  properties:
+                                    AcctId:
+                                      type: string
+                                    AcctType:
+                                      type: string
+                                    BankId:
+                                      type: string
+                                  additionalProperties: false
+                                PmtId:
+                                  type: string
+                              additionalProperties: false
+                        additionalProperties: false
+                      XferResultRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      EAIRtrnCdDesc:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      UsrDfn:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     SADADSettlementSRACustomerResultReplyResponse:
       properties:
         data:

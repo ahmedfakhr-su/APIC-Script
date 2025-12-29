@@ -1,0 +1,3 @@
+    TanfeethInquiryFIGetSafsInfoRequest:
+      type: object
+      properties: {}

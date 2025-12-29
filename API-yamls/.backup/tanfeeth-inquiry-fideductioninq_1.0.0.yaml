@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIDeductionInqRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIDeductionInqResponse:
       properties:

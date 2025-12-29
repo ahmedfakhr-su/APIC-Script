@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethExecutionFITransferRequest:
+      properties: {}
       type: object
     TanfeethExecutionFITransferResponse:
       properties:

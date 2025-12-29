@@ -1,85 +1,85 @@
 components:
   schemas:
     CorporateBankingEnableUserRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            ldapchannel:
-              type: string
-            password:
-              type: string
-            userName:
-              type: string
-          additionalProperties: false
-        header:
-          type: object
-          properties:
-            backendReferenceNumber:
-              type: string
-              description: Backend system reference number
-            channelId:
-              type: string
-              description: Channel from which the request originated
-            cif:
-              type: string
-              description: Customer Information File number
-            deviceInfo:
-              type: object
-              properties:
-                city:
-                  type: string
-                country:
-                  type: string
-                id:
-                  type: string
-                ipAddress:
-                  type: string
-                model:
-                  type: string
-                osVersion:
-                  type: string
-              additionalProperties: false
-            eaiReturnCode:
-              type: string
-            frontendReferenceNumber:
-              type: string
-              description: Frontend system reference number
-            functionId:
-              type: string
-              description: Identifier of the business function being invoked
-            language:
-              type: string
-              description: Request language code
-            messageFormat:
-              type: string
-              description: Message payload format (JSON or XML)
-            originalMessageId:
-              type: string
-            requesterInformation1:
-              type: string
-            requesterInformation14:
-              type: string
-            requesterInformation19:
-              type: string
-            requesterInformation2:
-              type: string
-            requesterInformation3:
-              type: string
-            requesterInformation5:
-              type: string
-            requesterInformation6:
-              type: string
-            requesterInformation7:
-              type: string
-            reversalOption:
-              type: string
-              description: Indicates whether the transaction can be reversed
-            timeStamp:
-              type: string
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  ldapchannel:
+                    type: string
+                  password:
+                    type: string
+                  userName:
+                    type: string
+                additionalProperties: false
+              header:
+                type: object
+                properties:
+                  backendReferenceNumber:
+                    type: string
+                    description: Backend system reference number
+                  channelId:
+                    type: string
+                    description: Channel from which the request originated
+                  cif:
+                    type: string
+                    description: Customer Information File number
+                  deviceInfo:
+                    type: object
+                    properties:
+                      city:
+                        type: string
+                      country:
+                        type: string
+                      id:
+                        type: string
+                      ipAddress:
+                        type: string
+                      model:
+                        type: string
+                      osVersion:
+                        type: string
+                    additionalProperties: false
+                  eaiReturnCode:
+                    type: string
+                  frontendReferenceNumber:
+                    type: string
+                    description: Frontend system reference number
+                  functionId:
+                    type: string
+                    description: Identifier of the business function being invoked
+                  language:
+                    type: string
+                    description: Request language code
+                  messageFormat:
+                    type: string
+                    description: Message payload format (JSON or XML)
+                  originalMessageId:
+                    type: string
+                  requesterInformation1:
+                    type: string
+                  requesterInformation14:
+                    type: string
+                  requesterInformation19:
+                    type: string
+                  requesterInformation2:
+                    type: string
+                  requesterInformation3:
+                    type: string
+                  requesterInformation5:
+                    type: string
+                  requesterInformation6:
+                    type: string
+                  requesterInformation7:
+                    type: string
+                  reversalOption:
+                    type: string
+                    description: Indicates whether the transaction can be reversed
+                  timeStamp:
+                    type: string
+                additionalProperties: false
+            additionalProperties: false
     CorporateBankingEnableUserResponse:
       properties:
         data:

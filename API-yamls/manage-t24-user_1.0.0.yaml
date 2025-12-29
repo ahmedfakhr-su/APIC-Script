@@ -1,138 +1,138 @@
 components:
   schemas:
     ManageT24UserRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Accss_Prps:
-                  type: string
-                HM_Lst:
-                  type: object
-                  properties:
-                    HM_Dtls:
-                      type: object
-                      properties:
-                        Actn:
-                          type: string
-                        HM_Applctn_Lst:
-                          type: object
-                          properties:
-                            HM_Applctn_Dtls:
-                              type: object
-                              properties:
-                                Applctn:
-                                  type: string
-                                Desc_Ar:
-                                  type: string
-                                Desc_En:
-                                  type: string
-                              additionalProperties: false
-                          additionalProperties: false
-                        HM_Id:
-                          type: string
-                      additionalProperties: false
-                  additionalProperties: false
-                USG_Lst:
-                  type: object
-                  properties:
-                    USG_Dtls:
-                      type: object
-                      properties:
-                        Actn:
-                          type: string
-                        USG_Applctn_Lst:
-                          type: object
-                          properties:
-                            USG_Applctn_Dtls:
-                              type: object
-                              properties:
-                                Applctn:
-                                  type: string
-                                Data_Rcrd:
-                                  type: string
-                                Functn:
-                                  type: string
-                                Functn_Tp:
-                                  type: string
-                                Oprtn:
-                                  type: string
-                                Vrsn:
-                                  type: string
-                              additionalProperties: false
-                          additionalProperties: false
-                        USG_Id:
-                          type: string
-                      additionalProperties: false
-                  additionalProperties: false
-                Usr_Lst:
-                  type: object
-                  properties:
-                    Usr_Dtls:
-                      type: array
-                      items:
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Accss_Prps:
+                        type: string
+                      HM_Lst:
                         type: object
                         properties:
-                          Absnc_Id:
-                            type: string
-                          Actn:
-                            type: string
-                          End_Dt:
-                            type: string
-                          Strt_Dt:
-                            type: string
-                          Usr_Id:
-                            type: string
+                          HM_Dtls:
+                            type: object
+                            properties:
+                              Actn:
+                                type: string
+                              HM_Applctn_Lst:
+                                type: object
+                                properties:
+                                  HM_Applctn_Dtls:
+                                    type: object
+                                    properties:
+                                      Applctn:
+                                        type: string
+                                      Desc_Ar:
+                                        type: string
+                                      Desc_En:
+                                        type: string
+                                    additionalProperties: false
+                                additionalProperties: false
+                              HM_Id:
+                                type: string
+                            additionalProperties: false
                         additionalProperties: false
-                  additionalProperties: false
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+                      USG_Lst:
+                        type: object
+                        properties:
+                          USG_Dtls:
+                            type: object
+                            properties:
+                              Actn:
+                                type: string
+                              USG_Applctn_Lst:
+                                type: object
+                                properties:
+                                  USG_Applctn_Dtls:
+                                    type: object
+                                    properties:
+                                      Applctn:
+                                        type: string
+                                      Data_Rcrd:
+                                        type: string
+                                      Functn:
+                                        type: string
+                                      Functn_Tp:
+                                        type: string
+                                      Oprtn:
+                                        type: string
+                                      Vrsn:
+                                        type: string
+                                    additionalProperties: false
+                                additionalProperties: false
+                              USG_Id:
+                                type: string
+                            additionalProperties: false
+                        additionalProperties: false
+                      Usr_Lst:
+                        type: object
+                        properties:
+                          Usr_Dtls:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                Absnc_Id:
+                                  type: string
+                                Actn:
+                                  type: string
+                                End_Dt:
+                                  type: string
+                                Strt_Dt:
+                                  type: string
+                                Usr_Id:
+                                  type: string
+                              additionalProperties: false
+                        additionalProperties: false
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     ManageT24UserRequestData:
       properties:
         amount:

@@ -57,125 +57,125 @@ components:
         type: object
       type: object
     UpdateCardStatusRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                CMS_Acct_No:
-                  type: string
-                CMS_Acct_Stts:
-                  type: string
-                CMS_Rplcmnt_No:
-                  type: string
-                Card_Clss_Id:
-                  type: string
-                Card_No:
-                  type: string
-                Card_Prdct_Cd:
-                  type: string
-                Card_Stts:
-                  type: string
-                DB_Acct:
-                  type: string
-                Expry_Dt:
-                  type: string
-                T24_Rplcmnt_No:
-                  type: string
-                Tmstmp:
-                  type: string
-                lang:
-                  type: string
-                outputType:
-                  type: string
-                usrDfn:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info10:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info11:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info12:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info13:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info14:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info15:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info16:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info19:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info6:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info7:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info8:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info9:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      CMS_Acct_No:
+                        type: string
+                      CMS_Acct_Stts:
+                        type: string
+                      CMS_Rplcmnt_No:
+                        type: string
+                      Card_Clss_Id:
+                        type: string
+                      Card_No:
+                        type: string
+                      Card_Prdct_Cd:
+                        type: string
+                      Card_Stts:
+                        type: string
+                      DB_Acct:
+                        type: string
+                      Expry_Dt:
+                        type: string
+                      T24_Rplcmnt_No:
+                        type: string
+                      Tmstmp:
+                        type: string
+                      lang:
+                        type: string
+                      outputType:
+                        type: string
+                      usrDfn:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info10:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info11:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info12:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info13:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info14:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info15:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info16:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info19:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info6:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info7:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info8:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info9:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     UpdateCardStatusResponse:
       properties:
         data:

@@ -1,6 +1,7 @@
 components:
   schemas:
     ManageT24SoapRequest:
+      properties: {}
       type: object
     ManageT24SoapResponse:
       properties:

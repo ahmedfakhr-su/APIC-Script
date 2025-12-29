@@ -1,0 +1,3 @@
+    TanfeethInquiryFIAccountValidationRequest:
+      type: object
+      properties: {}

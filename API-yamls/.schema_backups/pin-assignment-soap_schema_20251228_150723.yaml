@@ -1,0 +1,3 @@
+    PinAssignmentSoapRequest:
+      type: object
+      properties: {}

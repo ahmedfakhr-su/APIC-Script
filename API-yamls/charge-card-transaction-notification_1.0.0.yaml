@@ -2,6 +2,7 @@ components:
   schemas:
     ChargeCardTransactionNotificationRequest:
       type: object
+      properties: {}
     ChargeCardTransactionNotificationRequestData:
       type: object
     ChargeCardTransactionNotificationResponse:

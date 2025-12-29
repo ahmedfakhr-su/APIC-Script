@@ -1,146 +1,146 @@
 components:
   schemas:
     ElectronicBankingFundTransferRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Ben_Cd:
-                  type: string
-                Ben_Cntry:
-                  type: string
-                Bnfcry_Bnk:
-                  type: string
-                Chrg_Amt:
-                  type: string
-                Chrg_Cd:
-                  type: string
-                Chrg_Cry:
-                  type: string
-                Chrg_Tp:
-                  type: string
-                Crdt_Val_Dt:
-                  type: string
-                FT_Prps:
-                  type: string
-                Nrml_Exchng_Rt:
-                  type: string
-                Pymnt_Desc_L1:
-                  type: string
-                Pymnt_Desc_L2:
-                  type: string
-                Pymnt_Desc_L3:
-                  type: string
-                Pymnt_Desc_L4:
-                  type: string
-                Rcvr:
-                  type: object
-                  properties:
-                    IBAN:
-                      type: string
-                    Prxy_Tp:
-                      type: string
-                    Prxy_Vl:
-                      type: string
-                    Shrt_Nm:
-                      type: string
-                  additionalProperties: false
-                Source_Acct_No:
-                  type: string
-                Source_FT_Amt:
-                  type: string
-                Source_FT_Cry:
-                  type: string
-                Spcl_Exchng_Rt:
-                  type: string
-                Target_Acct_No:
-                  type: string
-                Target_FT_Amt:
-                  type: string
-                Target_FT_Cry:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info11:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info12:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info13:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info14:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info15:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info16:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info19:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info6:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info7:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Sgmnt:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Ben_Cd:
+                        type: string
+                      Ben_Cntry:
+                        type: string
+                      Bnfcry_Bnk:
+                        type: string
+                      Chrg_Amt:
+                        type: string
+                      Chrg_Cd:
+                        type: string
+                      Chrg_Cry:
+                        type: string
+                      Chrg_Tp:
+                        type: string
+                      Crdt_Val_Dt:
+                        type: string
+                      FT_Prps:
+                        type: string
+                      Nrml_Exchng_Rt:
+                        type: string
+                      Pymnt_Desc_L1:
+                        type: string
+                      Pymnt_Desc_L2:
+                        type: string
+                      Pymnt_Desc_L3:
+                        type: string
+                      Pymnt_Desc_L4:
+                        type: string
+                      Rcvr:
+                        type: object
+                        properties:
+                          IBAN:
+                            type: string
+                          Prxy_Tp:
+                            type: string
+                          Prxy_Vl:
+                            type: string
+                          Shrt_Nm:
+                            type: string
+                        additionalProperties: false
+                      Source_Acct_No:
+                        type: string
+                      Source_FT_Amt:
+                        type: string
+                      Source_FT_Cry:
+                        type: string
+                      Spcl_Exchng_Rt:
+                        type: string
+                      Target_Acct_No:
+                        type: string
+                      Target_FT_Amt:
+                        type: string
+                      Target_FT_Cry:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info11:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info12:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info13:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info14:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info15:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info16:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info19:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info6:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info7:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Sgmnt:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     ElectronicBankingFundTransferResponse:
       properties:
         data:

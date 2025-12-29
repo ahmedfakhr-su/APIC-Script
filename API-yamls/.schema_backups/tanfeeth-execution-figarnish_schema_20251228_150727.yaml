@@ -1,0 +1,3 @@
+    TanfeethExecutionFIGarnishRequest:
+      type: object
+      properties: {}

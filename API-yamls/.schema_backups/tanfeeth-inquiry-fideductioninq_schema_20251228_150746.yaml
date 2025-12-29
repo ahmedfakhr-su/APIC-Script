@@ -1,0 +1,3 @@
+    TanfeethInquiryFIDeductionInqRequest:
+      type: object
+      properties: {}

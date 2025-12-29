@@ -1,5 +1,8 @@
 components:
   schemas:
+    TanfeethExecutionFILiftRequest:
+      type: object
+      properties: {}
     RequestHeader:
       properties:
         backendReferenceNumber:
@@ -55,8 +58,6 @@ components:
             description: Response message
             type: string
         type: object
-      type: object
-    TanfeethExecutionFILiftRequest:
       type: object
     TanfeethExecutionFILiftResponse:
       properties:

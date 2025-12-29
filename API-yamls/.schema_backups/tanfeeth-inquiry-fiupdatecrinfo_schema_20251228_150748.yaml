@@ -1,0 +1,3 @@
+    TanfeethInquiryFIUpdateCRInfoRequest:
+      type: object
+      properties: {}

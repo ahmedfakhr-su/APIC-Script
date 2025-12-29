@@ -57,212 +57,212 @@ components:
         type: object
       type: object
     TransFastCreateTransactionRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Cmplnc:
-                  type: object
-                  properties:
-                    Cntry_Iss_Cd:
-                      type: string
-                    Funds_Src:
-                      type: string
-                    Rcvr_Fll_Nm:
-                      type: string
-                    Rcvr_Rltshp:
-                      type: string
-                    Sndr_Emplyr_Nm:
-                      type: string
-                  additionalProperties: false
-                Dbt_Acct_No:
-                  type: string
-                Rcvr:
-                  type: object
-                  properties:
-                    Ben_Cd:
-                      type: string
-                    Cntry_Cd:
-                      type: string
-                    Cty_Id:
-                      type: string
-                    Frst_Nm:
-                      type: string
-                    Is_Indvdl:
-                      type: string
-                    Lst_Nm:
-                      type: string
-                    Mbl_No:
-                      type: string
-                    Ntnlty_Cd:
-                      type: string
-                    Stt_Id:
-                      type: string
-                    Twn_Id:
-                      type: string
-                  additionalProperties: false
-                Sndr:
-                  type: object
-                  properties:
-                    Brth_Dt:
-                      type: string
-                    Cntry_Cd:
-                      type: string
-                    Id_Expry_Dt:
-                      type: string
-                    Id_No:
-                      type: string
-                    Id_Tp:
-                      type: string
-                    Is_Indvdl:
-                      type: string
-                    Mbl_No:
-                      type: string
-                    Nm:
-                      type: string
-                    Ntnlty_Cd:
-                      type: string
-                    Zp_Cd:
-                      type: string
-                  additionalProperties: false
-                Tmstmp:
-                  type: string
-                Trnsctn_Info:
-                  type: object
-                  properties:
-                    Bnk_Grss_Ttl_Amnt:
-                      type: string
-                    Bnk_Rcv_Amnt:
-                      type: string
-                    Bnk_Rt:
-                      type: string
-                    Bnk_Snt_Amnt:
-                      type: string
-                    Bnk_Srvc_Fee:
-                      type: string
-                    Bnk_Srvc_Fee_VAT_Amnt:
-                      type: string
-                    Bnk_Srvc_Fee_VAT_Prcntg:
-                      type: string
-                    Bnk_Ttl_Snt_Amnt:
-                      type: string
-                    Enjz_FX_Amnt:
-                      type: string
-                    Enjz_Fee_Amnt:
-                      type: string
-                    Pmnt_Md:
-                      type: string
-                    Prps_Of_Rmttnc_Id:
-                      type: string
-                    Pyng_Brnch_Id:
-                      type: string
-                    Pyr_Id:
-                      type: string
-                    Rcv_Amnt:
-                      type: string
-                    Rcv_Crrncy_Cd:
-                      type: string
-                    Rt:
-                      type: string
-                    SAMA_Prps_Of_Rmttnc_Id:
-                      type: string
-                    Snt_Amnt:
-                      type: string
-                    Src_Crrncy_Cd:
-                      type: string
-                    Srvc_Fee:
-                      type: string
-                    Sttlmnt_Rt:
-                      type: string
-                    TF_Fee_Amnt:
-                      type: string
-                    TF_Sttlmnt_Amnt_SAR:
-                      type: string
-                    TF_Sttlmnt_Amnt_USD:
-                      type: string
-                    Ttl_Bnk_Srvc_Fee:
-                      type: string
-                    Ttl_Snt_Amnt:
-                      type: string
-                  additionalProperties: false
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info11:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info12:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info13:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info14:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info15:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info16:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info19:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info6:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info7:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Tmstmp:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Cmplnc:
+                        type: object
+                        properties:
+                          Cntry_Iss_Cd:
+                            type: string
+                          Funds_Src:
+                            type: string
+                          Rcvr_Fll_Nm:
+                            type: string
+                          Rcvr_Rltshp:
+                            type: string
+                          Sndr_Emplyr_Nm:
+                            type: string
+                        additionalProperties: false
+                      Dbt_Acct_No:
+                        type: string
+                      Rcvr:
+                        type: object
+                        properties:
+                          Ben_Cd:
+                            type: string
+                          Cntry_Cd:
+                            type: string
+                          Cty_Id:
+                            type: string
+                          Frst_Nm:
+                            type: string
+                          Is_Indvdl:
+                            type: string
+                          Lst_Nm:
+                            type: string
+                          Mbl_No:
+                            type: string
+                          Ntnlty_Cd:
+                            type: string
+                          Stt_Id:
+                            type: string
+                          Twn_Id:
+                            type: string
+                        additionalProperties: false
+                      Sndr:
+                        type: object
+                        properties:
+                          Brth_Dt:
+                            type: string
+                          Cntry_Cd:
+                            type: string
+                          Id_Expry_Dt:
+                            type: string
+                          Id_No:
+                            type: string
+                          Id_Tp:
+                            type: string
+                          Is_Indvdl:
+                            type: string
+                          Mbl_No:
+                            type: string
+                          Nm:
+                            type: string
+                          Ntnlty_Cd:
+                            type: string
+                          Zp_Cd:
+                            type: string
+                        additionalProperties: false
+                      Tmstmp:
+                        type: string
+                      Trnsctn_Info:
+                        type: object
+                        properties:
+                          Bnk_Grss_Ttl_Amnt:
+                            type: string
+                          Bnk_Rcv_Amnt:
+                            type: string
+                          Bnk_Rt:
+                            type: string
+                          Bnk_Snt_Amnt:
+                            type: string
+                          Bnk_Srvc_Fee:
+                            type: string
+                          Bnk_Srvc_Fee_VAT_Amnt:
+                            type: string
+                          Bnk_Srvc_Fee_VAT_Prcntg:
+                            type: string
+                          Bnk_Ttl_Snt_Amnt:
+                            type: string
+                          Enjz_FX_Amnt:
+                            type: string
+                          Enjz_Fee_Amnt:
+                            type: string
+                          Pmnt_Md:
+                            type: string
+                          Prps_Of_Rmttnc_Id:
+                            type: string
+                          Pyng_Brnch_Id:
+                            type: string
+                          Pyr_Id:
+                            type: string
+                          Rcv_Amnt:
+                            type: string
+                          Rcv_Crrncy_Cd:
+                            type: string
+                          Rt:
+                            type: string
+                          SAMA_Prps_Of_Rmttnc_Id:
+                            type: string
+                          Snt_Amnt:
+                            type: string
+                          Src_Crrncy_Cd:
+                            type: string
+                          Srvc_Fee:
+                            type: string
+                          Sttlmnt_Rt:
+                            type: string
+                          TF_Fee_Amnt:
+                            type: string
+                          TF_Sttlmnt_Amnt_SAR:
+                            type: string
+                          TF_Sttlmnt_Amnt_USD:
+                            type: string
+                          Ttl_Bnk_Srvc_Fee:
+                            type: string
+                          Ttl_Snt_Amnt:
+                            type: string
+                        additionalProperties: false
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info11:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info12:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info13:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info14:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info15:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info16:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info19:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info6:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info7:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     TransFastCreateTransactionResponse:
       properties:
         data:

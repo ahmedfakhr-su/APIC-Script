@@ -277,6 +277,8 @@ apis:
     $ref: tanfeeth-inquiry-fiupdatecrinfo_1.0.0.yaml
   update-card-request-notification:
     $ref: update-card-request-notification_1.0.0.yaml
+  send-instant-notification-soap:
+    $ref: send-instant-notification-soap_1.0.0.yaml
 
 visibility:
   view:

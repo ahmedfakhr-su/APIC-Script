@@ -1,94 +1,94 @@
 components:
   schemas:
     BIBAverageBalanceRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          description: Business request payload for average balance inquiry
-          properties:
-            accountNumber:
-              type: string
-            durationInDays:
-              type: string
-            endDate:
-              type: string
-            pageOffset:
-              type: string
-            pageSize:
-              type: string
-            startDate:
-              type: string
-          additionalProperties: false
-        header:
-          type: object
-          description: Technical and routing metadata required for request processing and tracking
-          properties:
-            backendReferenceNumber:
-              type: string
-            channelId:
-              type: string
-            cif:
-              type: string
-            deviceInfo:
-              type: object
-              description: Device information for the request
-              properties:
-                city:
-                  type: string
-                country:
-                  type: string
-                id:
-                  type: string
-                ipAddress:
-                  type: string
-                model:
-                  type: string
-                osVersion:
-                  type: string
-              additionalProperties: false
-            eaiReturnCode:
-              type: string
-            frontendReferenceNumber:
-              type: string
-            functionId:
-              type: string
-            language:
-              type: string
-            messageFormat:
-              type: string
-            originalMessageId:
-              type: string
-            requesterInformation1:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation14:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation19:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation2:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation3:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation5:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation6:
-              type: string
-              description: Additional requester-provided metadata field
-            requesterInformation7:
-              type: string
-              description: Additional requester-provided metadata field
-            reversalOption:
-              type: string
-            timeStamp:
-              type: string
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              data:
+                type: object
+                description: Business request payload for average balance inquiry
+                properties:
+                  accountNumber:
+                    type: string
+                  durationInDays:
+                    type: string
+                  endDate:
+                    type: string
+                  pageOffset:
+                    type: string
+                  pageSize:
+                    type: string
+                  startDate:
+                    type: string
+                additionalProperties: false
+              header:
+                type: object
+                description: Technical and routing metadata required for request processing and tracking
+                properties:
+                  backendReferenceNumber:
+                    type: string
+                  channelId:
+                    type: string
+                  cif:
+                    type: string
+                  deviceInfo:
+                    type: object
+                    description: Device information for the request
+                    properties:
+                      city:
+                        type: string
+                      country:
+                        type: string
+                      id:
+                        type: string
+                      ipAddress:
+                        type: string
+                      model:
+                        type: string
+                      osVersion:
+                        type: string
+                    additionalProperties: false
+                  eaiReturnCode:
+                    type: string
+                  frontendReferenceNumber:
+                    type: string
+                  functionId:
+                    type: string
+                  language:
+                    type: string
+                  messageFormat:
+                    type: string
+                  originalMessageId:
+                    type: string
+                  requesterInformation1:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation14:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation19:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation2:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation3:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation5:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation6:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  requesterInformation7:
+                    type: string
+                    description: Additional requester-provided metadata field
+                  reversalOption:
+                    type: string
+                  timeStamp:
+                    type: string
+                additionalProperties: false
+            additionalProperties: false
     BIBAverageBalanceResponse:
       properties:
         data:

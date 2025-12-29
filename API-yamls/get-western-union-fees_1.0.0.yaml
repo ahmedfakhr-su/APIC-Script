@@ -1,85 +1,85 @@
 components:
   schemas:
     GetWestrenUnionFeesRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Fnncls:
-                  type: object
-                  properties:
-                    Orgntrs_Prncpl_Amt:
-                      type: string
-                  additionalProperties: false
-                Pymnt_Dtls:
-                  type: object
-                  properties:
-                    Dstntn_Cntry_Cd:
-                      type: string
-                    Dstntn_Crrncy_Cd:
-                      type: string
-                    Orgntng_Cntry_Cd:
-                      type: string
-                    Orgntng_Crrncy_Cd:
-                      type: string
-                    Rcrdng_Cntry_Cd:
-                      type: string
-                    Rcrdng_Crrncy_Cd:
-                      type: string
-                    Trnsctn_Tp:
-                      type: string
-                  additionalProperties: false
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Orgnl_Data_Val:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Fnncls:
+                        type: object
+                        properties:
+                          Orgntrs_Prncpl_Amt:
+                            type: string
+                        additionalProperties: false
+                      Pymnt_Dtls:
+                        type: object
+                        properties:
+                          Dstntn_Cntry_Cd:
+                            type: string
+                          Dstntn_Crrncy_Cd:
+                            type: string
+                          Orgntng_Cntry_Cd:
+                            type: string
+                          Orgntng_Crrncy_Cd:
+                            type: string
+                          Rcrdng_Cntry_Cd:
+                            type: string
+                          Rcrdng_Crrncy_Cd:
+                            type: string
+                          Trnsctn_Tp:
+                            type: string
+                        additionalProperties: false
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Orgnl_Data_Val:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     GetWestrenUnionFeesRequestData:
       properties:
         amount:

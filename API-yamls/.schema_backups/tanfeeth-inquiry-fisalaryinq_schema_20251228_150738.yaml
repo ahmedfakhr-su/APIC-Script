@@ -1,0 +1,3 @@
+    TanfeethInquiryFISalaryInqRequest:
+      type: object
+      properties: {}

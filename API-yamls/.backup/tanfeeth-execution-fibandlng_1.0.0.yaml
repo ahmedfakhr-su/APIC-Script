@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethExecutionFIBanDlngRequest:
+      properties: {}
       type: object
     TanfeethExecutionFIBanDlngResponse:
       properties:

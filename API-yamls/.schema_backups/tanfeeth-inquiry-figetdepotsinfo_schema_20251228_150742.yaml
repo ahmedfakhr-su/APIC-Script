@@ -1,0 +1,3 @@
+    TanfeethInquiryFIGetDepotsInfoRequest:
+      type: object
+      properties: {}

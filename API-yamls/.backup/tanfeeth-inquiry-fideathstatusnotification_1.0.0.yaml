@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIDeathStatusNotificationRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIDeathStatusNotificationResponse:
       properties:

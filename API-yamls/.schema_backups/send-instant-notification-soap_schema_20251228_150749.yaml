@@ -1,0 +1,3 @@
+    SendInstantNotificationSoapRequest:
+      type: object
+      properties: {}

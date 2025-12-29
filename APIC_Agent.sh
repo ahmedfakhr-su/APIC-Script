@@ -43,6 +43,79 @@ UPDATED_COUNT=0
 TEMP_BACKUP_DIR="${OutputDirectory}/.backup_temp_$$"
 BACKUP_DIR="${OutputDirectory}/.backup"
 
+# Validate that all API names in services.json are unique
+validate_unique_api_names() {
+    local input_file="$1"
+    
+    echo ""
+    echo "========================================"
+    echo "Validating API Names Uniqueness..."
+    echo "========================================"
+    
+    # Arrays to track names
+    declare -A seen_names
+    declare -a duplicate_names
+    local total_count=0
+    local has_duplicates=false
+    
+    # Read all API names and check for duplicates
+    while read -r json_item; do
+        ServiceName=$(echo "$json_item" | jq -r '."API Name"' | tr -cd '[:print:]' | xargs)
+        
+        # Skip blank lines or comments
+        [ -z "$ServiceName" ] && continue
+        case "$ServiceName" in
+            \#* ) continue ;;
+        esac
+        
+        # Generate x_ibm_name (same logic as main loop)
+        x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+        
+        total_count=$((total_count + 1))
+        
+        # Check if we've seen this name before
+        if [ -n "${seen_names[$x_ibm_name]:-}" ]; then
+            # Duplicate found
+            if [ "${seen_names[$x_ibm_name]}" != "DUPLICATE_MARKED" ]; then
+                # First time seeing this duplicate
+                duplicate_names+=("$x_ibm_name (originally: '${seen_names[$x_ibm_name]}', duplicate: '$ServiceName')")
+                seen_names[$x_ibm_name]="DUPLICATE_MARKED"
+            else
+                # Additional duplicate
+                duplicate_names+=("$x_ibm_name (additional duplicate: '$ServiceName')")
+            fi
+            has_duplicates=true
+        else
+            # First time seeing this name
+            seen_names[$x_ibm_name]="$ServiceName"
+        fi
+    done < <(jq -c '.[]' "$input_file")
+    
+    # Report results
+    echo "  Total APIs found: $total_count"
+    echo ""
+    
+    if [ "$has_duplicates" = true ]; then
+        echo "  ❌ ERROR: Duplicate API names detected!"
+        echo ""
+        echo "  The following API names (after normalization) appear multiple times:"
+        echo ""
+        for dup in "${duplicate_names[@]}"; do
+            echo "    - $dup"
+        done
+        echo ""
+        echo "  Note: API names are normalized to lowercase with hyphens."
+        echo "  Example: 'My Service' and 'My-Service' both become 'my-service'"
+        echo ""
+        echo "  Please fix the duplicate API names in: $input_file"
+        echo "========================================"
+        return 1
+    else
+        echo "  ✅ All API names are unique"
+        echo "========================================"
+        return 0
+    fi
+}
 # Trap to cleanup temp backup on script exit (failure cases)
 cleanup_temp_backup() {
     if [ -d "$TEMP_BACKUP_DIR" ]; then
@@ -101,11 +174,76 @@ load_json_schema() {
         return 1
     fi
     
+    
     # Convert JSON to YAML with proper indentation
     python3 "$(dirname "${BASH_SOURCE[0]}")/convert_json_to_yaml.py" "$schema_path"
 }
 
-# Replace schema section in an existing API YAML file
+# Insert a new schema section into an API YAML file (OpenAPI 3.0 only)
+# Inserts under components:/schemas: section
+insert_schema_section() {
+    local yaml_file="$1"
+    local operation_name="$2"
+    local schema_file="$3"
+    local output_file="$4"
+    
+    echo "     Inserting new schema section..." >&2
+    echo "     Operation name: $operation_name" >&2
+    echo "     Schema file: $schema_file" >&2
+    
+    local key_name="${operation_name}Request"
+    
+    # Check if components exists
+    local has_components=false
+    local has_schemas=false
+    
+    if yq eval 'has("components")' "$yaml_file" | grep -q "true"; then
+        has_components=true
+        echo "     ℹ Found components section" >&2
+    fi
+    
+    # Check if components.schemas exists
+    if yq eval 'has("components") and .components | has("schemas")' "$yaml_file" | grep -q "true"; then
+        has_schemas=true
+        echo "     ℹ Found schemas section" >&2
+    fi
+    
+    # Path 1: components/schemas both exist
+    if [ "$has_components" = true ] && [ "$has_schemas" = true ]; then
+        echo "     ℹ Found existing components/schemas section" >&2
+        
+        # Insert under existing schemas section
+        yq eval ".components.schemas.${key_name} = load(\"$schema_file\")" "$yaml_file" > "$output_file"
+        
+        echo "  ✅ Inserted schema under components/schemas" >&2
+        
+    # Path 2: components exists but no schemas
+    elif [ "$has_components" = true ]; then
+        echo "     ℹ components exists but no schemas section, creating it" >&2
+        
+        # Create schemas object with the new schema
+        yq eval ".components.schemas = {\"${key_name}\": load(\"$schema_file\")}" "$yaml_file" > "$output_file"
+        
+        echo "  ✅ Created schemas section under components" >&2
+        
+    # Path 3: No components section at all
+    else
+        echo "     ℹ No components section found, creating new one" >&2
+        
+        # Create entire components structure
+        yq eval ".components.schemas = {\"${key_name}\": load(\"$schema_file\")}" "$yaml_file" > "$output_file"
+        
+        echo "  ✅ Created new components/schemas section" >&2
+    fi
+    
+    # Verify no duplicate schemas sections
+    local schemas_count=$(yq eval '.components | keys | map(select(. == "schemas")) | length' "$output_file")
+    if [ "$schemas_count" -gt 1 ]; then
+        echo "❌ ERROR: Duplicate schemas sections detected" >&2
+        return 1
+    fi
+}
+# Replace schema section in an existing API YAML file (OpenAPI 3.0 only)
 # Uses indentation-based detection to find and replace the {OperationName}Request schema
 replace_schema_section() {
     local yaml_file="$1"
@@ -117,109 +255,97 @@ replace_schema_section() {
     echo "     YAML file: $yaml_file" >&2
     echo "     Operation name: $operation_name" >&2
     echo "     New schema file: $new_schema_file" >&2
-    echo "     Output file: $output_file" >&2
     
-    # Pattern to match: "{OperationName}Request:" with any leading whitespace
-    local pattern="${operation_name}Request:"
-    echo "     Search pattern: '$pattern'" >&2
+    local key_name="${operation_name}Request"
+    echo "     Search key: '$key_name'" >&2
     
-    # Check if pattern exists in file
-    if grep -n "$pattern" "$yaml_file"; then
-        echo "  ✅ Pattern FOUND in file (line numbers shown above)" >&2
+    # Check if the key exists anywhere in the YAML structure
+    if yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | grep -q .; then
+        echo "  ✅ Key FOUND in file" >&2
+        
+        # Get the path(s) where this key exists
+        local paths=$(yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file")
+        echo "  📍 Found at path(s): $paths" >&2
+        
+        # Count how many times the key appears
+        local count=$(echo "$paths" | grep -c .)
+        echo "  🔢 Key appears $count time(s)" >&2
+        
+        # Read the new schema content
+        local new_schema=$(cat "$new_schema_file")
+        local line_count=$(echo "$new_schema" | wc -l)
+        
+        # For each path where the key exists, replace its content
+        echo "$paths" | while IFS= read -r path; do
+            if [ -n "$path" ]; then
+                local full_path="${path}.${key_name}"
+                echo "  🔄 Replacing content at: $full_path" >&2
+                
+                # Use yq to replace the content at this path with the new schema
+                yq eval "${full_path} = load(\"$new_schema_file\")" "$yaml_file" > "$output_file.tmp"
+                mv "$output_file.tmp" "$yaml_file"
+            fi
+        done
+        
+        # Move final result to output file
+        mv "$yaml_file" "$output_file"
+        
+        echo "  ✅ Inserted $line_count lines of new schema" >&2
+        echo "  ✓ Replacement complete." >&2
     else
-        echo "  ❌ Pattern NOT FOUND in file!" >&2
-        echo "     Searching for similar patterns..." >&2
-        grep -n "Request:" "$yaml_file" | head -5 >&2
-    fi
-    
-    # Show schema file content (first 10 lines)
-    echo "  📄 New schema content (first 10 lines):" >&2
-    head -10 "$new_schema_file" | sed 's/^/       /' >&2
-    
-    # THE ACTUAL REPLACEMENT (with debug output)
-    awk -v pattern="$pattern" -v schema_file="$new_schema_file" '
-    BEGIN { 
-        in_schema = 0
-        schema_indent = 0
-        found_pattern = 0
-        lines_skipped = 0
-    }
-    {
-        # Check if this is the schema header line we are looking for
-        # BUG FIX: Remove extra ":" - pattern already has it!
-        if (match($0, pattern)) {
-            found_pattern = 1
-            print "  ✅ MATCHED line " NR ": " $0 > "/dev/stderr"
-            
-            # Found the schema header - print it
-            print $0
-            
-            # Calculate indentation of this line
-            match($0, /^[[:space:]]*/)
-            schema_indent = RLENGTH
-            print "  📏 Schema indent level: " schema_indent > "/dev/stderr"
-            
-            # Insert new schema content
-            line_count = 0
-            while ((getline line < schema_file) > 0) {
-                print line
-                line_count++
-            }
-            close(schema_file)
-            print "  ✅ Inserted " line_count " lines of new schema" > "/dev/stderr"
-            
-            # Mark that we are now inside the old schema section to skip
-            in_schema = 1
-            next
-        }
-        
-        # If we are inside the old schema section, check indentation to know when to stop skipping
-        if (in_schema) {
-            # Calculate indentation of current line
-            match($0, /^[[:space:]]*/)
-            current_indent = RLENGTH
-            
-            # Skip empty lines
-            if ($0 ~ /^[[:space:]]*$/) {
-                next
-            }
-            
-            # If current indentation is greater than schema header, skip this line (its nested content)
-            if (current_indent > schema_indent) {
-                lines_skipped++
-                next
-            }
-            
-            # We have reached a line with same or less indentation - stop skipping
-            print "  🛑 Stopped skipping at line " NR " (skipped " lines_skipped " lines)" > "/dev/stderr"
-            print "     Continuing from: " $0 > "/dev/stderr"
-            in_schema = 0
-            lines_skipped = 0
-            print $0
-            next
-        }
-        
-        # Normal line - print as-is
-        print $0
-    }
-    END {
-        if (found_pattern == 0) {
-            print "  ❌ ERROR: Pattern was NEVER matched in entire file!" > "/dev/stderr"
-        }
-    }
-    ' "$yaml_file" > "$output_file"
-    
-     echo "  Replacement complete. Checking result..." >&2
-    if [ -f "$output_file" ]; then
-        local line_count_old=$(wc -l < "$yaml_file")
-        local line_count_new=$(wc -l < "$output_file")
-        # echo "     Old file: $line_count_old lines" >&2
-        # echo "     New file: $line_count_new lines" >&2
-        # echo "     Difference: $((line_count_new - line_count_old)) lines" >&2
+        echo "  ❌ Key NOT FOUND in file!" >&2
+        echo "  ❌ ERROR: Key was NEVER matched in entire file!" >&2
+        # Copy original to output if key not found
+        cp "$yaml_file" "$output_file"
+        return 1
     fi
 }
 
-
+# Remove schema section from an existing API YAML file and backup (OpenAPI 3.0 only)
+# Uses indentation-based detection to find and remove the {OperationName}Request schema
+remove_schema_section() {
+    local yaml_file="$1"
+    local operation_name="$2"
+    local backup_file="$3"
+    local output_file="$4"
+    
+    echo "     Schema removal starting..." >&2
+    echo "     YAML file: $yaml_file" >&2
+    echo "     Operation name: $operation_name" >&2
+    echo "     Backup file: $backup_file" >&2
+    
+    local key_name="${operation_name}Request"
+    
+    # Check if the key exists
+    if yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | grep -q .; then
+        echo "  ✅ Found schema section" >&2
+        
+        # Get the path where this key exists
+        local path=$(yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | head -n 1)
+        echo "  📍 Found at path: $path" >&2
+        
+        local full_path="${path}.${key_name}"
+        
+        # Extract the schema section to backup file
+        # This creates a YAML document with just the key and its content
+        yq eval "{ \"$key_name\": .$full_path }" "$yaml_file" > "$backup_file"
+        
+        echo "  💾 Schema section backed up to $backup_file" >&2
+        
+        # Remove the schema section from the YAML
+        yq eval "del(.$full_path)" "$yaml_file" > "$output_file"
+        
+        echo "  🛑 Schema section removed from output" >&2
+        echo "  ✓ Schema section backed up and removed" >&2
+    else
+        echo "  ⚠ Warning: No schema section found to remove" >&2
+        # Copy original to output if key not found
+        cp "$yaml_file" "$output_file"
+        # Create empty backup file
+        touch "$backup_file"
+        return 1
+    fi
+}
 
 # Update target-url in an existing API YAML file
 update_target_url() {
@@ -247,6 +373,13 @@ command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not i
 if ! command -v python3 >/dev/null 2>&1; then
     echo "Error: python3 is required for schema processing but not found." >&2
     echo "Please install python3 to use schema injection features." >&2
+    exit 1
+fi
+# Check if yq is available for yaml processing
+
+if ! command -v yq >/dev/null 2>&1; then
+    echo "Error: yq is required for YAML processing but not found." >&2
+    echo "Please install yq: https://github.com/mikefarah/yq" >&2
     exit 1
 fi
 
@@ -360,8 +493,18 @@ if ! "$APIC_CMD" login \
 fi
 echo "✓ Successfully logged in"
 
-#!/usr/bin/env bash
-# Replace lines 208-338 in your original script with this optimized version
+# ------------------------------
+# Validate API Names Uniqueness
+# ------------------------------
+if ! validate_unique_api_names "$InputFile"; then
+    echo ""
+    echo "Error: Cannot proceed with duplicate API names." >&2
+    exit 1
+fi
+# ------------------------------
+# Declare API_REFS array BEFORE the loop
+# ------------------------------
+declare -a API_REFS=()
 
 # ------------------------------
 # Process each service with schema support
@@ -373,7 +516,7 @@ while read -r json_item <&3; do
     ESBUrl=$(echo "$json_item" | jq -r '.Url' | tr -cd '[:print:]' | xargs)
     SchemaPath=$(echo "$json_item" | jq -r '."Schema Location" // ""' | tr -cd '[:print:]' | xargs)
     
-    # Skip blank lines or comments (lines starting with #)
+    # Skip blank lines or comments
     [ -z "$ServiceName" ] && continue
     case "$ServiceName" in
         \#* ) continue ;;
@@ -384,14 +527,17 @@ while read -r json_item <&3; do
     OperationName="${ServiceName// /}"
     OUTPUT_FILE="${OutputDirectory}/${x_ibm_name}_1.0.0.yaml"
 
-    # Extract name and version for validation (assumes _1.0.0.yaml format)
+    # **ADD TO API_REFS ARRAY** (for product creation later)
+    API_REFS+=("$x_ibm_name")
+
+    # Extract name and version for validation
     API_NAME_VERSION="${x_ibm_name}:1.0.0"
 
     echo ""
     echo "========================================"
     echo "Processing: '$ServiceName'"
     echo "  ESB URL: $ESBUrl"
-    echo "  Schema:  ${SchemaPath:-"(none - using empty object)"}"
+    echo "  Schema:  ${SchemaPath:-"(none - no schema section)"}"
     echo "========================================"
 
     # ------------------------------
@@ -402,7 +548,7 @@ while read -r json_item <&3; do
         # Check if the schema file for this service has changed
         if [ -n "$SchemaPath" ]; then
             # Use -F to treat the pattern as a fixed string (safe for paths with dots/special chars)
-            if ! echo "$CHANGED_FILES" | grep -F -q "$SchemaPath"; then
+            if ! echo "$CHANGED_FILES" | grep -Fx "$SchemaPath"; then  # -x for exact line match
                 NEED_API_SYNC=false
             fi
         else
@@ -450,146 +596,252 @@ while read -r json_item <&3; do
     TEMP_SCHEMA_FILE="${OutputDirectory}/.schema_temp_$$"
     
     if [ -n "$SchemaPath" ]; then
-        echo "3) Loading schema from: $SchemaPath"
-        if load_json_schema "$SchemaPath" > "$TEMP_SCHEMA_FILE"; then
-            echo "  ✓ Schema loaded and converted to YAML"
-            SCHEMA_PROVIDED=true
-        else
-            echo "  ⚠ Warning: Failed to load schema, using empty object" >&2
-            echo "      type: object" > "$TEMP_SCHEMA_FILE"
-            SCHEMA_PROVIDED=false
-        fi
+    echo "3) Loading schema from: $SchemaPath"
+    if load_json_schema "$SchemaPath" > "$TEMP_SCHEMA_FILE"; then
+        echo "  ✓ Schema loaded and converted to YAML"
+        SCHEMA_PROVIDED=true
     else
-        echo "3) No schema provided, using empty object"
-        echo "      type: object" > "$TEMP_SCHEMA_FILE"
+        echo "  ⚠ Warning: Failed to load schema, will skip schema operations" >&2
+        SCHEMA_PROVIDED=false
+    fi
+    else
+        echo "3) No schema provided, will use empty schema"
         SCHEMA_PROVIDED=false
     fi
 
+  # ------------------------------
+# Branch: Create new API vs Update existing API
+# ------------------------------
+if [ "$API_EXISTS" = false ]; then
     # ------------------------------
-    # Branch: Create new API vs Update existing API
+    # PATH A: Create new API
     # ------------------------------
-    if [ "$API_EXISTS" = false ]; then
-        # ------------------------------
-        # PATH A: Create new API
-        # ------------------------------
-        echo "4) Generating complete YAML from template..."
-        
-        # Step 1: Replace simple placeholders
-        TEMP_YAML="${OutputDirectory}/.yaml_temp_$$"
-        sed -e "s|{{ServiceName}}|${escService}|g" \
-            -e "s|{{x_ibm_name}}|${escName}|g" \
-            -e "s|{{OperationName}}|${escOp}|g" \
-            -e "s|{{ESBUrl}}|${escUrl}|g" \
-            "$TemplateFile" > "$TEMP_YAML"
-        
-        # Step 2: Replace {{SCHEMA_PLACEHOLDER}} with content from temp file
-        awk -v schema_file="$TEMP_SCHEMA_FILE" '
-        {
-            if ($0 ~ /{{SCHEMA_PLACEHOLDER}}/) {
-                # Read and insert schema content
-                while ((getline line < schema_file) > 0) {
-                    print line
-                }
-                close(schema_file)
-            } else {
-                print $0
+    echo "4) Generating complete YAML from template..."
+    
+    # Step 1: Replace simple placeholders
+    TEMP_YAML="${OutputDirectory}/.yaml_temp_$$"
+    sed -e "s|{{ServiceName}}|${escService}|g" \
+        -e "s|{{x_ibm_name}}|${escName}|g" \
+        -e "s|{{OperationName}}|${escOp}|g" \
+        -e "s|{{ESBUrl}}|${escUrl}|g" \
+        "$TemplateFile" > "$TEMP_YAML"
+    
+    # Step 2: Replace {{SCHEMA_PLACEHOLDER}} with content or empty schema
+if [ "$SCHEMA_PROVIDED" = true ]; then
+    # Replace with actual schema
+    awk -v schema_file="$TEMP_SCHEMA_FILE" '
+    {
+        if ($0 ~ /{{SCHEMA_PLACEHOLDER}}/) {
+            # Read and insert schema content
+            while ((getline line < schema_file) > 0) {
+                print line
             }
+            close(schema_file)
+        } else {
+            print $0
         }
-        ' "$TEMP_YAML" > "$OUTPUT_FILE"
-        
-        # Cleanup temp files
-        rm -f "$TEMP_YAML"
-        
-        echo "  ✓ Generated YAML: $OUTPUT_FILE"
+    }
+    ' "$TEMP_YAML" > "$OUTPUT_FILE"
+else
+    # Replace with truly empty schema (no validation)
+    sed 's/{{SCHEMA_PLACEHOLDER}}/      type: object\
+      properties: {}/' "$TEMP_YAML" > "$OUTPUT_FILE"
 
-        # Validate YAML file with API Connect
-        echo "5) Validating YAML locally with API Connect..."
-        if ! "$APIC_CMD" validate "$OUTPUT_FILE"; then
-            echo "  ✗ Validation failed: YAML file is invalid" >&2
-            rm -f "$TEMP_SCHEMA_FILE"
-            rm -rf "$TEMP_API_DIR"
-            FAILURE_COUNT=$((FAILURE_COUNT + 1))
-            continue
-        fi
-        echo "  ✓ YAML validation passed"
-
-        # Create draft API in IBM API Connect
-        echo "6) Creating draft API in API Connect..."
-        if "$APIC_CMD" draft-apis:create \
-            --org "$APIC_ORG" \
-            --server "$APIC_SERVER" \
-            "$OUTPUT_FILE"; then
-            echo "  ✓ Draft API created successfully"
-            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
-            CREATED_COUNT=$((CREATED_COUNT + 1))
+fi
+    
+    # Cleanup temp files
+    rm -f "$TEMP_YAML"
+    
+    echo "  ✓ Generated YAML: $OUTPUT_FILE"
+    # Verify the schema was created correctly
+    if [ "$SCHEMA_PROVIDED" = true ]; then
+        if grep -q "${OperationName}Request:" "$OUTPUT_FILE"; then
+            echo "  ✓ Verified: ${OperationName}Request definition exists in YAML"
         else
-            echo "  ✗ Failed to create draft API in API Connect" >&2
-            FAILURE_COUNT=$((FAILURE_COUNT + 1))
+            echo "  ⚠ Warning: Schema definition not found in generated YAML" >&2
         fi
-        
-    else
-        # ------------------------------
-        # PATH B: Update existing API
-        # ------------------------------
-        echo "4) Updating existing API with new schema..."
-        
-        # Extract the ACTUAL operation name from the existing API (to handle case differences)
-        ACTUAL_OPERATION_NAME=$(grep -o '[A-Za-z0-9]*Request:' "$EXISTING_API_FILE" | head -1 | sed 's/Request://')
-        
-        if [ -z "$ACTUAL_OPERATION_NAME" ]; then
-            echo "  ⚠ Warning: Could not detect operation name from existing API, using derived name: $OperationName" >&2
-            ACTUAL_OPERATION_NAME="$OperationName"
-        else
-            echo "  ℹ Detected operation name from existing API: $ACTUAL_OPERATION_NAME"
-        fi
-        
-        # Replace schema section in existing API YAML (using already-loaded schema)
-        UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
-        replace_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
-        echo "  ✓ Schema section replaced"
-        
-        # Update target-url (ensure it matches services.txt)
-        if update_target_url "$UPDATED_API_FILE" "$ESBUrl"; then
-            echo "  ✓ Target URL updated to: $ESBUrl"
-        else
-            echo "  ⚠ Warning: Failed to update target URL" >&2
-        fi
-        
-        # Validate the updated YAML
-        echo "5) Validating updated YAML..."
-        if ! "$APIC_CMD" validate "$UPDATED_API_FILE"; then
-            echo "  ✗ Validation failed for updated YAML" >&2
-            rm -f "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
-            rm -rf "$TEMP_API_DIR"
-            FAILURE_COUNT=$((FAILURE_COUNT + 1))
-            continue
-        fi
-        echo "  ✓ Validation passed"
-        
-        # Update the draft API
-        echo "6) Updating draft API in API Connect..."
-        if "$APIC_CMD" draft-apis:update "${x_ibm_name}:1.0.0" \
-            --server "$APIC_SERVER" \
-            --org "$APIC_ORG" \
-            "$UPDATED_API_FILE"; then
-            echo "  ✓ Draft API updated successfully"
-            SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
-            UPDATED_COUNT=$((UPDATED_COUNT + 1))
-            # Copy updated file to output directory for reference
-            cp "$UPDATED_API_FILE" "$OUTPUT_FILE"
-        else
-            echo "  ✗ Failed to update draft API in API Connect" >&2
-            FAILURE_COUNT=$((FAILURE_COUNT + 1))
-        fi
-        
-        # Cleanup temp files
-        rm -f "$UPDATED_API_FILE"
     fi
 
-    # Cleanup common temp files
-    rm -f "$TEMP_SCHEMA_FILE"
-    rm -rf "$TEMP_API_DIR"
+    # Validate YAML file with API Connect
+    echo "5) Validating YAML locally with API Connect..."
+    if ! "$APIC_CMD" validate "$OUTPUT_FILE"; then
+        echo "  ✗ Validation failed: YAML file is invalid" >&2
+        rm -f "$TEMP_SCHEMA_FILE"
+        rm -rf "$TEMP_API_DIR"
+        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        continue
+    fi
+    echo "  ✓ YAML validation passed"
 
+    # Create draft API in IBM API Connect
+    echo "6) Creating draft API in API Connect..."
+    if "$APIC_CMD" draft-apis:create \
+        --org "$APIC_ORG" \
+        --server "$APIC_SERVER" \
+        "$OUTPUT_FILE"; then
+        echo "  ✓ Draft API created successfully"
+        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+        CREATED_COUNT=$((CREATED_COUNT + 1))
+    else
+        echo "  ✗ Failed to create draft API in API Connect" >&2
+        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+    fi
+    
+else
+    # ------------------------------
+    # PATH B: Update existing API
+    # ------------------------------
+    echo "4) Updating existing API..."
+    
+    UPDATED_API_FILE="${OutputDirectory}/.updated_api_$$"
+    
+    # Extract the ACTUAL operation name from the existing API (OpenAPI 3.0: components/schemas)
+    # Use || true to prevent script exit if pattern not found
+    # Remove Request: and everything after it (like {}, type: object, etc.)
+    ACTUAL_OPERATION_NAME=$(awk '/^  schemas:/,/^[^ ]/ {if (/^    [A-Za-z0-9]*Request:/) print}' "$EXISTING_API_FILE" 2>/dev/null | head -1 | sed 's/^[[:space:]]*//; s/Request:.*//' || true)
+    
+    # Determine if schema section exists
+    SCHEMA_EXISTS=false
+    if [ -n "$ACTUAL_OPERATION_NAME" ]; then
+        SCHEMA_EXISTS=true
+        echo "  ℹ Detected existing operation name: $ACTUAL_OPERATION_NAME"
+        echo "  ℹ Existing schema section will be updated/replaced"
+    else
+        echo "  ℹ No existing schema section found in API"
+        echo "  ℹ Will create new schema section: ${OperationName}Request"
+        ACTUAL_OPERATION_NAME="$OperationName"
+        SCHEMA_EXISTS=false
+    fi
+    
+    # Handle schema operations based on whether schema is provided and exists
+    if [ "$SCHEMA_PROVIDED" = true ]; then
+        # New schema provided from JSON
+        if [ "$SCHEMA_EXISTS" = true ]; then
+            echo "  ℹ Replacing existing schema section with new schema..."
+            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$$"
+            replace_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$TEMP_SCHEMA_FILE" "$TEMP_UPDATED"
+            mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
+            echo "  ✓ Schema section replaced"
+        else
+            echo "  ℹ Creating new schema section (no previous schema existed)..."
+            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$"
+            insert_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$TEMP_SCHEMA_FILE" "$TEMP_UPDATED"
+            mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
+            echo "  ✓ New schema section created with provided schema"
+            
+            # Verify the schema was inserted
+            if grep -q "${ACTUAL_OPERATION_NAME}Request:" "$UPDATED_API_FILE"; then
+                echo "  ✓ Verified: ${ACTUAL_OPERATION_NAME}Request definition exists in YAML"
+            else
+                echo "  ✗ ERROR: Schema definition not found after insertion!" >&2
+                echo "  Showing components/schemas section:" >&2
+                grep -A 10 "^  schemas:" "$UPDATED_API_FILE" 2>/dev/null | head -20 >&2 || true
+            fi
+        fi
+    else
+        # No schema provided - use empty schema
+        echo "  ℹ No schema provided in JSON, using minimal valid OpenAPI schema..."
+        
+        # Create minimal valid OpenAPI schema temp file
+        EMPTY_SCHEMA_FILE="${OutputDirectory}/.empty_schema_$"
+        cat > "$EMPTY_SCHEMA_FILE" << 'EOF'
+type: object
+properties: {}
+EOF
+        
+        if [ "$SCHEMA_EXISTS" = true ]; then
+            # Backup existing schema first
+            SCHEMA_BACKUP_DIR="${OutputDirectory}/.schema_backups"
+            mkdir -p "$SCHEMA_BACKUP_DIR"
+            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+            SCHEMA_BACKUP_FILE="${SCHEMA_BACKUP_DIR}/${x_ibm_name}_schema_${TIMESTAMP}.yaml"
+            
+            echo "  ℹ Backing up existing schema before replacement..."
+            # Remove old schema and replace with empty
+            TEMP_REMOVED="${OutputDirectory}/.temp_removed_$$"
+            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$$"
+
+            remove_schema_section \
+            "$EXISTING_API_FILE" \
+            "$ACTUAL_OPERATION_NAME" \
+            "$SCHEMA_BACKUP_FILE" \
+            "$TEMP_REMOVED"
+
+            insert_schema_section \
+            "$TEMP_REMOVED" \
+            "$ACTUAL_OPERATION_NAME" \
+            "$EMPTY_SCHEMA_FILE" \
+            "$TEMP_UPDATED"
+
+            mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
+            rm -f "${OutputDirectory}/.temp_removed_$$"
+            
+            if [ -f "$SCHEMA_BACKUP_FILE" ] && [ -s "$SCHEMA_BACKUP_FILE" ]; then
+                echo "  ✓ Existing schema backed up to: $SCHEMA_BACKUP_FILE"
+            fi
+            echo "  ✓ Schema replaced with empty schema (no validation)"
+        else
+            # No existing schema - create new empty schema
+            echo "  ℹ Creating new empty schema section (API had no previous schema)..."
+            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$"
+            insert_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$EMPTY_SCHEMA_FILE" "$TEMP_UPDATED"
+            mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
+            echo "  ✓ New empty schema section created"
+            
+            # Verify the schema was inserted
+            if grep -q "${ACTUAL_OPERATION_NAME}Request:" "$UPDATED_API_FILE"; then
+                echo "  ✓ Verified: ${ACTUAL_OPERATION_NAME}Request definition exists in YAML"
+            else
+                echo "  ✗ ERROR: Schema definition not found after insertion!" >&2
+                echo "  Showing components/schemas section:" >&2
+                grep -A 10 "^  schemas:" "$UPDATED_API_FILE" 2>/dev/null | head -20 >&2 || true
+            fi
+        fi
+        
+        rm -f "$EMPTY_SCHEMA_FILE"
+    fi
+    
+    # Update target-url (always update URL regardless of schema)
+    echo "  ℹ Updating target URL..."
+    if update_target_url "$UPDATED_API_FILE" "$ESBUrl"; then
+        echo "  ✓ Target URL updated to: $ESBUrl"
+    else
+        echo "  ⚠ Warning: Failed to update target URL" >&2
+    fi
+    
+    # Validate the updated YAML
+    echo "5) Validating updated YAML..."
+    if ! "$APIC_CMD" validate "$UPDATED_API_FILE"; then
+        echo "  ✗ Validation failed for updated YAML" >&2
+        rm -f "$TEMP_SCHEMA_FILE" "$UPDATED_API_FILE"
+        rm -rf "$TEMP_API_DIR"
+        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+        continue
+    fi
+    echo "  ✓ Validation passed"
+    
+    # Update the draft API
+    echo "6) Updating draft API in API Connect..."
+    if "$APIC_CMD" draft-apis:update "${x_ibm_name}:1.0.0" \
+        --server "$APIC_SERVER" \
+        --org "$APIC_ORG" \
+        "$UPDATED_API_FILE"; then
+        echo "  ✓ Draft API updated successfully"
+        SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+        UPDATED_COUNT=$((UPDATED_COUNT + 1))
+        # Copy updated file to output directory for reference
+        cp "$UPDATED_API_FILE" "$OUTPUT_FILE"
+    else
+        echo "  ✗ Failed to update draft API in API Connect" >&2
+        FAILURE_COUNT=$((FAILURE_COUNT + 1))
+    fi
+    
+    # Cleanup temp files
+    rm -f "$UPDATED_API_FILE"
+fi
+# Cleanup common temp files
+rm -f "$TEMP_SCHEMA_FILE"
+rm -rf "$TEMP_API_DIR"
 done
 exec 3<&-
 
@@ -614,8 +866,7 @@ if [ "$INCREMENTAL_MODE" = true ] && [ "$FORCE_ALL" = false ] && [ $SUCCESS_COUN
     PERFORM_PRODUCT_UPDATE=false
 fi
 
-if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
-
+if [ "$PERFORM_PRODUCT_UPDATE" = true ] && [ $FAILURE_COUNT -eq 0 ]; then
 # Configuration for Product (loaded from config.env with defaults)
 PRODUCT_NAME="${PRODUCT_NAME:-internal-services}"
 PRODUCT_VERSION="${PRODUCT_VERSION:-1.0.0}"
@@ -636,35 +887,10 @@ echo "  Catalog: $CATALOG_NAME"
 echo ""
 
 # ------------------------------
-# 6.1: Collect all API references from services.txt
+# 6.1: API references already collected during processing
 # ------------------------------
-echo "6.1) Collecting API references from services.txt..."
-
-# Array to store API references
-declare -a API_REFS=()
-
-exec 4< <(jq -c '.[]' "$InputFile")
-while read -r json_item <&4; do
-    # Extract Service Name from JSON object
-    ServiceName=$(echo "$json_item" | jq -r '."API Name"' | tr -cd '[:print:]' | xargs)
-    
-    # Skip blank lines or comments
-    [ -z "$ServiceName" ] && continue
-    case "$ServiceName" in
-        \#* ) continue ;;
-    esac
-    
-    # Generate x_ibm_name (same logic as main loop)
-    x_ibm_name=$(printf '%s' "$ServiceName" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-    
-    # Add to array
-    API_REFS+=("$x_ibm_name")
-    # echo "  - Found API: $x_ibm_name" # Reduce noise
-done
-exec 4<&-
-
+echo "6.1) Using API references collected during processing..."
 echo "  ✓ Found ${#API_REFS[@]} APIs to include in product"
-
 # ------------------------------
 # 6.2: Backup existing product (for reversibility)
 # ------------------------------
@@ -711,7 +937,7 @@ if [ "$PRODUCT_EXISTS" = true ]; then
     
     # Extract existing APIs section and merge
     # Use Python to properly parse and merge YAML
-    python3 "$(dirname "${BASH_SOURCE[0]}")/merge_apis.py" "$EXISTING_PRODUCT_FILE" "${API_REFS[@]}"
+    #python3 "$(dirname "${BASH_SOURCE[0]}")/merge_apis.py" "$EXISTING_PRODUCT_FILE" "${API_REFS[@]}"
 
     # Build merged APIs section
     MERGED_APIS_SECTION=""
@@ -901,7 +1127,7 @@ echo ""
 echo "Product:"
 echo "  - Name: $PRODUCT_NAME v$PRODUCT_VERSION"
 echo "  - Total APIs in Product: ${#API_REFS[@]}"
-if [ "$PERFORM_PRODUCT_UPDATE" = true ]; then
+if [ "$PERFORM_PRODUCT_UPDATE" = true ] && [ $FAILURE_COUNT -eq 0 ]; then
     echo "  - Published to catalog: $CATALOG_NAME"
 fi
 echo "========================================"

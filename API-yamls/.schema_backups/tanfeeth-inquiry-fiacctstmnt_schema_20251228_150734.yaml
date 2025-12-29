@@ -1,0 +1,3 @@
+    TanfeethInquiryFIAcctStmntRequest:
+      type: object
+      properties: {}

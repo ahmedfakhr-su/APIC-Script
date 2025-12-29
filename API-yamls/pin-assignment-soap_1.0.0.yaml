@@ -2,6 +2,7 @@ components:
   schemas:
     PinAssignmentSoapRequest:
       type: object
+      properties: {}
     PinAssignmentSoapResponse:
       properties:
         data:

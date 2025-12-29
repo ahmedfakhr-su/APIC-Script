@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIGetAcctsInfoRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIGetAcctsInfoResponse:
       properties:

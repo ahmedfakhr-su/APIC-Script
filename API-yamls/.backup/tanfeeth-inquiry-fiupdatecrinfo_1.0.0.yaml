@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIUpdateCRInfoRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIUpdateCRInfoResponse:
       properties:

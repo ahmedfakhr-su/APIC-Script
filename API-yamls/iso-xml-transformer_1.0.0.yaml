@@ -1,23 +1,23 @@
 components:
   schemas:
     ISOXMLTransformerRequest:
-      type: object
-      properties:
-        ISOXML:
-          type: object
-          properties:
-            DE007:
-              type: string
-            DE011:
-              type: string
-            DE032:
-              type: string
-            DE070:
-              type: string
-            MTI:
-              type: string
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              ISOXML:
+                type: object
+                properties:
+                  DE007:
+                    type: string
+                  DE011:
+                    type: string
+                  DE032:
+                    type: string
+                  DE070:
+                    type: string
+                  MTI:
+                    type: string
+                additionalProperties: false
+            additionalProperties: false
     ISOXMLTransformerResponse:
       properties:
         data:

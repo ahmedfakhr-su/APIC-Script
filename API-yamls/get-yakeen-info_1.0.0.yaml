@@ -1,89 +1,89 @@
 components:
   schemas:
     GetYakeenInfoRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Brdr_No:
-                  type: string
-                Brth_Dt_G:
-                  type: string
-                Brth_Dt_H:
-                  type: string
-                Id_No:
-                  type: string
-                Prps_Of_Cll:
-                  type: string
-                Tmstmp:
-                  type: string
-                Usage_Cd:
-                  type: string
-                Vsa_Iss_Dt:
-                  type: string
-                Vsa_No:
-                  type: string
-                lang:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                Mrchnt_Ctgry_Cd:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Orgnl_Data_Val:
-                  type: string
-                Ovrrd_Clss:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Tmstmp:
-                  type: string
-                Trx_Md:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Brdr_No:
+                        type: string
+                      Brth_Dt_G:
+                        type: string
+                      Brth_Dt_H:
+                        type: string
+                      Id_No:
+                        type: string
+                      Prps_Of_Cll:
+                        type: string
+                      Tmstmp:
+                        type: string
+                      Usage_Cd:
+                        type: string
+                      Vsa_Iss_Dt:
+                        type: string
+                      Vsa_No:
+                        type: string
+                      lang:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      Mrchnt_Ctgry_Cd:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Orgnl_Data_Val:
+                        type: string
+                      Ovrrd_Clss:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Tmstmp:
+                        type: string
+                      Trx_Md:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     GetYakeenInfoRequestData:
       properties:
         amount:

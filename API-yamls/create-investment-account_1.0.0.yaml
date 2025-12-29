@@ -1,111 +1,111 @@
 components:
   schemas:
     CreateInvestmentAccountRequest:
-      type: object
-      properties:
-        InvestorAccountReq:
-          type: object
-          properties:
-            CustomerDetail:
-              type: object
-              properties:
-                ArabicCity:
-                  type: string
-                BuildingNo:
-                  type: string
-                CIF:
-                  type: string
-                CashAccounts:
-                  type: string
-                City:
-                  type: string
-                Country:
-                  type: string
-                CustomerGroup:
-                  type: string
-                DOBGregorian:
-                  type: string
-                DOBHijri:
-                  type: string
-                District:
-                  type: string
-                Email:
-                  type: string
-                ExpiryDate:
-                  type: string
-                ExpiryDateHijri:
-                  type: string
-                ExternalReference:
-                  type: string
-                FamilyNameAR:
-                  type: string
-                FamilyNameEN:
-                  type: string
-                FirstNameAR:
-                  type: string
-                FirstNameEN:
-                  type: string
-                Gender:
-                  type: string
-                IdNumber:
-                  type: string
-                IdType:
-                  type: string
-                MailAddressType:
-                  type: string
-                MaritalStatus:
-                  type: string
-                Mobile:
-                  type: string
-                Nationality:
-                  type: string
-                Occupation:
-                  type: string
-                PoBox:
-                  type: string
-                PreferedLanguage:
-                  type: string
-                RelationshipManager:
-                  type: string
-                SecondNameAR:
-                  type: string
-                SecondNameEN:
-                  type: string
-                Sector:
-                  type: string
-                Segment:
-                  type: string
-                StreetName:
-                  type: string
-                WASELAdditionalCode:
-                  type: string
-                WASELBuildingNo:
-                  type: string
-                WASELDistrict:
-                  type: string
-                WASELUnitNo:
-                  type: string
-                WASELZipCode:
-                  type: string
-                ZIP:
-                  type: string
-              additionalProperties: false
-            Header:
-              type: object
-              properties:
-                FragmentID:
-                  type: string
-                IsLast:
-                  type: string
-                ReturnCode:
-                  type: string
-                TimeStamp:
-                  type: string
-              additionalProperties: false
-            TransactionID:
-              type: string
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              InvestorAccountReq:
+                type: object
+                properties:
+                  CustomerDetail:
+                    type: object
+                    properties:
+                      ArabicCity:
+                        type: string
+                      BuildingNo:
+                        type: string
+                      CIF:
+                        type: string
+                      CashAccounts:
+                        type: string
+                      City:
+                        type: string
+                      Country:
+                        type: string
+                      CustomerGroup:
+                        type: string
+                      DOBGregorian:
+                        type: string
+                      DOBHijri:
+                        type: string
+                      District:
+                        type: string
+                      Email:
+                        type: string
+                      ExpiryDate:
+                        type: string
+                      ExpiryDateHijri:
+                        type: string
+                      ExternalReference:
+                        type: string
+                      FamilyNameAR:
+                        type: string
+                      FamilyNameEN:
+                        type: string
+                      FirstNameAR:
+                        type: string
+                      FirstNameEN:
+                        type: string
+                      Gender:
+                        type: string
+                      IdNumber:
+                        type: string
+                      IdType:
+                        type: string
+                      MailAddressType:
+                        type: string
+                      MaritalStatus:
+                        type: string
+                      Mobile:
+                        type: string
+                      Nationality:
+                        type: string
+                      Occupation:
+                        type: string
+                      PoBox:
+                        type: string
+                      PreferedLanguage:
+                        type: string
+                      RelationshipManager:
+                        type: string
+                      SecondNameAR:
+                        type: string
+                      SecondNameEN:
+                        type: string
+                      Sector:
+                        type: string
+                      Segment:
+                        type: string
+                      StreetName:
+                        type: string
+                      WASELAdditionalCode:
+                        type: string
+                      WASELBuildingNo:
+                        type: string
+                      WASELDistrict:
+                        type: string
+                      WASELUnitNo:
+                        type: string
+                      WASELZipCode:
+                        type: string
+                      ZIP:
+                        type: string
+                    additionalProperties: false
+                  Header:
+                    type: object
+                    properties:
+                      FragmentID:
+                        type: string
+                      IsLast:
+                        type: string
+                      ReturnCode:
+                        type: string
+                      TimeStamp:
+                        type: string
+                    additionalProperties: false
+                  TransactionID:
+                    type: string
+                additionalProperties: false
+            additionalProperties: false
     CreateInvestmentAccountRequestData:
       type: object
     CreateInvestmentAccountResponse:

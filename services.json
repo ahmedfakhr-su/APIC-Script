@@ -810,7 +810,7 @@
     "tag": "soap"
   },
   {
-    "API Name": "Send Instant Notification",
+    "API Name": "Send Instant Notification Soap",
     "Url": "http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service",
     "Schema Location": "schemas/send-instant-notification-soap.json",
     "tag": "soap"

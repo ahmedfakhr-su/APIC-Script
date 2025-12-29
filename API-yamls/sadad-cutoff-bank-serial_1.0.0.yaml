@@ -57,123 +57,123 @@ components:
         type: object
       type: object
     SADADCutoffBankSerialRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                BankCutOffRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                BankReconDownloadRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                BankReconRefundDownloadRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                BankRefundCutOffRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                BankSplUploadRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                BankSrlUploadRq:
-                  type: object
-                  properties:
-                    FilePathName:
-                      type: string
-                    PrcDt:
-                      type: string
-                  additionalProperties: false
-                Status:
-                  type: object
-                  properties:
-                    Severity:
-                      type: string
-                    ShortDesc:
-                      type: string
-                    StatusCode:
-                      type: string
-                  additionalProperties: false
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Ovrrd_Clss:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info5:
-                  type: string
-                  description: Additional requester-provided metadata field
-                RvrslOptn:
-                  type: string
-                Tmstmp:
-                  type: string
-                UsrDfn:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      BankCutOffRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      BankReconDownloadRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      BankReconRefundDownloadRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      BankRefundCutOffRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      BankSplUploadRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      BankSrlUploadRq:
+                        type: object
+                        properties:
+                          FilePathName:
+                            type: string
+                          PrcDt:
+                            type: string
+                        additionalProperties: false
+                      Status:
+                        type: object
+                        properties:
+                          Severity:
+                            type: string
+                          ShortDesc:
+                            type: string
+                          StatusCode:
+                            type: string
+                        additionalProperties: false
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Ovrrd_Clss:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info5:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Tmstmp:
+                        type: string
+                      UsrDfn:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     SADADCutoffBankSerialResponse:
       properties:
         data:

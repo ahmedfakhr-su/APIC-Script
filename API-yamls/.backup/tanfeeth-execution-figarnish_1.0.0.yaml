@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethExecutionFIGarnishRequest:
+      properties: {}
       type: object
     TanfeethExecutionFIGarnishResponse:
       properties:

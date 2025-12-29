@@ -1,0 +1,3 @@
+    TanfeethInquiryFICustInfoInqRequest:
+      type: object
+      properties: {}

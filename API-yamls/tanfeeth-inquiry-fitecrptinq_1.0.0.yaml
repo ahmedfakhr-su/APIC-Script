@@ -1,5 +1,8 @@
 components:
   schemas:
+    TanfeethInquiryFITecRptInqRequest:
+      type: object
+      properties: {}
     RequestHeader:
       properties:
         backendReferenceNumber:
@@ -55,8 +58,6 @@ components:
             description: Response message
             type: string
         type: object
-      type: object
-    TanfeethInquiryFITecRptInqRequest:
       type: object
     TanfeethInquiryFITecRptInqResponse:
       properties:

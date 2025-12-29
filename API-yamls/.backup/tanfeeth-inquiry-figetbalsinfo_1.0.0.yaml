@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIGetBalsInfoRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIGetBalsInfoResponse:
       properties:

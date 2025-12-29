@@ -1,109 +1,109 @@
 components:
   schemas:
     AMLLockSanctionInquiryRequest:
-      type: object
-      properties:
-        Msg_Data:
-          type: object
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                Addrss:
-                  type: string
-                Ath_Prsns:
-                  type: string
-                Bnfcry_Bnk_BIC_Cd:
-                  type: string
-                Bnfcry_Bnk_Nm:
-                  type: string
-                Bnfcry_CIF:
-                  type: string
-                Bnfcry_Cntry:
-                  type: string
-                Bnfcry_Cust_Nm_Ar:
-                  type: string
-                Bnfcry_Cust_Nm_En:
-                  type: string
-                Bnfcry_ID_No:
-                  type: string
-                Bnfcry_Ntnlty:
-                  type: string
-                Cust_ID_No:
-                  type: string
-                Cust_Mbl_No:
-                  type: string
-                Cust_Nm_Ar:
-                  type: string
-                Cust_Nm_En:
-                  type: string
-                Incmng_Otgng_Trnsctn:
-                  type: string
-                Intrmdt_Bnk_Nm:
-                  type: string
-                Mngrs:
-                  type: string
-                Ntnlty:
-                  type: string
-                Ownrs:
-                  type: string
-                Rmttr_Bnk_BIC_Cd:
-                  type: string
-                Rmttr_Bnk_Nm:
-                  type: string
-                Rqstd_Actn:
-                  type: string
-                Trnsctn_Amt:
-                  type: string
-                Trnsctn_Cry:
-                  type: string
-                Usr_Dfnd_1:
-                  type: string
-                Usr_Dfnd_3:
-                  type: string
-                Usr_Dfnd_4:
-                  type: string
-                Usr_Dfnd_5:
-                  type: string
-                Usr_Dfnd_6:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                Rqstr_Info1:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info2:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info3:
-                  type: string
-                  description: Additional requester-provided metadata field
-                Rqstr_Info4:
-                  type: string
-                  description: Additional requester-provided metadata field
-                UsrDfn:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              Msg_Data:
+                type: object
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Addrss:
+                        type: string
+                      Ath_Prsns:
+                        type: string
+                      Bnfcry_Bnk_BIC_Cd:
+                        type: string
+                      Bnfcry_Bnk_Nm:
+                        type: string
+                      Bnfcry_CIF:
+                        type: string
+                      Bnfcry_Cntry:
+                        type: string
+                      Bnfcry_Cust_Nm_Ar:
+                        type: string
+                      Bnfcry_Cust_Nm_En:
+                        type: string
+                      Bnfcry_ID_No:
+                        type: string
+                      Bnfcry_Ntnlty:
+                        type: string
+                      Cust_ID_No:
+                        type: string
+                      Cust_Mbl_No:
+                        type: string
+                      Cust_Nm_Ar:
+                        type: string
+                      Cust_Nm_En:
+                        type: string
+                      Incmng_Otgng_Trnsctn:
+                        type: string
+                      Intrmdt_Bnk_Nm:
+                        type: string
+                      Mngrs:
+                        type: string
+                      Ntnlty:
+                        type: string
+                      Ownrs:
+                        type: string
+                      Rmttr_Bnk_BIC_Cd:
+                        type: string
+                      Rmttr_Bnk_Nm:
+                        type: string
+                      Rqstd_Actn:
+                        type: string
+                      Trnsctn_Amt:
+                        type: string
+                      Trnsctn_Cry:
+                        type: string
+                      Usr_Dfnd_1:
+                        type: string
+                      Usr_Dfnd_3:
+                        type: string
+                      Usr_Dfnd_4:
+                        type: string
+                      Usr_Dfnd_5:
+                        type: string
+                      Usr_Dfnd_6:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      Rqstr_Info1:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info2:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info3:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      UsrDfn:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     AMLLockSanctionInquiryResponse:
       properties:
         data:

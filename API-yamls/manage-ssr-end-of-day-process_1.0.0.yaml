@@ -1,78 +1,78 @@
 components:
   schemas:
     ManageSSREndOfDayProcessRequest:
-      type: object
-      properties:
-        EAIMessage:
-          type: object
-          description: Enterprise Application Integration envelope containing header metadata and business payload
-          properties:
-            Body:
-              type: object
-              description: Business request payload specific to the service operation
-              properties:
-                CMS_Rplcmnt_No:
-                  type: string
-                Ctx_Acct_No:
-                  type: string
-                Ctx_Rrn:
-                  type: string
-                Ctx_Rvrsl:
-                  type: string
-                Ctx_Stn:
-                  type: string
-                PrcDt:
-                  type: string
-                SSR_Ref_No:
-                  type: string
-                Sttlmnt:
-                  type: object
-                  properties:
-                    Amt:
-                      type: string
-                    From_Acct:
-                      type: string
-                    To_Acct:
-                      type: string
-                  additionalProperties: false
-                T24_Rvrsl:
-                  type: string
-              additionalProperties: false
-            EAIHeader:
-              type: object
-              description: Technical and routing metadata required for request processing and tracking
-              properties:
-                BE_Ref_No:
-                  type: string
-                CIF:
-                  type: string
-                ChnlId:
-                  type: string
-                EAIRtrnCd:
-                  type: string
-                FE_Ref_No:
-                  type: string
-                FunctnId:
-                  type: string
-                Lang:
-                  type: string
-                MsgFrmt:
-                  type: string
-                OrgnlMsgId:
-                  type: string
-                Ovrrd_Clss:
-                  type: string
-                RvrslOptn:
-                  type: string
-                SSR_Ref_No:
-                  type: string
-                Tmstmp:
-                  type: string
-                UsrDfn:
-                  type: string
-              additionalProperties: false
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      CMS_Rplcmnt_No:
+                        type: string
+                      Ctx_Acct_No:
+                        type: string
+                      Ctx_Rrn:
+                        type: string
+                      Ctx_Rvrsl:
+                        type: string
+                      Ctx_Stn:
+                        type: string
+                      PrcDt:
+                        type: string
+                      SSR_Ref_No:
+                        type: string
+                      Sttlmnt:
+                        type: object
+                        properties:
+                          Amt:
+                            type: string
+                          From_Acct:
+                            type: string
+                          To_Acct:
+                            type: string
+                        additionalProperties: false
+                      T24_Rvrsl:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      BE_Ref_No:
+                        type: string
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      EAIRtrnCd:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      OrgnlMsgId:
+                        type: string
+                      Ovrrd_Clss:
+                        type: string
+                      RvrslOptn:
+                        type: string
+                      SSR_Ref_No:
+                        type: string
+                      Tmstmp:
+                        type: string
+                      UsrDfn:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     ManageSSREndOfDayProcessResponse:
       properties:
         data:

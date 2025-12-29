@@ -1,43 +1,43 @@
 components:
   schemas:
     ManageOutboundRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            lng:
-              type: string
-            mobile:
-              type: string
-            srvcTp:
-              type: string
-          additionalProperties: false
-        header:
-          type: object
-          properties:
-            channelId:
-              type: string
-              description: Channel from which the request originated
-            cif:
-              type: string
-              description: Customer Information File number
-            frontendReferenceNumber:
-              type: string
-              description: Frontend system reference number
-            functionId:
-              type: string
-              description: Identifier of the business function being invoked
-            language:
-              type: string
-              description: Request language code
-            msgFormat:
-              type: string
-            reversalOption:
-              type: string
-              description: Indicates whether the transaction can be reversed
-          additionalProperties: false
-      additionalProperties: false
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  lng:
+                    type: string
+                  mobile:
+                    type: string
+                  srvcTp:
+                    type: string
+                additionalProperties: false
+              header:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    description: Channel from which the request originated
+                  cif:
+                    type: string
+                    description: Customer Information File number
+                  frontendReferenceNumber:
+                    type: string
+                    description: Frontend system reference number
+                  functionId:
+                    type: string
+                    description: Identifier of the business function being invoked
+                  language:
+                    type: string
+                    description: Request language code
+                  msgFormat:
+                    type: string
+                  reversalOption:
+                    type: string
+                    description: Indicates whether the transaction can be reversed
+                additionalProperties: false
+            additionalProperties: false
     ManageOutboundResponse:
       properties:
         data:

@@ -57,7 +57,90 @@ components:
         type: object
       type: object
     SendInstantNotificationRequest:
-      type: object
+            type: object
+            properties:
+              EAIMessage:
+                type: object
+                description: Enterprise Application Integration envelope containing header metadata and business payload
+                properties:
+                  Body:
+                    type: object
+                    description: Business request payload specific to the service operation
+                    properties:
+                      Evnt_Sub_Tp:
+                        type: string
+                      Evnt_Tp:
+                        type: string
+                      Ntfcn_Mthd:
+                        type: string
+                      Org_Id:
+                        type: string
+                      Ovrrd_Prfrrd_Lang:
+                        type: string
+                      P1_Ar:
+                        type: string
+                      P1_En:
+                        type: string
+                      P2_Ar:
+                        type: string
+                      P2_En:
+                        type: string
+                      P3_Ar:
+                        type: string
+                      P3_En:
+                        type: string
+                      P4_Ar:
+                        type: string
+                      P4_En:
+                        type: string
+                      P5_Ar:
+                        type: string
+                      P5_En:
+                        type: string
+                      P6_Ar:
+                        type: string
+                      P6_En:
+                        type: string
+                      Sndr_Id:
+                        type: string
+                    additionalProperties: false
+                  EAIHeader:
+                    type: object
+                    description: Technical and routing metadata required for request processing and tracking
+                    properties:
+                      CIF:
+                        type: string
+                      ChnlId:
+                        type: string
+                      FE_Ref_No:
+                        type: string
+                      FunctnId:
+                        type: string
+                      Lang:
+                        type: string
+                      MsgFrmt:
+                        type: string
+                      Rqstr_Info12:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info13:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info16:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      Rqstr_Info4:
+                        type: string
+                        description: Additional requester-provided metadata field
+                      RvrslOptn:
+                        type: string
+                      Sgmnt:
+                        type: string
+                      Tmstmp:
+                        type: string
+                    additionalProperties: false
+                additionalProperties: false
+            additionalProperties: false
     SendInstantNotificationResponse:
       properties:
         data:
@@ -157,6 +240,6 @@ x-ibm-configuration:
     target-url:
       description: URL of the proxy policy
       encoded: false
-      value: http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service
+      value: http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/sendInstantNotification
   testable: true
   type: rest

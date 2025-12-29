@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIAccountValidationRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIAccountValidationResponse:
       properties:

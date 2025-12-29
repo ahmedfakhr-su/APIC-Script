@@ -1,0 +1,3 @@
+    ChargeCardTransactionNotificationRequest:
+      type: object
+      properties: {}

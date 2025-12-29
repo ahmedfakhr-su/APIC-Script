@@ -57,6 +57,7 @@ components:
         type: object
       type: object
     TanfeethInquiryFIGetSafsInfoRequest:
+      properties: {}
       type: object
     TanfeethInquiryFIGetSafsInfoResponse:
       properties:
