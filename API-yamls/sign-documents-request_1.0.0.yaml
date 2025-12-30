@@ -46,172 +46,172 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            description: Response code
-            type: string
-          info:
-            description: Response message
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              description: Response code
+              type: string
+            info:
+              description: Response message
+              type: string
+          type: object
       type: object
     SignDocumentsRequestRequest:
-            type: object
-            properties:
-              EAIMessage:
-                type: object
-                description: Enterprise Application Integration envelope containing header metadata and business payload
-                properties:
-                  Body:
-                    type: object
-                    description: Business request payload specific to the service operation
-                    properties:
-                      Cust_Info:
-                        type: object
-                        properties:
-                          Eml:
-                            type: string
-                          ID_No:
-                            type: string
-                          Mbl:
-                            type: string
-                        additionalProperties: false
-                      Dcmnts_Lst:
-                        type: object
-                        properties:
-                          Dcmnt_Dtls:
-                            type: object
-                            properties:
-                              Id:
-                                type: string
-                              Lck_Pdf:
-                                type: string
-                              Mndt_QR:
-                                type: string
-                              Nm:
-                                type: string
-                              Pg_Crdnts:
-                                type: string
-                              QR_Crdnts:
-                                type: string
-                              Src_Fl_Pth_Nm:
-                                type: string
-                            additionalProperties: false
-                        additionalProperties: false
-                      Err_Cd:
-                        type: string
-                      Err_Msg:
-                        type: string
-                      Mx_Wt_Prd:
-                        type: string
-                      Ntfy_Cust:
-                        type: string
-                      Rspns_Cd:
-                        type: string
-                      Sgntr_Cnfgrtn:
-                        type: object
-                        properties:
-                          Apprnc_Tp:
-                            type: string
-                          Crdnts:
-                            type: string
-                          Pg_Tb_Sgnd:
-                            type: string
-                        additionalProperties: false
-                      Stts:
-                        type: string
-                      Tmstmp:
-                        type: string
-                      Trgt_Sgnd_Fl_Pth:
-                        type: string
-                      Trnsctn_Id:
-                        type: string
-                      Trnsctn_Tp:
-                        type: string
-                      lang:
-                        type: string
-                      outputType:
-                        type: string
-                    additionalProperties: false
-                  EAIHeader:
-                    type: object
-                    description: Technical and routing metadata required for request processing and tracking
-                    properties:
-                      BE_Ref_No:
-                        type: string
-                      CIF:
-                        type: string
-                      ChnlId:
-                        type: string
-                      EAIRtrnCd:
-                        type: string
-                      FE_Ref_No:
-                        type: string
-                      FunctnId:
-                        type: string
-                      Lang:
-                        type: string
-                      Mrchnt_Ctgry_Cd:
-                        type: string
-                      MsgFrmt:
-                        type: string
-                      OrgnlMsgId:
-                        type: string
-                      Orgnl_Data_Val:
-                        type: string
-                      Ovrrd_Clss:
-                        type: string
-                      Rqstr_Info1:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info11:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info12:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info13:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info14:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info15:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info16:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info2:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info3:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info4:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info5:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info6:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info7:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      RvrslOptn:
-                        type: string
-                      Sgmnt:
-                        type: string
-                      Tmstmp:
-                        type: string
-                      Trx_Md:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                Cust_Info:
+                  additionalProperties: false
+                  properties:
+                    Eml:
+                      type: string
+                    ID_No:
+                      type: string
+                    Mbl:
+                      type: string
+                  type: object
+                Dcmnts_Lst:
+                  additionalProperties: false
+                  properties:
+                    Dcmnt_Dtls:
+                      additionalProperties: false
+                      properties:
+                        Id:
+                          type: string
+                        Lck_Pdf:
+                          type: string
+                        Mndt_QR:
+                          type: string
+                        Nm:
+                          type: string
+                        Pg_Crdnts:
+                          type: string
+                        QR_Crdnts:
+                          type: string
+                        Src_Fl_Pth_Nm:
+                          type: string
+                      type: object
+                  type: object
+                Err_Cd:
+                  type: string
+                Err_Msg:
+                  type: string
+                Mx_Wt_Prd:
+                  type: string
+                Ntfy_Cust:
+                  type: string
+                Rspns_Cd:
+                  type: string
+                Sgntr_Cnfgrtn:
+                  additionalProperties: false
+                  properties:
+                    Apprnc_Tp:
+                      type: string
+                    Crdnts:
+                      type: string
+                    Pg_Tb_Sgnd:
+                      type: string
+                  type: object
+                Stts:
+                  type: string
+                Tmstmp:
+                  type: string
+                Trgt_Sgnd_Fl_Pth:
+                  type: string
+                Trnsctn_Id:
+                  type: string
+                Trnsctn_Tp:
+                  type: string
+                lang:
+                  type: string
+                outputType:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                Mrchnt_Ctgry_Cd:
+                  type: string
+                MsgFrmt:
+                  type: string
+                Orgnl_Data_Val:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Ovrrd_Clss:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info3:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info6:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info7:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info14:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Sgmnt:
+                  type: string
+                Tmstmp:
+                  type: string
+                Trx_Md:
+                  type: string
+              type: object
+          type: object
+      type: object
     SignDocumentsRequestResponse:
       properties:
         data:
@@ -257,19 +257,19 @@ paths:
               $ref: '#/components/schemas/SignDocumentsRequestRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignDocumentsRequestResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -277,31 +277,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - SignDocumentsRequest
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - SignDocumentsRequest
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

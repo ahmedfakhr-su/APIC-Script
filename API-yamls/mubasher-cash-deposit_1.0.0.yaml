@@ -1,99 +1,99 @@
 components:
   schemas:
     MubasherCashDepositRequest:
-            type: object
-            properties:
-              EAIMessage:
-                type: object
-                description: Enterprise Application Integration envelope containing header metadata and business payload
-                properties:
-                  Body:
-                    type: object
-                    description: Business request payload specific to the service operation
-                    properties:
-                      CR_Amt:
-                        type: string
-                      CR_Cry:
-                        type: string
-                      CR_Vlu_Dt:
-                        type: string
-                      DR_Amt:
-                        type: string
-                      DR_Cry:
-                        type: string
-                      DR_Vlu_Dt:
-                        type: string
-                      Dpst_Tp:
-                        type: string
-                      MF_Acct_No:
-                        type: string
-                      MF_Name_Ar:
-                        type: string
-                      MF_Name_En:
-                        type: string
-                      Omni_Bus_Acct_Id:
-                        type: string
-                      Trx_Desc_Ar:
-                        type: string
-                      Trx_Desc_En:
-                        type: string
-                      Vrtul_Acct_No:
-                        type: string
-                    additionalProperties: false
-                  EAIHeader:
-                    type: object
-                    description: Technical and routing metadata required for request processing and tracking
-                    properties:
-                      BE_Ref_No:
-                        type: string
-                      CIF:
-                        type: string
-                      ChnlId:
-                        type: string
-                      EAIRtrnCd:
-                        type: string
-                      FE_Ref_No:
-                        type: string
-                      FunctnId:
-                        type: string
-                      Lang:
-                        type: string
-                      Mrchnt_Ctgry_Cd:
-                        type: string
-                      MsgFrmt:
-                        type: string
-                      OrgnlMsgId:
-                        type: string
-                      Orgnl_Data_Val:
-                        type: string
-                      Ovrrd_Clss:
-                        type: string
-                      Rqstr_Info1:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info2:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info3:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info4:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info5:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      RvrslOptn:
-                        type: string
-                      Tmstmp:
-                        type: string
-                      Trx_Md:
-                        type: string
-                      UsrDfn:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                CR_Amt:
+                  type: string
+                CR_Cry:
+                  type: string
+                CR_Vlu_Dt:
+                  type: string
+                DR_Amt:
+                  type: string
+                DR_Cry:
+                  type: string
+                DR_Vlu_Dt:
+                  type: string
+                Dpst_Tp:
+                  type: string
+                MF_Acct_No:
+                  type: string
+                MF_Name_Ar:
+                  type: string
+                MF_Name_En:
+                  type: string
+                Omni_Bus_Acct_Id:
+                  type: string
+                Trx_Desc_Ar:
+                  type: string
+                Trx_Desc_En:
+                  type: string
+                Vrtul_Acct_No:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                Mrchnt_Ctgry_Cd:
+                  type: string
+                MsgFrmt:
+                  type: string
+                Orgnl_Data_Val:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Ovrrd_Clss:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info3:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Tmstmp:
+                  type: string
+                Trx_Md:
+                  type: string
+                UsrDfn:
+                  type: string
+              type: object
+          type: object
+      type: object
     MubasherCashDepositResponse:
       properties:
         data:
@@ -150,15 +150,15 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            description: Response code
-            type: string
-          info:
-            description: Response message
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              description: Response code
+              type: string
+            info:
+              description: Response message
+              type: string
+          type: object
       type: object
   securitySchemes:
     clientID:
@@ -195,19 +195,19 @@ paths:
               $ref: '#/components/schemas/MubasherCashDepositRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MubasherCashDepositResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -215,31 +215,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - MubasherCashDeposit
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - MubasherCashDeposit
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

@@ -1,85 +1,85 @@
 components:
   schemas:
     CorporateBankingRegisterUserRequest:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  ldapchannel:
-                    type: string
-                  password:
-                    type: string
-                  userName:
-                    type: string
-                additionalProperties: false
-              header:
-                type: object
-                properties:
-                  backendReferenceNumber:
-                    type: string
-                    description: Backend system reference number
-                  channelId:
-                    type: string
-                    description: Channel from which the request originated
-                  cif:
-                    type: string
-                    description: Customer Information File number
-                  deviceInfo:
-                    type: object
-                    properties:
-                      city:
-                        type: string
-                      country:
-                        type: string
-                      id:
-                        type: string
-                      ipAddress:
-                        type: string
-                      model:
-                        type: string
-                      osVersion:
-                        type: string
-                    additionalProperties: false
-                  eaiReturnCode:
-                    type: string
-                  frontendReferenceNumber:
-                    type: string
-                    description: Frontend system reference number
-                  functionId:
-                    type: string
-                    description: Identifier of the business function being invoked
-                  language:
-                    type: string
-                    description: Request language code
-                  messageFormat:
-                    type: string
-                    description: Message payload format (JSON or XML)
-                  originalMessageId:
-                    type: string
-                  requesterInformation1:
-                    type: string
-                  requesterInformation14:
-                    type: string
-                  requesterInformation19:
-                    type: string
-                  requesterInformation2:
-                    type: string
-                  requesterInformation3:
-                    type: string
-                  requesterInformation5:
-                    type: string
-                  requesterInformation6:
-                    type: string
-                  requesterInformation7:
-                    type: string
-                  reversalOption:
-                    type: string
-                    description: Indicates whether the transaction can be reversed
-                  timeStamp:
-                    type: string
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        data:
+          additionalProperties: false
+          properties:
+            ldapchannel:
+              type: string
+            password:
+              type: string
+            userName:
+              type: string
+          type: object
+        header:
+          additionalProperties: false
+          properties:
+            backendReferenceNumber:
+              description: Backend system reference number
+              type: string
+            channelId:
+              description: Channel from which the request originated
+              type: string
+            cif:
+              description: Customer Information File number
+              type: string
+            deviceInfo:
+              additionalProperties: false
+              properties:
+                city:
+                  type: string
+                country:
+                  type: string
+                id:
+                  type: string
+                ipAddress:
+                  type: string
+                model:
+                  type: string
+                osVersion:
+                  type: string
+              type: object
+            eaiReturnCode:
+              type: string
+            frontendReferenceNumber:
+              description: Frontend system reference number
+              type: string
+            functionId:
+              description: Identifier of the business function being invoked
+              type: string
+            language:
+              description: Request language code
+              type: string
+            messageFormat:
+              description: Message payload format (JSON or XML)
+              type: string
+            originalMessageId:
+              type: string
+            requesterInformation1:
+              type: string
+            requesterInformation2:
+              type: string
+            requesterInformation3:
+              type: string
+            requesterInformation5:
+              type: string
+            requesterInformation6:
+              type: string
+            requesterInformation7:
+              type: string
+            requesterInformation14:
+              type: string
+            requesterInformation19:
+              type: string
+            reversalOption:
+              description: Indicates whether the transaction can be reversed
+              type: string
+            timeStamp:
+              type: string
+          type: object
+      type: object
     CorporateBankingRegisterUserResponse:
       properties:
         data:
@@ -136,15 +136,15 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            description: Response code
-            type: string
-          info:
-            description: Response message
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              description: Response code
+              type: string
+            info:
+              description: Response message
+              type: string
+          type: object
       type: object
   securitySchemes:
     clientID:
@@ -181,19 +181,19 @@ paths:
               $ref: '#/components/schemas/CorporateBankingRegisterUserRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CorporateBankingRegisterUserResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -201,31 +201,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - CorporateBankingRegisterUser
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - CorporateBankingRegisterUser
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

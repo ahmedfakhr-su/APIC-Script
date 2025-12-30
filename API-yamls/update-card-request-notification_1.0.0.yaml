@@ -4,7 +4,7 @@ info:
   title: Update Card Request Notification
   x-ibm-name: update-card-request-notification
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   properties:
     target-url:
@@ -20,31 +20,31 @@ x-ibm-configuration:
   testable: true
   assembly:
     execute:
-    - operation-switch:
-        version: 2.0.0
-        title: operation-switch
-        case:
-        - operations:
-          - UpdateCardRequestNotification
-          execute:
-          - invoke:
-              version: 2.0.0
-              title: invoke
-              backend-type: json
-              header-control:
-                type: blocklist
-                values: []
-              parameter-control:
-                type: allowlist
-                values: []
-              timeout: 60
-              verb: POST
-              chunked-uploads: true
-              persistent-connection: true
-              target-url: $(target-url)
-              follow-redirects: false
-              inject-proxy-headers: true
-        otherwise: []
+      - operation-switch:
+          version: 2.0.0
+          title: operation-switch
+          case:
+            - operations:
+                - UpdateCardRequestNotification
+              execute:
+                - invoke:
+                    version: 2.0.0
+                    title: invoke
+                    backend-type: json
+                    header-control:
+                      type: blocklist
+                      values: []
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    timeout: 60
+                    verb: POST
+                    chunked-uploads: true
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    follow-redirects: false
+                    inject-proxy-headers: true
+          otherwise: []
   activity-log:
     enabled: true
     success-content: activity
@@ -60,7 +60,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UpdateCardRequestNotificationRequest'
       responses:
-        "200":
+        200:
           description: success
           content:
             application/json:
@@ -87,9 +87,6 @@ components:
           scopes:
             Integration_scope: Integration_scope
   schemas:
-    UpdateCardRequestNotificationRequest:
-      type: object
-      properties: {}
     UpdateCardRequestNotificationResponse:
       type: object
       properties:
@@ -144,20 +141,23 @@ components:
     ResponseHeader:
       type: object
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - type: object
-        properties:
-          code:
-            type: string
-            description: Response code
-          info:
-            type: string
-            description: Response message
+        - $ref: '#/components/schemas/RequestHeader'
+        - type: object
+          properties:
+            code:
+              type: string
+              description: Response code
+            info:
+              type: string
+              description: Response message
     UpdateCardRequestNotificationResponseData:
       type: object
       description: Response data payload - customize per operation
+    UpdateCardRequestNotificationRequest:
+      type: object
+      properties: {}
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope

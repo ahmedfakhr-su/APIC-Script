@@ -46,128 +46,128 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            description: Response code
-            type: string
-          info:
-            description: Response message
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              description: Response code
+              type: string
+            info:
+              description: Response message
+              type: string
+          type: object
       type: object
     SADADSettlementSRACustomerResultReplyRequest:
-            type: object
-            properties:
-              EAIMessage:
-                type: object
-                description: Enterprise Application Integration envelope containing header metadata and business payload
-                properties:
-                  Body:
-                    type: object
-                    description: Business request payload specific to the service operation
-                    properties:
-                      Status:
-                        type: object
-                        properties:
-                          Severity:
-                            type: string
-                          ShortDesc:
-                            type: string
-                          StatusCode:
-                            type: string
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                Status:
+                  additionalProperties: false
+                  properties:
+                    Severity:
+                      type: string
+                    ShortDesc:
+                      type: string
+                    StatusCode:
+                      type: string
+                  type: object
+                XferAddRq:
+                  additionalProperties: false
+                  properties:
+                    PrcDt:
+                      type: string
+                    XferInfo:
+                      items:
                         additionalProperties: false
-                      XferAddRq:
-                        type: object
                         properties:
-                          PrcDt:
+                          CurAmt:
                             type: string
-                          XferInfo:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                CurAmt:
-                                  type: string
-                                DepAcctIdFrom:
-                                  type: object
-                                  properties:
-                                    AcctId:
-                                      type: string
-                                    AcctType:
-                                      type: string
-                                    BankId:
-                                      type: string
-                                  additionalProperties: false
-                                DepAcctIdTo:
-                                  type: object
-                                  properties:
-                                    AcctId:
-                                      type: string
-                                    AcctType:
-                                      type: string
-                                    BankId:
-                                      type: string
-                                  additionalProperties: false
-                                PmtId:
-                                  type: string
-                              additionalProperties: false
-                        additionalProperties: false
-                      XferResultRq:
+                          DepAcctIdFrom:
+                            additionalProperties: false
+                            properties:
+                              AcctId:
+                                type: string
+                              AcctType:
+                                type: string
+                              BankId:
+                                type: string
+                            type: object
+                          DepAcctIdTo:
+                            additionalProperties: false
+                            properties:
+                              AcctId:
+                                type: string
+                              AcctType:
+                                type: string
+                              BankId:
+                                type: string
+                            type: object
+                          PmtId:
+                            type: string
                         type: object
-                        properties:
-                          FilePathName:
-                            type: string
-                          PrcDt:
-                            type: string
-                        additionalProperties: false
-                    additionalProperties: false
-                  EAIHeader:
-                    type: object
-                    description: Technical and routing metadata required for request processing and tracking
-                    properties:
-                      BE_Ref_No:
-                        type: string
-                      CIF:
-                        type: string
-                      ChnlId:
-                        type: string
-                      EAIRtrnCd:
-                        type: string
-                      EAIRtrnCdDesc:
-                        type: string
-                      FE_Ref_No:
-                        type: string
-                      FunctnId:
-                        type: string
-                      Lang:
-                        type: string
-                      MsgFrmt:
-                        type: string
-                      OrgnlMsgId:
-                        type: string
-                      Rqstr_Info1:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info2:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info3:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info4:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info5:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      RvrslOptn:
-                        type: string
-                      UsrDfn:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+                      type: array
+                  type: object
+                XferResultRq:
+                  additionalProperties: false
+                  properties:
+                    FilePathName:
+                      type: string
+                    PrcDt:
+                      type: string
+                  type: object
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                EAIRtrnCdDesc:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                MsgFrmt:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info3:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                UsrDfn:
+                  type: string
+              type: object
+          type: object
+      type: object
     SADADSettlementSRACustomerResultReplyResponse:
       properties:
         data:
@@ -213,19 +213,19 @@ paths:
               $ref: '#/components/schemas/SADADSettlementSRACustomerResultReplyRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SADADSettlementSRACustomerResultReplyResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -233,31 +233,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - SADADSettlementSRACustomerResultReply
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - SADADSettlementSRACustomerResultReply
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

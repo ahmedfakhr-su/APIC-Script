@@ -1,5 +1,11 @@
 [
   {
+    "API Name": "Update Card Request Notification",
+    "Url": "http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service",
+    "Schema Location": "schemas/update-card-request-notification-soap.json",
+    "tag": "soap"
+  },
+  {
     "API Name": "Authenticate User Mock Authenticate",
     "Url": "http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate",
     "Schema Location": "schemas/authenticate-user.json",
@@ -813,12 +819,6 @@
     "API Name": "Send Instant Notification Soap",
     "Url": "http://send-instant-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/SendInstntNtfcnSOAP_HTTP_Service",
     "Schema Location": "schemas/send-instant-notification-soap.json",
-    "tag": "soap"
-  },
-  {
-    "API Name": "Update Card Request Notification",
-    "Url": "http://update-card-request-notification-http-bab-sit-cp4i.apps.babsitaro.albtests.com/UpdateCardRequestSOAP_HTTP_Service",
-    "Schema Location": "schemas/update-card-request-notification-soap.json",
     "tag": "soap"
   }
 ]

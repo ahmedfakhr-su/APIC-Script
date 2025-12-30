@@ -1,66 +1,66 @@
 components:
   schemas:
     GetMOIServiceFeeRequest:
-            type: object
-            properties:
-              EAIMessage:
-                type: object
-                description: Enterprise Application Integration envelope containing header metadata and business payload
-                properties:
-                  Body:
-                    type: object
-                    description: Business request payload specific to the service operation
-                    properties:
-                      FeeInqRq:
-                        type: object
-                        properties:
-                          BillerId:
-                            type: string
-                          PartnerService:
-                            type: object
-                            properties:
-                              BeneficiaryId:
-                                type: object
-                                properties:
-                                  OfficialId:
-                                    type: string
-                                additionalProperties: false
-                              ServiceCode:
-                                type: string
-                            additionalProperties: false
-                        additionalProperties: false
-                    additionalProperties: false
-                  EAIHeader:
-                    type: object
-                    description: Technical and routing metadata required for request processing and tracking
-                    properties:
-                      BE_Ref_No:
-                        type: string
-                      CIF:
-                        type: string
-                      ChnlId:
-                        type: string
-                      FE_Ref_No:
-                        type: string
-                      FunctnId:
-                        type: string
-                      Lang:
-                        type: string
-                      MsgFrmt:
-                        type: string
-                      Rqstr_Info1:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info2:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      RvrslOptn:
-                        type: string
-                      Tmstmp:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                FeeInqRq:
+                  additionalProperties: false
+                  properties:
+                    BillerId:
+                      type: string
+                    PartnerService:
+                      additionalProperties: false
+                      properties:
+                        BeneficiaryId:
+                          additionalProperties: false
+                          properties:
+                            OfficialId:
+                              type: string
+                          type: object
+                        ServiceCode:
+                          type: string
+                      type: object
+                  type: object
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                MsgFrmt:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Tmstmp:
+                  type: string
+              type: object
+          type: object
+      type: object
     GetMOIServiceFeeResponse:
       properties:
         data:
@@ -117,15 +117,15 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            description: Response code
-            type: string
-          info:
-            description: Response message
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              description: Response code
+              type: string
+            info:
+              description: Response message
+              type: string
+          type: object
       type: object
   securitySchemes:
     clientID:
@@ -162,19 +162,19 @@ paths:
               $ref: '#/components/schemas/GetMOIServiceFeeRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetMOIServiceFeeResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -182,31 +182,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - GetMOIServiceFee
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - GetMOIServiceFee
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

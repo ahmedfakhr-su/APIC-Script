@@ -180,7 +180,6 @@ load_json_schema() {
 }
 
 # Insert a new schema section into an API YAML file (OpenAPI 3.0 only)
-# Inserts under components:/schemas: section
 insert_schema_section() {
     local yaml_file="$1"
     local operation_name="$2"
@@ -193,27 +192,42 @@ insert_schema_section() {
     
     local key_name="${operation_name}Request"
     
+    # Verify schema file exists
+    if [ ! -f "$schema_file" ]; then
+        echo "  ❌ ERROR: Schema file does not exist: $schema_file" >&2
+        return 1
+    fi
+    
     # Check if components exists
     local has_components=false
     local has_schemas=false
     
-    if yq eval 'has("components")' "$yaml_file" | grep -q "true"; then
+    if yq eval 'has("components")' "$yaml_file" 2>/dev/null | grep -q "true"; then
         has_components=true
         echo "     ℹ Found components section" >&2
     fi
     
     # Check if components.schemas exists
-    if yq eval 'has("components") and .components | has("schemas")' "$yaml_file" | grep -q "true"; then
+    if yq eval '.components | has("schemas")' "$yaml_file" 2>/dev/null | grep -q "true"; then
         has_schemas=true
         echo "     ℹ Found schemas section" >&2
     fi
     
+    # Create a temporary wrapper file with proper YAML structure
+    local temp_wrapper=$(mktemp)
+    
     # Path 1: components/schemas both exist
     if [ "$has_components" = true ] && [ "$has_schemas" = true ]; then
-        echo "     ℹ Found existing components/schemas section" >&2
+        echo "     ℹ Adding to existing components/schemas section" >&2
         
-        # Insert under existing schemas section
-        yq eval ".components.schemas.${key_name} = load(\"$schema_file\")" "$yaml_file" > "$output_file"
+        # Create a minimal YAML with just the new schema
+        echo "components:" > "$temp_wrapper"
+        echo "  schemas:" >> "$temp_wrapper"
+        echo "    ${key_name}:" >> "$temp_wrapper"
+        sed 's/^/      /' "$schema_file" >> "$temp_wrapper"
+        
+        # Merge with existing file (new schema will be added to existing schemas)
+        yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' "$yaml_file" "$temp_wrapper" > "$output_file"
         
         echo "  ✅ Inserted schema under components/schemas" >&2
         
@@ -221,8 +235,14 @@ insert_schema_section() {
     elif [ "$has_components" = true ]; then
         echo "     ℹ components exists but no schemas section, creating it" >&2
         
-        # Create schemas object with the new schema
-        yq eval ".components.schemas = {\"${key_name}\": load(\"$schema_file\")}" "$yaml_file" > "$output_file"
+        # Create schemas section with the new schema
+        echo "components:" > "$temp_wrapper"
+        echo "  schemas:" >> "$temp_wrapper"
+        echo "    ${key_name}:" >> "$temp_wrapper"
+        sed 's/^/      /' "$schema_file" >> "$temp_wrapper"
+        
+        # Merge with existing file
+        yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' "$yaml_file" "$temp_wrapper" > "$output_file"
         
         echo "  ✅ Created schemas section under components" >&2
         
@@ -231,20 +251,81 @@ insert_schema_section() {
         echo "     ℹ No components section found, creating new one" >&2
         
         # Create entire components structure
-        yq eval ".components.schemas = {\"${key_name}\": load(\"$schema_file\")}" "$yaml_file" > "$output_file"
+        echo "components:" > "$temp_wrapper"
+        echo "  schemas:" >> "$temp_wrapper"
+        echo "    ${key_name}:" >> "$temp_wrapper"
+        sed 's/^/      /' "$schema_file" >> "$temp_wrapper"
+        
+        # Merge with existing file
+        yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' "$yaml_file" "$temp_wrapper" > "$output_file"
         
         echo "  ✅ Created new components/schemas section" >&2
     fi
     
-    # Verify no duplicate schemas sections
-    local schemas_count=$(yq eval '.components | keys | map(select(. == "schemas")) | length' "$output_file")
-    if [ "$schemas_count" -gt 1 ]; then
-        echo "❌ ERROR: Duplicate schemas sections detected" >&2
+    # Cleanup temp file
+    rm -f "$temp_wrapper"
+    
+    # Verify the schema was inserted
+    if yq eval ".components.schemas | has(\"$key_name\")" "$output_file" 2>/dev/null | grep -q "true"; then
+        echo "  ✓ Verified: Schema successfully inserted" >&2
+        return 0
+    else
+        echo "  ❌ ERROR: Schema verification failed" >&2
+        return 1
+    fi
+}
+
+# Remove schema section from an existing API YAML file and backup (OpenAPI 3.0 only)
+remove_schema_section() {
+    local yaml_file="$1"
+    local operation_name="$2"
+    local backup_file="$3"
+    local output_file="$4"
+    
+    echo "     Schema removal starting..." >&2
+    echo "     YAML file: $yaml_file" >&2
+    echo "     Operation name: $operation_name" >&2
+    echo "     Backup file: $backup_file" >&2
+    
+    local key_name="${operation_name}Request"
+    
+    # Check if the key exists under components.schemas (OpenAPI 3.0 standard location)
+    if yq eval ".components.schemas | has(\"$key_name\")" "$yaml_file" 2>/dev/null | grep -q "true"; then
+        echo "  ✅ Found schema section at components.schemas.$key_name" >&2
+        
+        # Extract the schema to backup file using proper path syntax
+        yq eval ".components.schemas.\"$key_name\"" "$yaml_file" > "$backup_file"
+        
+        if [ -s "$backup_file" ]; then
+            echo "  💾 Schema section backed up to $backup_file" >&2
+        else
+            echo "  ⚠ Warning: Backup file is empty" >&2
+        fi
+        
+        # Remove the schema section from the YAML using proper deletion syntax
+        yq eval "del(.components.schemas.\"$key_name\")" "$yaml_file" > "$output_file"
+        
+        # Verify deletion worked
+        if yq eval ".components.schemas | has(\"$key_name\")" "$output_file" 2>/dev/null | grep -q "false"; then
+            echo "  🛑 Schema section removed from output" >&2
+            echo "  ✓ Schema section backed up and removed" >&2
+            return 0
+        else
+            echo "  ❌ ERROR: Schema section still exists after deletion!" >&2
+            return 1
+        fi
+    else
+        echo "  ⚠ Warning: No schema section found to remove" >&2
+        # Copy original to output if key not found
+        cp "$yaml_file" "$output_file"
+        # Create empty backup file
+        touch "$backup_file"
         return 1
     fi
 }
 # Replace schema section in an existing API YAML file (OpenAPI 3.0 only)
 # Uses indentation-based detection to find and replace the {OperationName}Request schema
+# Replace schema section in an existing API YAML file (OpenAPI 3.0 only)
 replace_schema_section() {
     local yaml_file="$1"
     local operation_name="$2"
@@ -259,93 +340,49 @@ replace_schema_section() {
     local key_name="${operation_name}Request"
     echo "     Search key: '$key_name'" >&2
     
-    # Check if the key exists anywhere in the YAML structure
-    if yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | grep -q .; then
-        echo "  ✅ Key FOUND in file" >&2
+    # Verify new schema file exists
+    if [ ! -f "$new_schema_file" ]; then
+        echo "  ❌ ERROR: New schema file does not exist: $new_schema_file" >&2
+        return 1
+    fi
+    
+    # Check if the key exists under components.schemas
+    if yq eval ".components.schemas | has(\"$key_name\")" "$yaml_file" 2>/dev/null | grep -q "true"; then
+        echo "  ✅ Key FOUND in file at components.schemas.$key_name" >&2
         
-        # Get the path(s) where this key exists
-        local paths=$(yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file")
-        echo "  📍 Found at path(s): $paths" >&2
+        # Count lines in new schema for reporting
+        local line_count=$(wc -l < "$new_schema_file")
         
-        # Count how many times the key appears
-        local count=$(echo "$paths" | grep -c .)
-        echo "  🔢 Key appears $count time(s)" >&2
+        # Create a temporary file with the schema wrapped in the proper structure
+        local temp_wrapper=$(mktemp)
+        echo "components:" > "$temp_wrapper"
+        echo "  schemas:" >> "$temp_wrapper"
+        echo "    ${key_name}:" >> "$temp_wrapper"
+        sed 's/^/      /' "$new_schema_file" >> "$temp_wrapper"
         
-        # Read the new schema content
-        local new_schema=$(cat "$new_schema_file")
-        local line_count=$(echo "$new_schema" | wc -l)
+        # Merge using yq (the wrapper will overwrite the existing key)
+        yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' "$yaml_file" "$temp_wrapper" > "$output_file"
         
-        # For each path where the key exists, replace its content
-        echo "$paths" | while IFS= read -r path; do
-            if [ -n "$path" ]; then
-                local full_path="${path}.${key_name}"
-                echo "  🔄 Replacing content at: $full_path" >&2
-                
-                # Use yq to replace the content at this path with the new schema
-                yq eval "${full_path} = load(\"$new_schema_file\")" "$yaml_file" > "$output_file.tmp"
-                mv "$output_file.tmp" "$yaml_file"
-            fi
-        done
+        # Clean up temp file
+        rm -f "$temp_wrapper"
         
-        # Move final result to output file
-        mv "$yaml_file" "$output_file"
-        
-        echo "  ✅ Inserted $line_count lines of new schema" >&2
-        echo "  ✓ Replacement complete." >&2
+        # Verify replacement worked
+        if yq eval ".components.schemas | has(\"$key_name\")" "$output_file" 2>/dev/null | grep -q "true"; then
+            echo "  ✅ Inserted $line_count lines of new schema" >&2
+            echo "  ✓ Replacement complete." >&2
+            return 0
+        else
+            echo "  ❌ ERROR: Schema not found after replacement!" >&2
+            return 1
+        fi
     else
         echo "  ❌ Key NOT FOUND in file!" >&2
-        echo "  ❌ ERROR: Key was NEVER matched in entire file!" >&2
-        # Copy original to output if key not found
+        echo "  ❌ ERROR: Key '$key_name' does not exist at components.schemas" >&2
         cp "$yaml_file" "$output_file"
         return 1
     fi
 }
 
-# Remove schema section from an existing API YAML file and backup (OpenAPI 3.0 only)
-# Uses indentation-based detection to find and remove the {OperationName}Request schema
-remove_schema_section() {
-    local yaml_file="$1"
-    local operation_name="$2"
-    local backup_file="$3"
-    local output_file="$4"
-    
-    echo "     Schema removal starting..." >&2
-    echo "     YAML file: $yaml_file" >&2
-    echo "     Operation name: $operation_name" >&2
-    echo "     Backup file: $backup_file" >&2
-    
-    local key_name="${operation_name}Request"
-    
-    # Check if the key exists
-    if yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | grep -q .; then
-        echo "  ✅ Found schema section" >&2
-        
-        # Get the path where this key exists
-        local path=$(yq eval ".. | select(has(\"$key_name\")) | path | join(\".\")" "$yaml_file" | head -n 1)
-        echo "  📍 Found at path: $path" >&2
-        
-        local full_path="${path}.${key_name}"
-        
-        # Extract the schema section to backup file
-        # This creates a YAML document with just the key and its content
-        yq eval "{ \"$key_name\": .$full_path }" "$yaml_file" > "$backup_file"
-        
-        echo "  💾 Schema section backed up to $backup_file" >&2
-        
-        # Remove the schema section from the YAML
-        yq eval "del(.$full_path)" "$yaml_file" > "$output_file"
-        
-        echo "  🛑 Schema section removed from output" >&2
-        echo "  ✓ Schema section backed up and removed" >&2
-    else
-        echo "  ⚠ Warning: No schema section found to remove" >&2
-        # Copy original to output if key not found
-        cp "$yaml_file" "$output_file"
-        # Create empty backup file
-        touch "$backup_file"
-        return 1
-    fi
-}
 
 # Update target-url in an existing API YAML file
 update_target_url() {
@@ -724,7 +761,7 @@ else
             echo "  ✓ Schema section replaced"
         else
             echo "  ℹ Creating new schema section (no previous schema existed)..."
-            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$"
+            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$$"
             insert_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$TEMP_SCHEMA_FILE" "$TEMP_UPDATED"
             mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
             echo "  ✓ New schema section created with provided schema"
@@ -743,7 +780,7 @@ else
         echo "  ℹ No schema provided in JSON, using minimal valid OpenAPI schema..."
         
         # Create minimal valid OpenAPI schema temp file
-        EMPTY_SCHEMA_FILE="${OutputDirectory}/.empty_schema_$"
+        EMPTY_SCHEMA_FILE="${OutputDirectory}/.empty_schema_$$"
         cat > "$EMPTY_SCHEMA_FILE" << 'EOF'
 type: object
 properties: {}
@@ -783,7 +820,7 @@ EOF
         else
             # No existing schema - create new empty schema
             echo "  ℹ Creating new empty schema section (API had no previous schema)..."
-            TEMP_UPDATED="${OutputDirectory}/.temp_updated_$"
+        TEMP_UPDATED="${OutputDirectory}/.temp_updated_$$"
             insert_schema_section "$EXISTING_API_FILE" "$ACTUAL_OPERATION_NAME" "$EMPTY_SCHEMA_FILE" "$TEMP_UPDATED"
             mv "$TEMP_UPDATED" "$UPDATED_API_FILE"
             echo "  ✓ New empty schema section created"

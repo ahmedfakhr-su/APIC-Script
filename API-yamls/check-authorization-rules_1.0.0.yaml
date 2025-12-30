@@ -1,66 +1,66 @@
 components:
   schemas:
     CheckAuthorizationRulesRequest:
-            type: object
-            properties:
-              EAIMessage:
-                type: object
-                description: Enterprise Application Integration envelope containing header metadata and business payload
-                properties:
-                  Body:
-                    type: object
-                    description: Business request payload specific to the service operation
-                    properties:
-                      Card_No:
-                        type: string
-                      Expry_Dt:
-                        type: string
-                      Mskd_Card_No:
-                        type: string
-                      Trgt_Srvc_Fnctn_Id:
-                        type: string
-                    additionalProperties: false
-                  EAIHeader:
-                    type: object
-                    description: Technical and routing metadata required for request processing and tracking
-                    properties:
-                      CIF:
-                        type: string
-                      ChnlId:
-                        type: string
-                      FE_Ref_No:
-                        type: string
-                      FunctnId:
-                        type: string
-                      Lang:
-                        type: string
-                      Rqstr_Info11:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info12:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info13:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info15:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info16:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      Rqstr_Info4:
-                        type: string
-                        description: Additional requester-provided metadata field
-                      RvrslOptn:
-                        type: string
-                      Sgmnt:
-                        type: string
-                      Tmstmp:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                Card_No:
+                  type: string
+                Expry_Dt:
+                  type: string
+                Mskd_Card_No:
+                  type: string
+                Trgt_Srvc_Fnctn_Id:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing and tracking
+              properties:
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Sgmnt:
+                  type: string
+                Tmstmp:
+                  type: string
+              type: object
+          type: object
+      type: object
     CheckAuthorizationRulesRequestData:
       properties:
         amount:
@@ -154,13 +154,13 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            type: string
-          info:
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              type: string
+            info:
+              type: string
+          type: object
   securitySchemes:
     clientID:
       in: header
@@ -196,19 +196,19 @@ paths:
               $ref: '#/components/schemas/CheckAuthorizationRulesRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CheckAuthorizationRulesResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -216,31 +216,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - CheckAuthorizationRules
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - CheckAuthorizationRules
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true

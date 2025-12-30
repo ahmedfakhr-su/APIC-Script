@@ -1,59 +1,59 @@
 components:
   schemas:
     MubasherCashWithdrawalRequest:
-            type: object
-            properties:
-              MsgRoot:
-                type: object
-                properties:
-                  Header:
-                    type: object
-                    properties:
-                      FragmentID:
-                        type: string
-                      IsLast:
-                        type: string
-                      ReturnCode:
-                        type: string
-                      TimeStamp:
-                        type: string
-                    additionalProperties: false
-                  TransactionData:
-                    type: object
-                    properties:
-                      BeneficiaryAccount:
-                        type: string
-                      BeneficiaryBIC:
-                        type: string
-                      CreditAmount:
-                        type: string
-                      CreditCurrency:
-                        type: string
-                      CreditValueDate:
-                        type: string
-                      DebitAmount:
-                        type: string
-                      DebitCurrency:
-                        type: string
-                      DebitValueDate:
-                        type: string
-                      Narration:
-                        type: string
-                      OmnibusAccountID:
-                        type: string
-                      OmnibusBIC:
-                        type: string
-                      OmnibusCustomerDetails:
-                        type: string
-                      TransactionID:
-                        type: string
-                      TxnType:
-                        type: string
-                      VirtualAccNo:
-                        type: string
-                    additionalProperties: false
-                additionalProperties: false
-            additionalProperties: false
+      additionalProperties: false
+      properties:
+        MsgRoot:
+          additionalProperties: false
+          properties:
+            Header:
+              additionalProperties: false
+              properties:
+                FragmentID:
+                  type: string
+                IsLast:
+                  type: string
+                ReturnCode:
+                  type: string
+                TimeStamp:
+                  type: string
+              type: object
+            TransactionData:
+              additionalProperties: false
+              properties:
+                BeneficiaryAccount:
+                  type: string
+                BeneficiaryBIC:
+                  type: string
+                CreditAmount:
+                  type: string
+                CreditCurrency:
+                  type: string
+                CreditValueDate:
+                  type: string
+                DebitAmount:
+                  type: string
+                DebitCurrency:
+                  type: string
+                DebitValueDate:
+                  type: string
+                Narration:
+                  type: string
+                OmnibusAccountID:
+                  type: string
+                OmnibusBIC:
+                  type: string
+                OmnibusCustomerDetails:
+                  type: string
+                TransactionID:
+                  type: string
+                TxnType:
+                  type: string
+                VirtualAccNo:
+                  type: string
+              type: object
+          type: object
+      type: object
     MubasherCashWithdrawalRequestData:
       type: object
     MubasherCashWithdrawalResponse:
@@ -111,13 +111,13 @@ components:
       type: object
     ResponseHeader:
       allOf:
-      - $ref: '#/components/schemas/RequestHeader'
-      - properties:
-          code:
-            type: string
-          info:
-            type: string
-        type: object
+        - $ref: '#/components/schemas/RequestHeader'
+        - properties:
+            code:
+              type: string
+            info:
+              type: string
+          type: object
   securitySchemes:
     clientID:
       in: header
@@ -153,19 +153,19 @@ paths:
               $ref: '#/components/schemas/MubasherCashWithdrawalRequest'
         required: true
       responses:
-        "200":
+        200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MubasherCashWithdrawalResponse'
           description: success
 security:
-- clientID: []
-  clientSecret: []
-- oAuth:
-  - Integration_scope
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope
 servers:
-- url: /albilad-api/v1
+  - url: /albilad-api/v1
 x-ibm-configuration:
   activity-log:
     enabled: true
@@ -173,31 +173,31 @@ x-ibm-configuration:
     success-content: activity
   assembly:
     execute:
-    - operation-switch:
-        case:
-        - execute:
-          - invoke:
-              backend-type: json
-              chunked-uploads: true
-              follow-redirects: false
-              header-control:
-                type: blocklist
-                values: []
-              inject-proxy-headers: true
-              parameter-control:
-                type: allowlist
-                values: []
-              persistent-connection: true
-              target-url: $(target-url)
-              timeout: 60
-              title: invoke
-              verb: POST
-              version: 2.0.0
-          operations:
-          - MubasherCashWithdrawal
-        otherwise: []
-        title: operation-switch
-        version: 2.0.0
+      - operation-switch:
+          case:
+            - execute:
+                - invoke:
+                    backend-type: json
+                    chunked-uploads: true
+                    follow-redirects: false
+                    header-control:
+                      type: blocklist
+                      values: []
+                    inject-proxy-headers: true
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    timeout: 60
+                    title: invoke
+                    verb: POST
+                    version: 2.0.0
+              operations:
+                - MubasherCashWithdrawal
+          otherwise: []
+          title: operation-switch
+          version: 2.0.0
   cors:
     enabled: false
   enforced: true
