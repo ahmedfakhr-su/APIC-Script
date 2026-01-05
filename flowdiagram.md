@@ -1,71 +1,156 @@
 ```mermaid
 flowchart TD
-    Start([Start Script]) --> Init[Initialize:<br/>Load config.env<br/>Parse arguments]
+    Start([Start]) --> LoadConfig[Load Configuration]
+    LoadConfig --> CheckPrereq{Prerequisites OK?}
+    CheckPrereq -->|No| Error1[Error: Missing Tools]
+    CheckPrereq -->|Yes| ParseArgs[Parse Arguments]
     
-    Init --> ModeDecision{<b>MODE DECISION</b><br/>--incremental flag?}
+    ParseArgs --> ModeCheck{Incremental Mode?}
+    ModeCheck -->|No| FullBuild[Set FORCE_ALL = true]
+    ModeCheck -->|Yes| GetChanges[Get Changed Files]
     
-    ModeDecision -->|No| FullBuild[<b>FULL BUILD MODE</b><br/>Process all services<br/>FORCE_ALL = true]
-    ModeDecision -->|Yes| IncrementalSetup[<b>INCREMENTAL MODE</b><br/>Get changed files via git]
+    GetChanges --> ConfigChanged{Config Changed?}
+    ConfigChanged -->|Yes| ForceAll[Set FORCE_ALL = true]
+    ConfigChanged -->|No| IncrementalOK[Incremental Active]
     
-    IncrementalSetup --> CriticalCheck{Critical files changed?<br/>services.txt, template.yaml,<br/>config.env}
+    FullBuild --> Login
+    ForceAll --> Login
+    IncrementalOK --> Login
     
-    CriticalCheck -->|Yes| ForceFull[Override to FULL BUILD<br/>FORCE_ALL = true]
-    CriticalCheck -->|No| IncrementalActive[<b>INCREMENTAL ACTIVE</b><br/>Only process changed schemas<br/>FORCE_ALL = false]
+    Login[Login to API Connect] --> LoginSuccess{Login Success?}
+    LoginSuccess -->|No| Error2[Error: Login Failed]
+    LoginSuccess -->|Yes| ValidateNames[Validate Unique API Names]
     
-    FullBuild --> Login[Login to API Connect]
-    ForceFull --> Login
-    IncrementalActive --> Login
+    ValidateNames --> NamesUnique{Names Unique?}
+    NamesUnique -->|No| Error3[Error: Duplicates]
+    NamesUnique -->|Yes| InitLoop[Initialize Counters]
     
-    Login --> ServiceLoop[<b>FOR EACH SERVICE</b><br/>in services.txt]
+    InitLoop --> LoopStart{More Services?}
     
-    ServiceLoop --> ServiceCondition1{<b>CONDITIONAL 1</b><br/>Incremental mode AND<br/>schema not changed?}
+    LoopStart -->|No| LoopEnd[Processing Complete]
+    LoopStart -->|Yes| ReadService[Read Service Data]
     
-    ServiceCondition1 -->|Yes - SKIP| NextService[Skip this service<br/>Continue to next]
-    ServiceCondition1 -->|No - PROCESS| ServiceCondition2{<b>CONDITIONAL 2</b><br/>API already exists<br/>in API Connect?}
+    ReadService --> IncrementalCheck{Skip in Incremental?}
+    IncrementalCheck -->|Yes| SkipService[Skip Service]
+    IncrementalCheck -->|No| AddToRefs[Add to API_REFS]
     
-    ServiceCondition2 -->|No| PathCreate[<b>CREATE PATH</b><br/>1. Generate from template<br/>2. Validate<br/>3. Create draft API]
-    ServiceCondition2 -->|Yes| PathUpdate[<b>UPDATE PATH</b><br/>1. Get existing API<br/>2. Replace schema<br/>3. Update target-url<br/>4. Validate<br/>5. Update draft API]
+    SkipService --> LoopStart
+    AddToRefs --> CheckExists[Check API Exists]
     
-    PathCreate --> OperationResult{Success?}
-    PathUpdate --> OperationResult
+    CheckExists --> APIExists{API Exists?}
     
-    OperationResult -->|Yes| IncSuccess[SUCCESS_COUNT++]
-    OperationResult -->|No| IncFailure[FAILURE_COUNT++]
+    APIExists -->|No| LoadSchemaNew{Schema Provided?}
+    APIExists -->|Yes| LoadSchemaUpdate{Schema Provided?}
     
-    IncSuccess --> NextService
-    IncFailure --> NextService
-    NextService --> ServiceLoop
+    LoadSchemaNew -->|Yes| ConvertSchemaNew[Convert JSON to YAML]
+    LoadSchemaNew -->|No| EmptySchemaNew[Use Empty Schema]
     
-    ServiceLoop -->|All Done| ProductCondition{<b>CONDITIONAL 3</b><br/>Perform Product Update?<br/><br/>Skip if: Incremental mode<br/>AND no APIs updated<br/>SUCCESS_COUNT = 0}
+    ConvertSchemaNew --> CreatePath[PATH A: CREATE]
+    EmptySchemaNew --> CreatePath
     
-    ProductCondition -->|Skip| FinalReport[Display Summary<br/>Skip product publish]
-    ProductCondition -->|Perform| ProductFlow[<b>PRODUCT UPDATE</b><br/>1. Collect all APIs<br/>2. Backup existing<br/>3. Merge API lists<br/>4. Generate product YAML<br/>5. Create/Update draft<br/>6. Publish to catalog]
+    CreatePath --> GenYAML[Generate from Template]
+    GenYAML --> InsertSchema[Insert Schema]
+    InsertSchema --> ValidateNew[Validate YAML]
     
-    ProductFlow --> ProductResult{Success?}
-    ProductResult -->|No| Exit1([Exit with Error])
-    ProductResult -->|Yes| FinalReport
+    ValidateNew --> ValidNew{Valid?}
+    ValidNew -->|No| FailNew[Increment FAILURE]
+    ValidNew -->|Yes| CreateAPI[Create Draft API]
     
-    FinalReport --> SaveCondition{<b>CONDITIONAL 4</b><br/>Save incremental state?<br/><br/>Only if:<br/>FAILURE_COUNT = 0}
+    CreateAPI --> CreateSuccess{Success?}
+    CreateSuccess -->|No| FailCreate[Increment FAILURE]
+    CreateSuccess -->|Yes| SuccessCreate[Increment SUCCESS]
     
-    SaveCondition -->|Yes| SaveCommit[Save current git commit<br/>to .last_successful_commit<br/><br/>Used as baseline for<br/>next incremental run]
-    SaveCondition -->|No| SkipSave[Skip state save<br/>Keep previous commit hash]
+    FailNew --> LoopStart
+    FailCreate --> LoopStart
+    SuccessCreate --> LoopStart
     
-    SaveCommit --> End([Success])
-    SkipSave --> End
+    LoadSchemaUpdate -->|Yes| ConvertSchemaUpdate[Convert JSON to YAML]
+    LoadSchemaUpdate -->|No| EmptySchemaUpdate[Use Empty Schema]
     
-    style Start fill:#e1f5e1
-    style End fill:#e1f5e1
-    style Exit1 fill:#ffe1e1
+    ConvertSchemaUpdate --> UpdatePath[PATH B: UPDATE]
+    EmptySchemaUpdate --> UpdatePath
     
-    style ModeDecision fill:#fff3e1,stroke:#ff9800,stroke-width:3px
-    style ServiceCondition1 fill:#fff3e1,stroke:#ff9800,stroke-width:3px
-    style ServiceCondition2 fill:#fff3e1,stroke:#ff9800,stroke-width:3px
-    style ProductCondition fill:#fff3e1,stroke:#ff9800,stroke-width:3px
-    style SaveCondition fill:#fff3e1,stroke:#ff9800,stroke-width:3px
+    UpdatePath --> GetExisting[Download Existing API]
+    GetExisting --> DetectOp[Detect Operation Name]
     
-    style FullBuild fill:#e3f2fd
-    style IncrementalActive fill:#e3f2fd
-    style PathCreate fill:#f3e5f5
-    style PathUpdate fill:#fff9c4
-    style ProductFlow fill:#e1f5fe
+    DetectOp --> SchemaExistsCheck{Schema Exists?}
+    
+    SchemaExistsCheck -->|Yes + New| ReplaceSchema[Replace Schema]
+    SchemaExistsCheck -->|No + New| InsertNewSchema[Insert Schema]
+    SchemaExistsCheck -->|Yes + Empty| BackupReplace[Backup and Replace]
+    SchemaExistsCheck -->|No + Empty| InsertEmpty[Insert Empty Schema]
+    
+    ReplaceSchema --> UpdateURL
+    InsertNewSchema --> UpdateURL
+    BackupReplace --> UpdateURL
+    InsertEmpty --> UpdateURL
+    
+    UpdateURL[Update Target URL] --> ValidateUpdate[Validate YAML]
+    
+    ValidateUpdate --> ValidUpdate{Valid?}
+    ValidUpdate -->|No| FailUpdate[Increment FAILURE]
+    ValidUpdate -->|Yes| UpdateAPI[Update Draft API]
+    
+    UpdateAPI --> UpdateSuccess{Success?}
+    UpdateSuccess -->|No| FailUpdateAPI[Increment FAILURE]
+    UpdateSuccess -->|Yes| SuccessUpdate[Increment SUCCESS]
+    
+    FailUpdate --> LoopStart
+    FailUpdateAPI --> LoopStart
+    SuccessUpdate --> LoopStart
+    
+    LoopEnd --> ShowSummary[Display Summary]
+    
+    ShowSummary --> ProductCheck{Update Product?}
+    ProductCheck -->|No| SkipProduct[Skip Product]
+    ProductCheck -->|Yes| BackupProduct[Backup Product]
+    
+    BackupProduct --> ProductExists{Product Exists?}
+    ProductExists -->|Yes| MergeAPIs[Merge APIs]
+    ProductExists -->|No| UseNewAPIs[Use New APIs]
+    
+    MergeAPIs --> CheckFiles[Check Missing Files]
+    UseNewAPIs --> CheckFiles
+    
+    CheckFiles --> GenProduct[Generate Product YAML]
+    GenProduct --> CreateUpdateProd[Create or Update Product]
+    
+    CreateUpdateProd --> ProdSuccess{Success?}
+    ProdSuccess -->|No| ErrorProd[Error: Product Failed]
+    ProdSuccess -->|Yes| PublishProd[Publish to Catalog]
+    
+    PublishProd --> PubSuccess{Success?}
+    PubSuccess -->|No| ErrorPub[Error: Publish Failed]
+    PubSuccess -->|Yes| SuccessProd[Product Published]
+    
+    SkipProduct --> Finalize
+    SuccessProd --> Finalize
+    
+    Finalize[Finalize Backup] --> SaveState{All Successful?}
+    
+    SaveState -->|Yes| SaveCommit[Save Git Hash]
+    SaveState -->|No| NoSave[Do Not Save State]
+    
+    SaveCommit --> Complete
+    NoSave --> Complete
+    
+    Complete([End])
+    
+    Error1 --> Exit([Exit Error])
+    Error2 --> Exit
+    Error3 --> Exit
+    ErrorProd --> Exit
+    ErrorPub --> Exit
+    
+    style Start fill:#90EE90
+    style Complete fill:#90EE90
+    style Exit fill:#FFB6C6
+    style Error1 fill:#FFB6C6
+    style Error2 fill:#FFB6C6
+    style Error3 fill:#FFB6C6
+    style ErrorProd fill:#FFB6C6
+    style ErrorPub fill:#FFB6C6
+    style CreatePath fill:#E6F3FF
+    style UpdatePath fill:#FFF4E6
+    style ProductCheck fill:#F0E6FF
     ```

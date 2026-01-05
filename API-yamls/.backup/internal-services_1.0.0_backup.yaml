@@ -5,279 +5,279 @@ info:
   version: 1.0.0
 apis:
   authenticate-user-mock-authenticate:
-    $ref: API-yamls\.backup_temp_39661\authenticate-user-mock-authenticate_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\authenticate-user-mock-authenticate_1.0.0.yaml
   authenticate-user-mock-change-password:
-    $ref: API-yamls\.backup_temp_39661\authenticate-user-mock-change-password_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\authenticate-user-mock-change-password_1.0.0.yaml
   get-account-transactions-list:
-    $ref: API-yamls\.backup_temp_39661\get-account-transactions-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-account-transactions-list_1.0.0.yaml
   get-customer-accounts-list:
-    $ref: API-yamls\.backup_temp_39661\get-customer-accounts-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-accounts-list_1.0.0.yaml
   manage-customer-account-request:
-    $ref: API-yamls\.backup_temp_39661\manage-customer-account-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-customer-account-request_1.0.0.yaml
   manage-customer-account-ttp-reply:
-    $ref: API-yamls\.backup_temp_39661\manage-customer-account-ttp-reply_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-customer-account-ttp-reply_1.0.0.yaml
   sadad-settlement:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement_1.0.0.yaml
   sadad-settlement-request:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-request_1.0.0.yaml
   sadad-settlement-sba-sra-request:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement-sba-sra-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sba-sra-request_1.0.0.yaml
   sadad-settlement-sba-sra-result-reply:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement-sba-sra-result-reply_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sba-sra-result-reply_1.0.0.yaml
   sadad-settlement-sra-customer-request:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement-sra-customer-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sra-customer-request_1.0.0.yaml
   sadad-settlement-sra-customer-result-reply:
-    $ref: API-yamls\.backup_temp_39661\sadad-settlement-sra-customer-result-reply_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-settlement-sra-customer-result-reply_1.0.0.yaml
   iso-xml-transformer:
-    $ref: API-yamls\.backup_temp_39661\iso-xml-transformer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\iso-xml-transformer_1.0.0.yaml
   authenticate-tokens:
-    $ref: API-yamls\.backup_temp_39661\authenticate-tokens_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\authenticate-tokens_1.0.0.yaml
   authenticate-user:
-    $ref: API-yamls\.backup_temp_39661\authenticate-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\authenticate-user_1.0.0.yaml
   check-authorization-rules:
-    $ref: API-yamls\.backup_temp_39661\check-authorization-rules_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\check-authorization-rules_1.0.0.yaml
   eb-get-beneficiary-list:
-    $ref: API-yamls\.backup_temp_39661\eb-get-beneficiary-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\eb-get-beneficiary-list_1.0.0.yaml
   get-beneficiary-details:
-    $ref: API-yamls\.backup_temp_39661\get-beneficiary-details_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-beneficiary-details_1.0.0.yaml
   get-customer-dependents:
-    $ref: API-yamls\.backup_temp_39661\get-customer-dependents_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-dependents_1.0.0.yaml
   manage-beneficiary:
-    $ref: API-yamls\.backup_temp_39661\manage-beneficiary_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-beneficiary_1.0.0.yaml
   bib-account-summary-details:
-    $ref: API-yamls\.backup_temp_39661\bib-account-summary-details_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bib-account-summary-details_1.0.0.yaml
   bib-average-balance:
-    $ref: API-yamls\.backup_temp_39661\bib-average-balance_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bib-average-balance_1.0.0.yaml
   bib-total-assets-and-liabilities:
-    $ref: API-yamls\.backup_temp_39661\bib-total-assets-and-liabilities_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bib-total-assets-and-liabilities_1.0.0.yaml
   get-billers-list:
-    $ref: API-yamls\.backup_temp_39661\get-billers-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-billers-list_1.0.0.yaml
   charge-card-payment:
-    $ref: API-yamls\.backup_temp_39661\charge-card-payment_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\charge-card-payment_1.0.0.yaml
   charge-card-update-limit:
-    $ref: API-yamls\.backup_temp_39661\charge-card-update-limit_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\charge-card-update-limit_1.0.0.yaml
   charge-card-ca-transfer:
-    $ref: API-yamls\.backup_temp_39661\charge-card-ca-transfer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\charge-card-ca-transfer_1.0.0.yaml
   get-card-bin-product-list:
-    $ref: API-yamls\.backup_temp_39661\get-card-bin-product-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-card-bin-product-list_1.0.0.yaml
   get-charge-card-list:
-    $ref: API-yamls\.backup_temp_39661\get-charge-card-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-charge-card-list_1.0.0.yaml
   get-charge-card-transaction-list:
-    $ref: API-yamls\.backup_temp_39661\get-charge-card-transaction-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-charge-card-transaction-list_1.0.0.yaml
   get-dr-cards-list:
-    $ref: API-yamls\.backup_temp_39661\get-dr-cards-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-dr-cards-list_1.0.0.yaml
   instant-card-issuance:
-    $ref: API-yamls\.backup_temp_39661\instant-card-issuance_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\instant-card-issuance_1.0.0.yaml
   pin-assignment:
-    $ref: API-yamls\.backup_temp_39661\pin-assignment_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\pin-assignment_1.0.0.yaml
   request-card:
-    $ref: API-yamls\.backup_temp_39661\request-card_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\request-card_1.0.0.yaml
   update-card-status:
-    $ref: API-yamls\.backup_temp_39661\update-card-status_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\update-card-status_1.0.0.yaml
   update-charge-card-info:
-    $ref: API-yamls\.backup_temp_39661\update-charge-card-info_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\update-charge-card-info_1.0.0.yaml
   get-available-commodity:
-    $ref: API-yamls\.backup_temp_39661\get-available-commodity_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-available-commodity_1.0.0.yaml
   get-initial-offer:
-    $ref: API-yamls\.backup_temp_39661\get-initial-offer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-initial-offer_1.0.0.yaml
   manage-ld:
-    $ref: API-yamls\.backup_temp_39661\manage-ld_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-ld_1.0.0.yaml
   corporate-banking-user-authentication:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-user-authentication_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-user-authentication_1.0.0.yaml
   corporate-banking-change-password:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-change-password_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-change-password_1.0.0.yaml
   corporate-banking-enable-user:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-enable-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-enable-user_1.0.0.yaml
   corporate-banking-disable-user:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-disable-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-disable-user_1.0.0.yaml
   corporate-banking-register-user:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-register-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-register-user_1.0.0.yaml
   corporate-banking-delete-user:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-delete-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-delete-user_1.0.0.yaml
   corporate-banking-reset-password:
-    $ref: API-yamls\.backup_temp_39661\corporate-banking-reset-password_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\corporate-banking-reset-password_1.0.0.yaml
   get-lov:
-    $ref: API-yamls\.backup_temp_39661\get-lov_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-lov_1.0.0.yaml
   get-customer-details:
-    $ref: API-yamls\.backup_temp_39661\get-customer-details_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-details_1.0.0.yaml
   get-customer-loan-deposit-list:
-    $ref: API-yamls\.backup_temp_39661\get-customer-loan-deposit-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-loan-deposit-list_1.0.0.yaml
   get-wakala-deals:
-    $ref: API-yamls\.backup_temp_39661\get-wakala-deals_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-wakala-deals_1.0.0.yaml
   manage-wakala-deals:
-    $ref: API-yamls\.backup_temp_39661\manage-wakala-deals_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-wakala-deals_1.0.0.yaml
   get-customer-transaction-list:
-    $ref: API-yamls\.backup_temp_39661\get-customer-transaction-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-transaction-list_1.0.0.yaml
   manage-customer-limits:
-    $ref: API-yamls\.backup_temp_39661\manage-customer-limits_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-customer-limits_1.0.0.yaml
   update-customer-info:
-    $ref: API-yamls\.backup_temp_39661\update-customer-info_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\update-customer-info_1.0.0.yaml
   get-service-fees:
-    $ref: API-yamls\.backup_temp_39661\get-service-fees_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-service-fees_1.0.0.yaml
   eb-get-exchange-rate:
-    $ref: API-yamls\.backup_temp_39661\eb-get-exchange-rate_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\eb-get-exchange-rate_1.0.0.yaml
   electronic-banking-fund-transfer:
-    $ref: API-yamls\.backup_temp_39661\electronic-banking-fund-transfer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\electronic-banking-fund-transfer_1.0.0.yaml
   get-ips-proxy-list:
-    $ref: API-yamls\.backup_temp_39661\get-ips-proxy-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-ips-proxy-list_1.0.0.yaml
   ips-account-verification:
-    $ref: API-yamls\.backup_temp_39661\ips-account-verification_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\ips-account-verification_1.0.0.yaml
   manage-ips-proxy:
-    $ref: API-yamls\.backup_temp_39661\manage-ips-proxy_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-ips-proxy_1.0.0.yaml
   manage-standing-order:
-    $ref: API-yamls\.backup_temp_39661\manage-standing-order_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-standing-order_1.0.0.yaml
   remittance-calculator:
-    $ref: API-yamls\.backup_temp_39661\remittance-calculator_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\remittance-calculator_1.0.0.yaml
   aml-lock-sanction-inquiry:
-    $ref: API-yamls\.backup_temp_39661\aml-lock-sanction-inquiry_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\aml-lock-sanction-inquiry_1.0.0.yaml
   check-anti-fraud-rules:
-    $ref: API-yamls\.backup_temp_39661\check-anti-fraud-rules_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\check-anti-fraud-rules_1.0.0.yaml
   get-digital-document-request-list:
-    $ref: API-yamls\.backup_temp_39661\get-digital-document-request-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-digital-document-request-list_1.0.0.yaml
   get-outbound-status:
-    $ref: API-yamls\.backup_temp_39661\get-outbound-status_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-outbound-status_1.0.0.yaml
   manage-digital-document:
-    $ref: API-yamls\.backup_temp_39661\manage-digital-document_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-digital-document_1.0.0.yaml
   verify-manage-digital-document:
-    $ref: API-yamls\.backup_temp_39661\verify-manage-digital-document_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\verify-manage-digital-document_1.0.0.yaml
   manage-nafath-authentication:
-    $ref: API-yamls\.backup_temp_39661\manage-nafath-authentication_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-nafath-authentication_1.0.0.yaml
   manage-nafath-authentication-callback:
-    $ref: API-yamls\.backup_temp_39661\manage-nafath-authentication-callback_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-nafath-authentication-callback_1.0.0.yaml
   manage-natheer-watchlist:
-    $ref: API-yamls\.backup_temp_39661\manage-natheer-watchlist_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-natheer-watchlist_1.0.0.yaml
   manage-outbound:
-    $ref: API-yamls\.backup_temp_39661\manage-outbound_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-outbound_1.0.0.yaml
   manage-t24-user:
-    $ref: API-yamls\.backup_temp_39661\manage-t24-user_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-t24-user_1.0.0.yaml
   sign-documents-request:
-    $ref: API-yamls\.backup_temp_39661\sign-documents-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sign-documents-request_1.0.0.yaml
   callback-tanfeeth-execution:
-    $ref: API-yamls\.backup_temp_39661\callback-tanfeeth-execution_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\callback-tanfeeth-execution_1.0.0.yaml
   tanfeeth-manage-attachment:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-manage-attachment_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-manage-attachment_1.0.0.yaml
   download-sadad-billers:
-    $ref: API-yamls\.backup_temp_39661\download-sadad-billers_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\download-sadad-billers_1.0.0.yaml
   get-commodity-order-status:
-    $ref: API-yamls\.backup_temp_39661\get-commodity-order-status_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-commodity-order-status_1.0.0.yaml
   get-customer-internal-liabilities:
-    $ref: API-yamls\.backup_temp_39661\get-customer-internal-liabilities_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-internal-liabilities_1.0.0.yaml
   manage-digital-loan:
-    $ref: API-yamls\.backup_temp_39661\manage-digital-loan_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-digital-loan_1.0.0.yaml
   verify-mobile-number:
-    $ref: API-yamls\.backup_temp_39661\verify-mobile-number_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\verify-mobile-number_1.0.0.yaml
   get-moi-service-fee:
-    $ref: API-yamls\.backup_temp_39661\get-moi-service-fee_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-moi-service-fee_1.0.0.yaml
   create-investment-account:
-    $ref: API-yamls\.backup_temp_39661\create-investment-account_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\create-investment-account_1.0.0.yaml
   mubasher-cash-deposit:
-    $ref: API-yamls\.backup_temp_39661\mubasher-cash-deposit_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\mubasher-cash-deposit_1.0.0.yaml
   mubasher-cash-withdrawal:
-    $ref: API-yamls\.backup_temp_39661\mubasher-cash-withdrawal_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\mubasher-cash-withdrawal_1.0.0.yaml
   withdraw-customer-investment-account:
-    $ref: API-yamls\.backup_temp_39661\withdraw-customer-investment-account_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\withdraw-customer-investment-account_1.0.0.yaml
   send-instant-notification:
-    $ref: API-yamls\.backup_temp_39661\send-instant-notification_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\send-instant-notification_1.0.0.yaml
   gl-transaction-notification-request:
-    $ref: API-yamls\.backup_temp_39661\gl-transaction-notification-request_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\gl-transaction-notification-request_1.0.0.yaml
   purchase-product:
-    $ref: API-yamls\.backup_temp_39661\purchase-product_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\purchase-product_1.0.0.yaml
   get-standing-orders-list:
-    $ref: API-yamls\.backup_temp_39661\get-standing-orders-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-standing-orders-list_1.0.0.yaml
   get-customer-refunds:
-    $ref: API-yamls\.backup_temp_39661\get-customer-refunds_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-customer-refunds_1.0.0.yaml
   bill-payment-debit-card-wrapper:
-    $ref: API-yamls\.backup_temp_39661\bill-payment-debit-card-wrapper_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bill-payment-debit-card-wrapper_1.0.0.yaml
   bill-payment:
-    $ref: API-yamls\.backup_temp_39661\bill-payment_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bill-payment_1.0.0.yaml
   bill-payment-moi-wrapper:
-    $ref: API-yamls\.backup_temp_39661\bill-payment-moi-wrapper_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\bill-payment-moi-wrapper_1.0.0.yaml
   get-biller-services-list:
-    $ref: API-yamls\.backup_temp_39661\get-biller-services-list_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-biller-services-list_1.0.0.yaml
   get-yakeen-info:
-    $ref: API-yamls\.backup_temp_39661\get-yakeen-info_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-yakeen-info_1.0.0.yaml
   manage-registered-bills:
-    $ref: API-yamls\.backup_temp_39661\manage-registered-bills_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-registered-bills_1.0.0.yaml
   manage-ssr-end-of-day-process:
-    $ref: API-yamls\.backup_temp_39661\manage-ssr-end-of-day-process_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-ssr-end-of-day-process_1.0.0.yaml
   merge-customer-registered-bills:
-    $ref: API-yamls\.backup_temp_39661\merge-customer-registered-bills_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\merge-customer-registered-bills_1.0.0.yaml
   sadad-cutoff-bank-serial:
-    $ref: API-yamls\.backup_temp_39661\sadad-cutoff-bank-serial_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff-bank-serial_1.0.0.yaml
   sadad-cutoff-bank-split:
-    $ref: API-yamls\.backup_temp_39661\sadad-cutoff-bank-split_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff-bank-split_1.0.0.yaml
   sadad-cutoff:
-    $ref: API-yamls\.backup_temp_39661\sadad-cutoff_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-cutoff_1.0.0.yaml
   sadad-reconciliation:
-    $ref: API-yamls\.backup_temp_39661\sadad-reconciliation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-reconciliation_1.0.0.yaml
   sadad-refund-cutoff:
-    $ref: API-yamls\.backup_temp_39661\sadad-refund-cutoff_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-refund-cutoff_1.0.0.yaml
   sadad-refund-reconciliation:
-    $ref: API-yamls\.backup_temp_39661\sadad-refund-reconciliation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\sadad-refund-reconciliation_1.0.0.yaml
   request-statement:
-    $ref: API-yamls\.backup_temp_39661\request-statement_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\request-statement_1.0.0.yaml
   transfast-create-transaction:
-    $ref: API-yamls\.backup_temp_39661\transfast-create-transaction_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\transfast-create-transaction_1.0.0.yaml
   get-western-union-fees:
-    $ref: API-yamls\.backup_temp_39661\get-western-union-fees_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\get-western-union-fees_1.0.0.yaml
   western-union-send-money-store:
-    $ref: API-yamls\.backup_temp_39661\western-union-send-money-store_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\western-union-send-money-store_1.0.0.yaml
   western-union-send-money-validation:
-    $ref: API-yamls\.backup_temp_39661\western-union-send-money-validation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\western-union-send-money-validation_1.0.0.yaml
   western-union-multi-csc:
-    $ref: API-yamls\.backup_temp_39661\western-union-multi-csc_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\western-union-multi-csc_1.0.0.yaml
   charge-card-transaction-notification:
-    $ref: API-yamls\.backup_temp_39661\charge-card-transaction-notification_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\charge-card-transaction-notification_1.0.0.yaml
   pin-assignment-soap:
-    $ref: API-yamls\.backup_temp_39661\pin-assignment-soap_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\pin-assignment-soap_1.0.0.yaml
   manage-t24-soap:
-    $ref: API-yamls\.backup_temp_39661\manage-t24-soap_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\manage-t24-soap_1.0.0.yaml
   tanfeeth-execution-fiblock:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-fiblock_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-fiblock_1.0.0.yaml
   tanfeeth-execution-fidenydlng:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-fidenydlng_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-fidenydlng_1.0.0.yaml
   tanfeeth-execution-figarnish:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-figarnish_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-figarnish_1.0.0.yaml
   tanfeeth-execution-filift:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-filift_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-filift_1.0.0.yaml
   tanfeeth-execution-fitransfer:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-fitransfer_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-fitransfer_1.0.0.yaml
   tanfeeth-execution-fiupdateamt:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-fiupdateamt_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-fiupdateamt_1.0.0.yaml
   tanfeeth-execution-fibandlng:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-execution-fibandlng_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-execution-fibandlng_1.0.0.yaml
   tanfeeth-inquiry-fitecrptinq:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fitecrptinq_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fitecrptinq_1.0.0.yaml
   tanfeeth-inquiry-fiacctstmnt:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fiacctstmnt_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fiacctstmnt_1.0.0.yaml
   tanfeeth-inquiry-fideduction:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fideduction_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fideduction_1.0.0.yaml
   tanfeeth-inquiry-ficustinfoinq:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-ficustinfoinq_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-ficustinfoinq_1.0.0.yaml
   tanfeeth-inquiry-fisalaryinq:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fisalaryinq_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fisalaryinq_1.0.0.yaml
   tanfeeth-inquiry-figetliabsinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-figetliabsinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-figetliabsinfo_1.0.0.yaml
   tanfeeth-inquiry-figetbalsinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-figetbalsinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-figetbalsinfo_1.0.0.yaml
   tanfeeth-inquiry-fiaccountvalidation:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fiaccountvalidation_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fiaccountvalidation_1.0.0.yaml
   tanfeeth-inquiry-figetdepotsinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-figetdepotsinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-figetdepotsinfo_1.0.0.yaml
   tanfeeth-inquiry-fideathstatusnotification:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fideathstatusnotification_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fideathstatusnotification_1.0.0.yaml
   tanfeeth-inquiry-figetsafsinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-figetsafsinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-figetsafsinfo_1.0.0.yaml
   tanfeeth-inquiry-fideductioninq:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fideductioninq_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fideductioninq_1.0.0.yaml
   tanfeeth-inquiry-figetacctsinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-figetacctsinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-figetacctsinfo_1.0.0.yaml
   tanfeeth-inquiry-fiupdatecrinfo:
-    $ref: API-yamls\.backup_temp_39661\tanfeeth-inquiry-fiupdatecrinfo_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\tanfeeth-inquiry-fiupdatecrinfo_1.0.0.yaml
   update-card-request-notification:
-    $ref: API-yamls\.backup_temp_39661\update-card-request-notification_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\update-card-request-notification_1.0.0.yaml
   send-instant-notification-soap:
-    $ref: API-yamls\.backup_temp_39661\send-instant-notification-soap_1.0.0.yaml
+    $ref: API-yamls\.backup_temp_284\send-instant-notification-soap_1.0.0.yaml
 visibility:
   view:
     type: public

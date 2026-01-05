@@ -1,6 +1,3 @@
-# export APIC_USERNAME="your-username"
-# export APIC_PASSWORD="your-password"
-
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -50,7 +47,8 @@ LAST_COMMIT_FILE="${LAST_COMMIT_FILE:-API-yamls/.last_successful_commit}"
 
 # Create output directory
 mkdir -p "$OutputDirectory"
-
+# Load API key from secure file
+CREDS_FILE="$(dirname "${BASH_SOURCE[0]}")/.apic_credentials"
 # Tracking variables
 SUCCESS_COUNT=0
 FAILURE_COUNT=0
@@ -76,7 +74,9 @@ TEMP_BACKUP_DIR="${OutputDirectory}/.backup_temp_$$"
 BACKUP_DIR="${OutputDirectory}/.backup"
 
 trap cleanup_temp_backup EXIT
-
+# ------------------------------
+# Prerequisite Checks
+# ------------------------------
 # Check if required commands are available
 command -v apic >/dev/null 2>&1 || { echo "Error: apic CLI is required but not installed."; exit 1; }
 
@@ -142,19 +142,19 @@ echo "========================================"
 APIC_CMD=$(detect_apic_cmd)
 echo "DEBUG: APIC_CMD=$APIC_CMD"
 
+
+
 echo "1) Logging in to API Connect..."
 if ! "$APIC_CMD" login \
     --server "$APIC_SERVER" \
     --realm "provider/integration-keycloak" \
     --context "provider" \
-    --username "$APIC_USERNAME" \
-    --password "$APIC_PASSWORD" \
+    --sso \
     --accept-license; then
     echo "Error: Login failed" >&2
     exit 1
 fi
 echo "✓ Successfully logged in"
-
 # ------------------------------
 # Validate API Names Uniqueness
 # ------------------------------
@@ -454,6 +454,7 @@ EOF
                 echo "  ✓ Verified: ${ACTUAL_OPERATION_NAME}Request definition exists in YAML"
             else
                 echo "  ✗ ERROR: Schema definition not found after insertion!" >&2
+                FAILURE_COUNT=$((FAILURE_COUNT + 1))
             fi
         fi
         

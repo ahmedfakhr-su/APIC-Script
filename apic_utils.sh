@@ -163,15 +163,14 @@ insert_schema_section() {
     local has_components=false
     local has_schemas=false
     
-    if yq eval 'has("components")' "$yaml_file" 2>/dev/null | grep -q "true"; then
-        has_components=true
-        echo "     ℹ Found components section" >&2
-    fi
-    
-    # Check if components.schemas exists
-    if yq eval '.components | has("schemas")' "$yaml_file" 2>/dev/null | grep -q "true"; then
+    # Single check that's more reliable
+    if yq eval '.components.schemas' "$yaml_file" 2>/dev/null | grep -q "^"; then
         has_schemas=true
-        echo "     ℹ Found schemas section" >&2
+        has_components=true
+        echo "     ℹ Found components.schemas section" >&2
+    elif yq eval '.components' "$yaml_file" 2>/dev/null | grep -q "^"; then
+        has_components=true
+        echo "     ℹ Found components section (no schemas)" >&2
     fi
     
     # Create a temporary wrapper file with proper YAML structure
