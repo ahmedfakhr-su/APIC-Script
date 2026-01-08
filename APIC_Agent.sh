@@ -6,8 +6,7 @@ set -euo pipefail
 # ------------------------------
 # Configuration can be overridden by:
 # 1. Setting environment variables before running
-# 2. Creating a config.env file in the same directory
-CONFIG_FILE="${CONFIG_FILE:-config.env}"
+CONFIG_FILE="${CONFIG_FILE:-Data-Config/config.env}"
 if [ -f "$CONFIG_FILE" ]; then
     echo "Loading configuration from: $CONFIG_FILE"
     source "$CONFIG_FILE"
@@ -17,10 +16,10 @@ fi
 # Configuration variables (with defaults)
 # ------------------------------
 # FILE PATHS
-# Input file containing service definitions (JSON)
-InputFile="${INPUT_FILE:-services.json}"
+# Input file containing service definitions (JSON) - now using hierarchical catalog
+InputFile="${INPUT_FILE:-Data-Config/api_catalog.json}"
 # Template YAML file for generating new APIs
-TemplateFile="${TEMPLATE_FILE:-template.yaml}"
+TemplateFile="${TEMPLATE_FILE:-Data-Config/template.yaml}"
 # Directory where generated API YAMLs will be stored
 OutputDirectory="${OUTPUT_DIRECTORY:-API-yamls}"
 # Directory for schema files (if used separately)
@@ -171,7 +170,10 @@ declare -a API_REFS=()
 # ------------------------------
 # Process each service with schema support
 # ------------------------------
-exec 3< <(jq -c '.[]' "$InputFile")
+# Flatten the hierarchical structure: REST/SOAP -> Service Name -> APIs
+# REST and SOAP are objects where keys are service names and values are arrays of APIs
+# This extracts all API entries from both REST and SOAP categories
+exec 3< <(jq -c '(.REST, .SOAP) | .[][]' "$InputFile")
 while read -r json_item <&3; do
     # Extract fields from JSON object
     ServiceName=$(echo "$json_item" | jq -r '."API Name"' | tr -cd '[:print:]' | xargs)
@@ -282,8 +284,27 @@ if [ "$API_EXISTS" = false ]; then
     
     # Step 1: Replace simple placeholders
     TEMP_YAML="${OutputDirectory}/.yaml_temp_$$"
+    
+    # Split x_ibm_name into service name and function ID
+    # The last part after the last hyphen is the function ID
+    # Example: "authenticate-user-181010" -> service="authenticate-user", function_id="/181010"
+    if [[ "$escName" =~ ^(.+)-([0-9]+)$ ]]; then
+        # Extract service name (everything before last hyphen) and function ID (last part)
+        service_name="${BASH_REMATCH[1]}"
+        function_id="/${BASH_REMATCH[2]}"  # Include the / prefix
+    else
+        # Fallback: if no numeric suffix, use the whole name as service and empty function_id
+        service_name="$escName"
+        function_id=""  # Empty string, no trailing slash
+    fi
+    
+    # Escape the split values for sed
+    esc_service_name=$(escape_sed_replacement "$service_name")
+    esc_function_id=$(escape_sed_replacement "$function_id")
+    
     sed -e "s|{{ServiceName}}|${escService}|g" \
-        -e "s|{{x_ibm_name}}|${escName}|g" \
+        -e "s|{{x_ibm_name}}|${esc_service_name}|g" \
+        -e "s|{{function_id}}|${esc_function_id}|g" \
         -e "s|{{OperationName}}|${escOp}|g" \
         -e "s|{{ESBUrl}}|${escUrl}|g" \
         "$TemplateFile" > "$TEMP_YAML"
