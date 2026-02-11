@@ -1,0 +1,332 @@
+Loading configuration from: Data-Config/config.env
+Mode: Full Build (default)
+========================================
+DEBUG: APIC_CMD=/mnt/c/Program Files/IBM/APIC-Toolkit/apic.exe
+1) Logging in to API Connect...
+Warning: Using default toolkit credentials.
+Please copy and paste the url https://apic-sit-mgmt-api-manager-bab-sit-cp4i.apps.babsitaro.albtests.com/manager/auth/manager/sign-in/?from=TOOLKIT to a browser to start the authentication process.
+Do you want to open the url in default browser? [y/n]: API Key? Logged into apic-sit-mgmt-api-manager-bab-sit-cp4i.apps.babsitaro.albtests.com successfully
+Warning: Toolkit and server versions differ. Please try to use the same toolkit version as the server version. Toolkit Version: 10.0.8.2-ifix1, Server Version: 10.0.8.2
+
+Γ£ô Successfully logged in
+
+========================================
+Validating API Names Uniqueness...
+========================================
+  Total APIs found: 1030
+
+  Γ£à All API names are unique
+========================================
+
+========================================
+Processing: 'Authenticate User Mock Authenticate 181006'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate
+  Schema:  schemas/authenticate-user-181006.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181006.json
+Error: Schema file not found: schemas/authenticate-user-181006.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-authenticate-181006_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-authenticate-181006_1.0.0.yaml API definition [authenticate-user-mock-authenticate-181006:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-authenticate-181006:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/b8a42d96-3f73-402f-927f-8933f5f823e3   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Authenticate 181007'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate
+  Schema:  schemas/authenticate-user-181007.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181007.json
+Error: Schema file not found: schemas/authenticate-user-181007.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-authenticate-181007_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-authenticate-181007_1.0.0.yaml API definition [authenticate-user-mock-authenticate-181007:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-authenticate-181007:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/36cd857f-f2c1-489a-9888-1e14effa1326   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Authenticate 181009'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate
+  Schema:  schemas/authenticate-user-181009.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181009.json
+Error: Schema file not found: schemas/authenticate-user-181009.json
+4) Generating complete YAML from template...
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-authenticate-181009_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-authenticate-181009_1.0.0.yaml API definition [authenticate-user-mock-authenticate-181009:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-authenticate-181009:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/59865bd9-ead0-4585-be0c-4557be2ec982   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Authenticate 181010'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate
+  Schema:  schemas/authenticate-user-181010.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181010.json
+Error: Schema file not found: schemas/authenticate-user-181010.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-authenticate-181010_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-authenticate-181010_1.0.0.yaml API definition [authenticate-user-mock-authenticate-181010:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-authenticate-181010:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/6aba1cc5-2a98-49d6-9edf-35d751c871bf   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Change Password 181006'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd
+  Schema:  schemas/authenticate-user-181006.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181006.json
+Error: Schema file not found: schemas/authenticate-user-181006.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-change-password-181006_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-change-password-181006_1.0.0.yaml API definition [authenticate-user-mock-change-password-181006:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-change-password-181006:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/ffd82287-f3df-4388-8f42-bad0996c4d72   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Change Password 181007'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd
+  Schema:  schemas/authenticate-user-181007.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181007.json
+Error: Schema file not found: schemas/authenticate-user-181007.json
+4) Generating complete YAML from template...
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-change-password-181007_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-change-password-181007_1.0.0.yaml API definition [authenticate-user-mock-change-password-181007:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-change-password-181007:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/5a983727-e648-4ab9-bbb4-2f791b78cb7e   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Change Password 181009'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd
+  Schema:  schemas/authenticate-user-181009.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181009.json
+Error: Schema file not found: schemas/authenticate-user-181009.json
+4) Generating complete YAML from template...
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-change-password-181009_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-change-password-181009_1.0.0.yaml API definition [authenticate-user-mock-change-password-181009:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-change-password-181009:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/b5113020-46e0-42b4-8943-682b6def060e   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Authenticate User Mock Change Password 181010'
+  ESB URL: http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/changePwd
+  Schema:  schemas/authenticate-user-181010.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/authenticate-user-181010.json
+Error: Schema file not found: schemas/authenticate-user-181010.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/authenticate-user-mock-change-password-181010_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/authenticate-user-mock-change-password-181010_1.0.0.yaml API definition [authenticate-user-mock-change-password-181010:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+authenticate-user-mock-change-password-181010:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/13285016-7df6-4688-a03f-861fcb8d1577   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201006'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201006.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201006.json
+Error: Schema file not found: schemas/get-account-transactions-list-201006.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201006_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201006_1.0.0.yaml API definition [get-account-transactions-list-201006:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-account-transactions-list-201006:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/cf9f612d-4c0c-4284-a281-422f67a929a7   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201012'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201012.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201012.json
+Error: Schema file not found: schemas/get-account-transactions-list-201012.json
+4) Generating complete YAML from template...
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201012_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201012_1.0.0.yaml API definition [get-account-transactions-list-201012:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-account-transactions-list-201012:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/3bf5e83e-bb66-44f3-9744-43ffcc410236   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201015'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201015.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201015.json
+Error: Schema file not found: schemas/get-account-transactions-list-201015.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201015_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201015_1.0.0.yaml API definition [get-account-transactions-list-201015:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+  Γ£ù Failed to create draft API in API Connect
+
+========================================
+Processing: 'Get Account Transactions List 201018'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201018.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201018.json
+Error: Schema file not found: schemas/get-account-transactions-list-201018.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201018_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201018_1.0.0.yaml API definition [get-account-transactions-list-201018:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-account-transactions-list-201018:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/c29b612d-364d-4d71-af87-e620dfa30554   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201021'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201021.json
+========================================
+2) Checking if API exists...
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201021.json
+Error: Schema file not found: schemas/get-account-transactions-list-201021.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201021_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201021_1.0.0.yaml API definition [get-account-transactions-list-201021:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-account-transactions-list-201021:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/ccc6933d-ae48-44e6-bc44-fa5f52f27b05   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201024'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201024.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201024.json
+Error: Schema file not found: schemas/get-account-transactions-list-201024.json
+4) Generating complete YAML from template...
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201024_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-account-transactions-list-201024_1.0.0.yaml API definition [get-account-transactions-list-201024:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-account-transactions-list-201024:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/27e7eacb-10e8-4dd6-9b01-193bb4a14c1d   
+  Γ£ô Draft API created successfully
+
+========================================
+Processing: 'Get Account Transactions List 201037'
+  ESB URL: http://get-account-transaction-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetAccountTransactionList
+  Schema:  schemas/get-account-transactions-list-201037.json
+========================================
+2) Checking if API exists...
+Error: Not found
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-account-transactions-list-201037.json
+Error: Schema file not found: schemas/get-account-transactions-list-201037.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-account-transactions-list-201037_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+  Γ£ù Validation failed: YAML file is invalid
+
+========================================
+Processing: 'Get Customer Accounts List 201005'
+  ESB URL: http://get-cust-accts-list-http-bab-sit-cp4i.apps.babsitaro.albtests.com/get-cust-accts-list
+  Schema:  schemas/get-cust-accts-list-201005.json
+========================================
+2) Checking if API exists...
+  Γ£ô API doesn't exist, will create new
+3) Loading schema from: schemas/get-cust-accts-list-201005.json
+Error: Schema file not found: schemas/get-cust-accts-list-201005.json
+  ΓÜá Warning: Failed to load schema, will skip schema operations
+4) Generating complete YAML from template...
+  Γ£ô Generated YAML: API-yamls/get-customer-accounts-list-201005_1.0.0.yaml
+5) Validating YAML locally with API Connect...
+Validated API-yamls/get-customer-accounts-list-201005_1.0.0.yaml API definition [get-customer-accounts-list-201005:1.0.0]
+  Γ£ô YAML validation passed
+6) Creating draft API in API Connect...
+get-customer-accounts-list-201005:1.0.0   https://apic-sit-mgmt-platform-api-bab-sit-cp4i.apps.babsitaro.albtests.com/api/orgs/6cd97184-8aed-4ce7-baab-c08937f71102/drafts/draft-apis/821b6123-b87f-4c4a-b84f-af82871adcc6   
+  Γ£ô Draft API created successfully

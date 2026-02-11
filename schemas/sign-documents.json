@@ -1,0 +1,226 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "Ovrrd_Clss": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "Mrchnt_Ctgry_Cd": {
+              "type": "string"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Sgmnt": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Trnsctn_Id": {
+              "type": "string"
+            },
+            "Trnsctn_Tp": {
+              "type": "string"
+            },
+            "Ntfy_Cust": {
+              "type": "string"
+            },
+            "Mx_Wt_Prd": {
+              "type": "string"
+            },
+            "Cust_Info": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ID_No": {
+                  "type": "string"
+                },
+                "Mbl": {
+                  "type": "string"
+                },
+                "Eml": {
+                  "type": "string"
+                }
+              }
+            },
+            "Dcmnts_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Dcmnt_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Src_Fl_Pth_Nm": {
+                      "type": "string"
+                    },
+                    "Id": {
+                      "type": "string"
+                    },
+                    "Nm": {
+                      "type": "string"
+                    },
+                    "Pg_Crdnts": {
+                      "type": "string"
+                    },
+                    "Mndt_QR": {
+                      "type": "string"
+                    },
+                    "QR_Crdnts": {
+                      "type": "string"
+                    },
+                    "Lck_Pdf": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Stts": {
+              "type": "string"
+            },
+            "Err_Cd": {
+              "type": "string"
+            },
+            "Err_Msg": {
+              "type": "string"
+            },
+            "Rspns_Cd": {
+              "type": "string"
+            },
+            "Trgt_Sgnd_Fl_Pth": {
+              "type": "string"
+            },
+            "lang": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "outputType": {
+              "type": "string"
+            },
+            "Sgntr_Cnfgrtn": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Pg_Tb_Sgnd": {
+                  "type": "string"
+                },
+                "Crdnts": {
+                  "type": "string"
+                },
+                "Apprnc_Tp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

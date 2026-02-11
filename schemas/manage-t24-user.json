@@ -1,0 +1,196 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Usr_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "Usr_Dtls": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "Usr_Id": {
+                        "type": "string"
+                      },
+                      "Absnc_Id": {
+                        "type": "string"
+                      },
+                      "Actn": {
+                        "type": "string"
+                      },
+                      "Strt_Dt": {
+                        "type": "string"
+                      },
+                      "End_Dt": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Accss_Prps": {
+              "type": "string"
+            },
+            "USG_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "USG_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Actn": {
+                      "type": "string"
+                    },
+                    "USG_Id": {
+                      "type": "string"
+                    },
+                    "USG_Applctn_Lst": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "USG_Applctn_Dtls": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Applctn": {
+                              "type": "string"
+                            },
+                            "Vrsn": {
+                              "type": "string"
+                            },
+                            "Functn_Tp": {
+                              "type": "string"
+                            },
+                            "Functn": {
+                              "type": "string"
+                            },
+                            "Oprtn": {
+                              "type": "string"
+                            },
+                            "Data_Rcrd": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "HM_Lst": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "HM_Dtls": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Actn": {
+                      "type": "string"
+                    },
+                    "HM_Id": {
+                      "type": "string"
+                    },
+                    "HM_Applctn_Lst": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "HM_Applctn_Dtls": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Applctn": {
+                              "type": "string"
+                            },
+                            "Desc_En": {
+                              "type": "string"
+                            },
+                            "Desc_Ar": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

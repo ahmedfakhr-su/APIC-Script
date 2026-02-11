@@ -1,0 +1,206 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "UsrDfn": {
+              "type": "string"
+            },
+            "Trx_Md": {
+              "type": "string"
+            },
+            "Rqstr_Info18": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "usrDfn": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "Orgnl_Data_Val": {
+              "type": "string"
+            },
+            "Rqrd_Action": {
+              "type": "string"
+            },
+            "Card_No": {
+              "type": "string"
+            },
+            "CMS_Rplcmnt_No": {
+              "type": "string"
+            },
+            "CMS_Acct": {
+              "type": "string"
+            },
+            "Target_Acct_No": {
+              "type": "string"
+            },
+            "Fees": {
+              "type": "string"
+            },
+            "Amount": {
+              "type": "string"
+            },
+            "Fees_VAT_Amnt": {
+              "type": "string"
+            },
+            "lang": {
+              "type": "string"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "outputType": {
+              "type": "string"
+            },
+            "Src_Wlt_Acct_No": {
+              "type": "string"
+            },
+            "Src_Wlt_Acct_Cry": {
+              "type": "string"
+            },
+            "Trgt_Wlt_Acct_No": {
+              "type": "string"
+            },
+            "Trgt_Wlt_Acct_Cry": {
+              "type": "string"
+            },
+            "Ben_Rltnshp": {
+              "type": "string"
+            },
+            "Als_Tp": {
+              "type": "string"
+            },
+            "Als_Vl": {
+              "type": "string"
+            },
+            "Pymnt_Desc": {
+              "type": "string"
+            },
+            "Acct_No": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

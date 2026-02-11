@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "CIF": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Status": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "StatusCode": {
+                  "type": "string"
+                },
+                "ShortDesc": {
+                  "type": "string"
+                },
+                "Severity": {
+                  "type": "string"
+                }
+              }
+            },
+            "BillerInfoDownloadRq": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

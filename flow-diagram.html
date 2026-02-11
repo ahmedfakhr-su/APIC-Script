@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIC Deployment - Complete Algorithm Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.5);
+        }
+        
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        /* Phase Headers */
+        .phase-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin-top: 20px;
+        }
+        
+        /* Flow Steps */
+        .flow-step {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .step-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(to right, #f8fafc, white);
+            user-select: none;
+        }
+        
+        .step-header:hover {
+            background: linear-gradient(to right, #edf2f7, #f8fafc);
+        }
+        
+        .step-number {
+            min-width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .step-title-section {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .expand-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #4a5568;
+            flex-shrink: 0;
+        }
+        
+        .flow-step.expanded .expand-icon {
+            transform: rotate(180deg);
+            background: #667eea;
+            color: white;
+        }
+        
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .flow-step.expanded .step-content {
+            max-height: 3000px;
+        }
+        
+        .step-details {
+            padding: 25px;
+            background: #f8fafc;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        /* Decision Node */
+        .decision-step .step-header {
+            background: linear-gradient(to right, #fef3c7, #fef9e7);
+        }
+        
+        .decision-step .step-number {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .decision-step:hover {
+            border-color: #f59e0b;
+        }
+        
+        /* Loop Node */
+        .loop-step .step-header {
+            background: linear-gradient(to right, #dbeafe, #eff6ff);
+        }
+        
+        .loop-step .step-number {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+        
+        .loop-step:hover {
+            border-color: #3b82f6;
+        }
+        
+        /* Function Call */
+        .function-call {
+            background: #f0fdf4;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 15px 0;
+        }
+        
+        .function-name {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #065f46;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .function-purpose {
+            color: #047857;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .function-params {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .param-label {
+            font-weight: 600;
+            color: #065f46;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .param-item {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #4a5568;
+            padding: 4px 0;
+        }
+        
+        /* Sub-steps */
+        .sub-steps {
+            margin-top: 15px;
+        }
+        
+        .sub-step {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #cbd5e0;
+        }
+        
+        .sub-step-num {
+            font-weight: 700;
+            color: #667eea;
+            min-width: 30px;
+        }
+        
+        .sub-step-text {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #68d391;
+        }
+        
+        /* Decision Branches */
+        .branches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .branch {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .branch-label {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .branch-true {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .branch-false {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .branch-content {
+            color: #4a5568;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        /* Notes/Important Info */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .info-title {
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .info-content {
+            color: #1e3a8a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Warning Box */
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .warning-title {
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .warning-content {
+            color: #78350f;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Connector Lines */
+        .connector {
+            width: 4px;
+            height: 25px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto;
+            opacity: 0.3;
+        }
+        
+        @media (max-width: 768px) {
+            .branches {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>APIC Deployment Script - Complete Algorithm Flow</h1>
+        <!-- <p class="subtitle">Interactive breakdown showing the full execution path with integrated utility functions</p> -->
+        
+        <div class="controls">
+            <button class="btn" onclick="expandAll()">
+                <span id="expandText">Expand All Steps</span>
+            </button>
+            <button class="btn btn-secondary" onclick="expandFunctions()">
+                <span id="funcText">Show All Functions</span>
+            </button>
+        </div>
+        
+        <div class="flow-container">
+            <!-- PHASE 1: INITIALIZATION -->
+            <div class="phase-header">PHASE 1: Initialization & Configuration</div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Load Configuration</div>
+                        <div class="step-description">Load environment variables from config file or use defaults</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">1.1</div>
+                                <div class="sub-step-text">Check for CONFIG_FILE environment variable (default: Data-Config/config.env)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">1.2</div>
+                                <div class="sub-step-text">Source config file if it exists</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">1.3</div>
+                                <div class="sub-step-text">Set all configuration variables with defaults:
+                                    <div class="code-block">InputFile, TemplateFile, OutputDirectory, SchemasDirectory<br>
+APIC_ORG, APIC_SERVER, PRODUCT_NAME, PRODUCT_VERSION, CATALOG_NAME</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">Key Variables Initialized</div>
+                            <div class="info-content">
+                                <strong>InputFile:</strong> JSON catalog with API definitions<br>
+                                <strong>TemplateFile:</strong> YAML template for new APIs<br>
+                                <strong>OutputDirectory:</strong> Where generated YAMLs are stored<br>
+                                <strong>PRODUCT_NAME:</strong> Product bundle name in API Connect
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Prerequisite Checks</div>
+                        <div class="step-description">Verify required tools are installed (apic, python3, yq)</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">2.1</div>
+                                <div class="sub-step-text">Check if 'apic' CLI is installed</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">2.2</div>
+                                <div class="sub-step-text">Check if 'python3' is available (required for schema processing)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">2.3</div>
+                                <div class="sub-step-text">Check if 'yq' is available (required for YAML manipulation)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <div class="warning-title">⚠️ Exit on Failure</div>
+                            <div class="warning-content">Script exits with error if any required tool is missing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step decision-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Parse Arguments & Determine Build Mode</div>
+                        <div class="step-description">Check for --incremental flag and determine if full or partial build</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">3.1</div>
+                                <div class="sub-step-text">Parse command line arguments looking for --incremental flag</div>
+                            </div>
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Incremental Mode</div>
+                                <div class="branch-content">
+                                    <strong>Function Called:</strong>
+                                    <div class="function-call">
+                                        <div class="function-name">check_prerequisites()</div>
+                                        <div class="function-purpose">Verifies git is installed for incremental builds</div>
+                                    </div>
+                                    
+                                    <div class="function-call">
+                                        <div class="function-name">get_changed_files()</div>
+                                        <div class="function-purpose">Gets list of files changed since last successful run</div>
+                                        <div class="function-params">
+                                            <div class="param-label">How it works:</div>
+                                            <div class="param-item">1. Read last commit hash from file</div>
+                                            <div class="param-item">2. Get current commit hash</div>
+                                            <div class="param-item">3. Run 'git diff --name-only' between them</div>
+                                            <div class="param-item">4. Return list of changed filenames</div>
+                                        </div>
+                                    </div>
+                                    
+                                    If critical files changed (services.json, template.yaml, config.env), set FORCE_ALL=true
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Full Build Mode (Default)</div>
+                                <div class="branch-content">
+                                    Set FORCE_ALL=true<br>
+                                    Process all APIs regardless of changes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Detect APIC Command & Login</div>
+                        <div class="step-description">Find APIC CLI executable and authenticate to API Connect</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="function-call">
+                            <div class="function-name">detect_apic_cmd()</div>
+                            <div class="function-purpose">Locates APIC CLI across different platforms (WSL, Windows, Unix)</div>
+                            <div class="function-params">
+                                <div class="param-label">Search Order:</div>
+                                <div class="param-item">1. WSL: /mnt/c/Program Files/IBM/APIC-Toolkit/apic.exe</div>
+                                <div class="param-item">2. Windows: C:/Program Files/IBM/APIC-Toolkit/apic.exe</div>
+                                <div class="param-item">3. System PATH: apic command</div>
+                            </div>
+                        </div>
+                        
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">4.1</div>
+                                <div class="sub-step-text">Execute login command with SSO authentication:
+                                    <div class="code-block">$APIC_CMD login --server $APIC_SERVER \<br>
+  --realm "provider/integration-keycloak" \<br>
+  --context "provider" --sso --accept-license</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <div class="warning-title">⚠️ Exit on Login Failure</div>
+                            <div class="warning-content">Script exits if login fails - cannot proceed without authentication</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Validate API Names Uniqueness</div>
+                        <div class="step-description">Ensure no duplicate API names exist in catalog</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="function-call">
+                            <div class="function-name">validate_unique_api_names($InputFile)</div>
+                            <div class="function-purpose">Prevents deployment conflicts by detecting duplicate API identifiers</div>
+                            <div class="function-params">
+                                <div class="param-label">Process:</div>
+                                <div class="param-item">1. Parse all APIs from REST and SOAP sections</div>
+                                <div class="param-item">2. Normalize each name (lowercase, hyphens)</div>
+                                <div class="param-item">3. Track names in associative array</div>
+                                <div class="param-item">4. Report all duplicates with original names</div>
+                                <div class="param-item">5. Exit with error if duplicates found</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">Why This Matters</div>
+                            <div class="info-content">
+                                API Connect uses normalized names as unique identifiers. Duplicates would cause 
+                                overwrites and deployment failures. This validation happens early to fail fast.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PHASE 2: API PROCESSING -->
+            <div class="phase-header">⚙️ PHASE 2: API Processing Loop</div>
+            
+            <div class="flow-step loop-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title-section">
+                        <div class="step-title">FOR EACH API in Catalog (REST + SOAP)</div>
+                        <div class="step-description">Iterate through all services in hierarchical JSON catalog</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+<span class="code-comment"># Flatten REST and SOAP sections into single stream</span><br>
+jq -c '(.REST, .SOAP) | .[][]' "$InputFile"
+                        </div>
+                        
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">6.1</div>
+                                <div class="sub-step-text">Extract fields from each API:
+                                    <div class="code-block">ServiceName = API Name<br>
+ESBUrl = Backend URL<br>
+SchemaPath = JSON schema file location (optional)</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">6.2</div>
+                                <div class="sub-step-text">Skip blank lines and comments (lines starting with #)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">6.3</div>
+                                <div class="sub-step-text">Generate derived names:
+                                    <div class="code-block">x_ibm_name = lowercase-with-hyphens<br>
+OperationName = CamelCaseNoSpaces<br>
+OUTPUT_FILE = API-yamls/{x_ibm_name}_1.0.0.yaml</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">6.4</div>
+                                <div class="sub-step-text">Add API to API_REFS array (used later for product)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">📌 Catalog Structure</div>
+                            <div class="info-content">
+                                JSON has two top-level objects: REST and SOAP<br>
+                                Each contains service categories as keys<br>
+                                Values are arrays of API objects with "API Name", "Url", "Schema Location"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step decision-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Incremental Mode Check</div>
+                        <div class="step-description">Skip API if unchanged (incremental mode only)</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Incremental + Schema Has Changed</div>
+                                <div class="branch-content">
+                                    <strong>Check:</strong> Is SchemaPath in CHANGED_FILES list?<br><br>
+                                    If YES: Continue processing this API<br>
+                                    Set NEED_API_SYNC=true
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Incremental + No Changes</div>
+                                <div class="branch-content">
+                                    <strong>Skip this API:</strong><br>
+                                    - Schema file hasn't changed<br>
+                                    - No need to sync to API Connect<br>
+                                    - Continue to next API in loop
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <div class="warning-title">⚠️ Force All Override</div>
+                            <div class="warning-content">
+                                If FORCE_ALL=true (critical files changed or full build), this check is skipped 
+                                and ALL APIs are processed regardless of individual changes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Escape Special Characters</div>
+                        <div class="step-description">Prepare strings for sed replacement (prevent injection)</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="function-call">
+                            <div class="function-name">escape_sed_replacement($string)</div>
+                            <div class="function-purpose">Escapes /, |, & characters to prevent sed injection attacks</div>
+                            <div class="function-params">
+                                <div class="param-label">Applied to:</div>
+                                <div class="param-item">escService = ServiceName</div>
+                                <div class="param-item">escName = x_ibm_name</div>
+                                <div class="param-item">escOp = OperationName</div>
+                                <div class="param-item">escUrl = ESBUrl</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">🔒 Security Note</div>
+                            <div class="info-content">
+                                Without escaping, user-provided strings containing /, |, or & could break sed 
+                                commands or inject malicious patterns
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">9</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Check if API Exists in API Connect</div>
+                        <div class="step-description">Query API Connect to determine create vs update path</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">9.1</div>
+                                <div class="sub-step-text">Create temporary directory for API retrieval</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">9.2</div>
+                                <div class="sub-step-text">Attempt to get existing API:
+                                    <div class="code-block">$APIC_CMD draft-apis:get "${x_ibm_name}:1.0.0" \<br>
+  --server "$APIC_SERVER" --org "$APIC_ORG" \<br>
+  --output "$TEMP_API_DIR"</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">9.3</div>
+                                <div class="sub-step-text">Set API_EXISTS flag based on command success</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">🔀 Branching Point</div>
+                            <div class="info-content">
+                                <strong>API_EXISTS = false:</strong> Go to PATH A (Create New API)<br>
+                                <strong>API_EXISTS = true:</strong> Go to PATH B (Update Existing API)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">10</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Load Schema (if provided)</div>
+                        <div class="step-description">Convert JSON schema to YAML format for OpenAPI</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Schema Provided</div>
+                                <div class="branch-content">
+                                    <div class="function-call">
+                                        <div class="function-name">load_json_schema($SchemaPath)</div>
+                                        <div class="function-purpose">Converts JSON schema to YAML and outputs to temp file</div>
+                                        <div class="function-params">
+                                            <div class="param-label">Steps:</div>
+                                            <div class="param-item">1. Verify schema file exists</div>
+                                            <div class="param-item">2. Validate JSON with Python</div>
+                                            <div class="param-item">3. Convert to YAML via Python script</div>
+                                            <div class="param-item">4. Save to $TEMP_SCHEMA_FILE</div>
+                                        </div>
+                                    </div>
+                                    Set SCHEMA_PROVIDED=true
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ No Schema</div>
+                                <div class="branch-content">
+                                    Set SCHEMA_PROVIDED=false<br>
+                                    Will use empty/minimal schema later
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PATH A: CREATE NEW API -->
+            <div class="phase-header">🆕 PATH A: Create New API</div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">A1</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Generate Complete YAML from Template</div>
+                        <div class="step-description">Replace placeholders and inject schema</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">A1.1</div>
+                                <div class="sub-step-text">Parse x_ibm_name to extract service name and function ID:
+                                    <div class="code-block"><span class="code-comment"># Example: "authenticate-user-181010"</span><br>
+service_name = "authenticate-user"  <span class="code-comment"># everything before last hyphen</span><br>
+function_id = "/181010"             <span class="code-comment"># last numeric part with /</span></div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">A1.2</div>
+                                <div class="sub-step-text">Use sed to replace placeholders in template:
+                                    <div class="code-block">{{ServiceName}} → ServiceName<br>
+{{x_ibm_name}} → service_name<br>
+{{api_full_name}} → x_ibm_name<br>
+{{function_id}} → function_id<br>
+{{OperationName}} → OperationName<br>
+{{ESBUrl}} → ESBUrl</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">A1.3</div>
+                                <div class="sub-step-text">Save to temporary YAML file</div>
+                            </div>
+                        </div>
+                        
+                        <div class="sub-steps" style="margin-top: 20px;">
+                            <div class="sub-step">
+                                <div class="sub-step-num">A1.4</div>
+                                <div class="sub-step-text"><strong>Replace {{SCHEMA_PLACEHOLDER}}</strong></div>
+                            </div>
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Schema Provided</div>
+                                <div class="branch-content">
+                                    Use awk to:
+                                    <div class="param-item">1. Find {{SCHEMA_PLACEHOLDER}} line</div>
+                                    <div class="param-item">2. Read entire $TEMP_SCHEMA_FILE</div>
+                                    <div class="param-item">3. Insert schema content at that location</div>
+                                    <div class="param-item">4. Write to $OUTPUT_FILE</div>
+                                    <br>
+                                    Result: Full schema under components/schemas/{OperationName}Request
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ No Schema</div>
+                                <div class="branch-content">
+                                    Generate minimal valid OpenAPI schema:
+                                    <div class="code-block">type: object<br>properties: {}</div>
+                                    Use awk to:
+                                    <div class="param-item">1. Capture indentation of placeholder line</div>
+                                    <div class="param-item">2. Insert minimal schema with proper indentation</div>
+                                    <div class="param-item">3. Write to $OUTPUT_FILE</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">📌 Why Minimal Schema?</div>
+                            <div class="info-content">
+                                OpenAPI spec requires a schema definition. Empty schema allows API to accept 
+                                any JSON, which is needed when formal schema isn't available.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">A2</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Validate Generated YAML</div>
+                        <div class="step-description">Use APIC CLI to validate OpenAPI structure</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+$APIC_CMD validate "$OUTPUT_FILE"
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Validation Failed</div>
+                                <div class="branch-content">
+                                    - Log error<br>
+                                    - Clean up temp files<br>
+                                    - Increment FAILURE_COUNT<br>
+                                    - Continue to next API (skip create)
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Validation Passed</div>
+                                <div class="branch-content">
+                                    Proceed to A3 (Create Draft API)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">A3</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Create Draft API in API Connect</div>
+                        <div class="step-description">Upload new API definition to platform</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+$APIC_CMD draft-apis:create \<br>
+  --org "$APIC_ORG" \<br>
+  --server "$APIC_SERVER" \<br>
+  "$OUTPUT_FILE"
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Success</div>
+                                <div class="branch-content">
+                                    - Increment SUCCESS_COUNT<br>
+                                    - Increment CREATED_COUNT<br>
+                                    - Log success message<br>
+                                    - Continue to next API
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Failure</div>
+                                <div class="branch-content">
+                                    - Log error<br>
+                                    - Increment FAILURE_COUNT<br>
+                                    - Continue to next API
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PATH B: UPDATE EXISTING API -->
+            <div class="phase-header">🔄 PATH B: Update Existing API</div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">B1</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Detect Existing Operation Name</div>
+                        <div class="step-description">Find actual schema key in existing API YAML</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">B1.1</div>
+                                <div class="sub-step-text">Parse existing API file from temp directory</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">B1.2</div>
+                                <div class="sub-step-text">Use awk to extract operation name from components/schemas section:
+                                    <div class="code-block">awk '/^  schemas:/,/^[^ ]/ {<br>
+  if (/^    [A-Za-z0-9]*Request:/) print<br>
+}' | sed 's/Request:.*//'</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">B1.3</div>
+                                <div class="sub-step-text">Set ACTUAL_OPERATION_NAME (or use new OperationName if none found)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">B1.4</div>
+                                <div class="sub-step-text">Set SCHEMA_EXISTS flag (true if operation found, false if not)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">📌 Why Detect Actual Name?</div>
+                            <div class="info-content">
+                                Operation names may have changed over time. We need to find the ACTUAL key name 
+                                currently in the API to properly replace/remove it.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step decision-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">B2</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Schema Update Decision Tree</div>
+                        <div class="step-description">4 possible paths based on schema provision and existence</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="info-box">
+                            <div class="info-title">🌳 Decision Matrix</div>
+                            <div class="info-content">
+                                <strong>Path 1:</strong> Schema Provided + Schema Exists → Replace<br>
+                                <strong>Path 2:</strong> Schema Provided + No Schema → Insert<br>
+                                <strong>Path 3:</strong> No Schema + Schema Exists → Replace with Empty<br>
+                                <strong>Path 4:</strong> No Schema + No Schema → Insert Empty
+                            </div>
+                        </div>
+                        
+                        <div class="sub-steps" style="margin-top: 20px;">
+                            <div class="sub-step">
+                                <div class="sub-step-num">Path 1</div>
+                                <div class="sub-step-text">
+                                    <strong>Schema Provided + Schema Exists</strong>
+                                    <div class="function-call">
+                                        <div class="function-name">replace_schema_section()</div>
+                                        <div class="function-params">
+                                            <div class="param-label">Parameters:</div>
+                                            <div class="param-item">$1 = EXISTING_API_FILE</div>
+                                            <div class="param-item">$2 = ACTUAL_OPERATION_NAME</div>
+                                            <div class="param-item">$3 = TEMP_SCHEMA_FILE (new schema)</div>
+                                            <div class="param-item">$4 = UPDATED_API_FILE (output)</div>
+                                        </div>
+                                        <div class="function-params">
+                                            <div class="param-label">Process:</div>
+                                            <div class="param-item">1. Verify new schema file exists</div>
+                                            <div class="param-item">2. Confirm key exists at components.schemas</div>
+                                            <div class="param-item">3. Create wrapper YAML with new schema</div>
+                                            <div class="param-item">4. Merge using yq (overwrites existing key)</div>
+                                            <div class="param-item">5. Verify replacement succeeded</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="sub-step">
+                                <div class="sub-step-num">Path 2</div>
+                                <div class="sub-step-text">
+                                    <strong>Schema Provided + No Existing Schema</strong>
+                                    <div class="function-call">
+                                        <div class="function-name">insert_schema_section()</div>
+                                        <div class="function-params">
+                                            <div class="param-label">Parameters:</div>
+                                            <div class="param-item">$1 = EXISTING_API_FILE</div>
+                                            <div class="param-item">$2 = ACTUAL_OPERATION_NAME</div>
+                                            <div class="param-item">$3 = TEMP_SCHEMA_FILE</div>
+                                            <div class="param-item">$4 = UPDATED_API_FILE (output)</div>
+                                        </div>
+                                        <div class="function-params">
+                                            <div class="param-label">Process:</div>
+                                            <div class="param-item">1. Check if components/schemas exists</div>
+                                            <div class="param-item">2. Create wrapper with proper structure</div>
+                                            <div class="param-item">3. Merge wrapper with existing file using yq</div>
+                                            <div class="param-item">4. Verify insertion succeeded</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="sub-step">
+                                <div class="sub-step-num">Path 3</div>
+                                <div class="sub-step-text">
+                                    <strong>No Schema Provided + Schema Exists</strong>
+                                    <div style="margin-top: 10px;">
+                                        <strong>Step 3.1: Backup Existing Schema</strong>
+                                        <div class="function-call">
+                                            <div class="function-name">remove_schema_section()</div>
+                                            <div class="function-params">
+                                                <div class="param-label">Parameters:</div>
+                                                <div class="param-item">$1 = EXISTING_API_FILE</div>
+                                                <div class="param-item">$2 = ACTUAL_OPERATION_NAME</div>
+                                                <div class="param-item">$3 = SCHEMA_BACKUP_FILE (timestamped)</div>
+                                                <div class="param-item">$4 = TEMP_REMOVED (output)</div>
+                                            </div>
+                                            <div class="function-params">
+                                                <div class="param-label">Process:</div>
+                                                <div class="param-item">1. Check if key exists at components.schemas</div>
+                                                <div class="param-item">2. Extract schema to backup file using yq</div>
+                                                <div class="param-item">3. Delete schema using yq del()</div>
+                                                <div class="param-item">4. Verify deletion</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <strong>Step 3.2: Insert Empty Schema</strong>
+                                        <div class="function-call">
+                                            <div class="function-name">insert_schema_section()</div>
+                                            <div class="function-params">
+                                                <div class="param-label">Parameters:</div>
+                                                <div class="param-item">$1 = TEMP_REMOVED (from step 3.1)</div>
+                                                <div class="param-item">$2 = ACTUAL_OPERATION_NAME</div>
+                                                <div class="param-item">$3 = EMPTY_SCHEMA_FILE (type: object, properties: {})</div>
+                                                <div class="param-item">$4 = UPDATED_API_FILE (final output)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="sub-step">
+                                <div class="sub-step-num">Path 4</div>
+                                <div class="sub-step-text">
+                                    <strong>No Schema Provided + No Existing Schema</strong>
+                                    <div class="function-call">
+                                        <div class="function-name">insert_schema_section()</div>
+                                        <div class="function-params">
+                                            <div class="param-label">Parameters:</div>
+                                            <div class="param-item">$1 = EXISTING_API_FILE</div>
+                                            <div class="param-item">$2 = ACTUAL_OPERATION_NAME</div>
+                                            <div class="param-item">$3 = EMPTY_SCHEMA_FILE</div>
+                                            <div class="param-item">$4 = UPDATED_API_FILE (output)</div>
+                                        </div>
+                                        <div class="function-params">
+                                            <div class="param-label">Result:</div>
+                                            <div class="param-item">Creates minimal schema in previously schema-less API</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">B3</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Update Target URL</div>
+                        <div class="step-description">Update backend endpoint in API YAML</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="function-call">
+                            <div class="function-name">update_target_url($UPDATED_API_FILE, $ESBUrl)</div>
+                            <div class="function-purpose">Updates target-url field in API assembly using Python</div>
+                            <div class="function-params">
+                                <div class="param-label">Process:</div>
+                                <div class="param-item">1. Check if python3 is available</div>
+                                <div class="param-item">2. Call update_target_url.py Python script</div>
+                                <div class="param-item">3. Python parses YAML and updates target-url</div>
+                                <div class="param-item">4. Saves modified YAML back to file</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">📌 Why Always Update URL?</div>
+                            <div class="info-content">
+                                Backend URLs may change independently of schemas. This ensures the API 
+                                points to the correct endpoint even if schema hasn't changed.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">B4</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Validate Updated YAML</div>
+                        <div class="step-description">Ensure modifications didn't break YAML structure</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+$APIC_CMD validate "$UPDATED_API_FILE"
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Validation Failed</div>
+                                <div class="branch-content">
+                                    - Log error<br>
+                                    - Clean up temp files<br>
+                                    - Increment FAILURE_COUNT<br>
+                                    - Continue to next API (skip update)
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Validation Passed</div>
+                                <div class="branch-content">
+                                    Proceed to B5 (Update Draft API)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">B5</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Update Draft API in API Connect</div>
+                        <div class="step-description">Push modified API definition to platform</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+$APIC_CMD draft-apis:update "${x_ibm_name}:1.0.0" \<br>
+  --server "$APIC_SERVER" \<br>
+  --org "$APIC_ORG" \<br>
+  "$UPDATED_API_FILE"
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Success</div>
+                                <div class="branch-content">
+                                    - Increment SUCCESS_COUNT<br>
+                                    - Increment UPDATED_COUNT<br>
+                                    - Copy updated file to OUTPUT_FILE<br>
+                                    - Log success message<br>
+                                    - Continue to next API
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Failure</div>
+                                <div class="branch-content">
+                                    - Log error<br>
+                                    - Increment FAILURE_COUNT<br>
+                                    - Continue to next API
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- END OF LOOP -->
+            <div class="connector"></div>
+            
+            <div class="flow-step loop-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">11</div>
+                    <div class="step-title-section">
+                        <div class="step-title">End of API Processing Loop</div>
+                        <div class="step-description">Return to step 6 for next API, or continue if done</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="info-box">
+                            <div class="info-title">📊 Summary Statistics Collected</div>
+                            <div class="info-content">
+                                <strong>SUCCESS_COUNT:</strong> Total APIs successfully processed<br>
+                                <strong>CREATED_COUNT:</strong> New APIs created<br>
+                                <strong>UPDATED_COUNT:</strong> Existing APIs updated<br>
+                                <strong>FAILURE_COUNT:</strong> APIs that failed validation or sync<br>
+                                <strong>API_REFS[]:</strong> Array of all processed API names for product
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PHASE 3: PRODUCT CREATION -->
+            <div class="phase-header">📦 PHASE 3: Product Update & Publish</div>
+            
+            <div class="flow-step decision-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">12</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Should We Update Product?</div>
+                        <div class="step-description">Check if product update is needed</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">Check 1</div>
+                                <div class="sub-step-text">If FAILURE_COUNT > 0: Skip product update (incomplete)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">Check 2</div>
+                                <div class="sub-step-text">If Incremental Mode + FORCE_ALL=false + SUCCESS_COUNT=0: Skip (no changes)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Skip Product Update</div>
+                                <div class="branch-content">
+                                    Either failures occurred or no changes in incremental mode<br>
+                                    Jump to Step 17 (Final Summary)
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Proceed with Product Update</div>
+                                <div class="branch-content">
+                                    All APIs processed successfully and changes exist<br>
+                                    Continue to Step 13
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">13</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Backup Existing Product</div>
+                        <div class="step-description">Create temporary backup for rollback capability</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">13.1</div>
+                                <div class="sub-step-text">Create $TEMP_BACKUP_DIR (timestamped)</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">13.2</div>
+                                <div class="sub-step-text">Try to retrieve existing product:
+                                    <div class="code-block">$APIC_CMD draft-products:get \<br>
+  "${PRODUCT_NAME}:${PRODUCT_VERSION}" \<br>
+  --server "$APIC_SERVER" --org "$APIC_ORG" \<br>
+  --output "$TEMP_BACKUP_DIR"</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">13.3</div>
+                                <div class="sub-step-text">If product exists:
+                                    - Rename to EXISTING_PRODUCT_FILE for merging<br>
+                                    - Create BACKUP_FILE copy<br>
+                                    - Set PRODUCT_EXISTS=true
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">13.4</div>
+                                <div class="sub-step-text">If product doesn't exist: Set PRODUCT_EXISTS=false</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">🔄 Backup Strategy</div>
+                            <div class="info-content">
+                                Temporary backup is created in $TEMP_BACKUP_DIR with process ID suffix. 
+                                On success, moved to $BACKUP_DIR. On failure, cleaned up by EXIT trap.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">14</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Build API References Section</div>
+                        <div class="step-description">Merge new and existing APIs into product definition</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">14.1</div>
+                                <div class="sub-step-text">Build NEW_APIS_SECTION from API_REFS[] array:
+                                    <div class="code-block">for api_name in "${API_REFS[@]}"; do<br>
+  NEW_APIS_SECTION+="  ${api_name}:<br>
+    \$ref: ${api_name}_1.0.0.yaml<br>
+"<br>
+done</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Product Exists</div>
+                                <div class="branch-content">
+                                    <strong>Merge Strategy:</strong>
+                                    <div class="sub-steps" style="margin-top: 10px;">
+                                        <div class="sub-step">
+                                            <div class="sub-step-num">1</div>
+                                            <div class="sub-step-text">Parse existing product's apis section</div>
+                                        </div>
+                                        <div class="sub-step">
+                                            <div class="sub-step-num">2</div>
+                                            <div class="sub-step-text">Add all existing APIs to MERGED_APIS_SECTION (preserving order)</div>
+                                        </div>
+                                        <div class="sub-step">
+                                            <div class="sub-step-num">3</div>
+                                            <div class="sub-step-text">Add NEW APIs that aren't already in product</div>
+                                        </div>
+                                        <div class="sub-step">
+                                            <div class="sub-step-num">4</div>
+                                            <div class="sub-step-text">Use associative array to track seen APIs (prevent duplicates)</div>
+                                        </div>
+                                    </div>
+                                    Set FINAL_APIS_SECTION = MERGED_APIS_SECTION
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ New Product</div>
+                                <div class="branch-content">
+                                    Set FINAL_APIS_SECTION = NEW_APIS_SECTION<br>
+                                    (Only includes APIs from this run)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">15</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Verify API YAML Files Exist</div>
+                        <div class="step-description">Ensure all referenced APIs have local YAML files</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">15.1</div>
+                                <div class="sub-step-text">Parse FINAL_APIS_SECTION to extract all API names</div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">15.2</div>
+                                <div class="sub-step-text">For each API name:
+                                    <div class="code-block">api_file="${OutputDirectory}/${api_name}_1.0.0.yaml"</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">15.3</div>
+                                <div class="sub-step-text">If file doesn't exist locally:
+                                    - Check if backup exists in TEMP_BACKUP_DIR<br>
+                                    - Copy from backup if found<br>
+                                    - Log warning if not in backup either
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <div class="warning-title">⚠️ Why This Check?</div>
+                            <div class="warning-content">
+                                When merging with existing product, some APIs may not have been processed 
+                                this run. We need their YAML files locally to create the product bundle.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">16</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Generate & Publish Product</div>
+                        <div class="step-description">Create product YAML and deploy to catalog</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="sub-steps">
+                            <div class="sub-step">
+                                <div class="sub-step-num">16.1</div>
+                                <div class="sub-step-text">Generate complete product YAML:
+                                    <div class="code-block">product: 1.0.0<br>
+info:<br>
+  name: ${PRODUCT_NAME}<br>
+  title: ${PRODUCT_TITLE}<br>
+  version: ${PRODUCT_VERSION}<br>
+<br>
+apis:<br>
+${FINAL_APIS_SECTION}<br>
+<br>
+visibility:<br>
+  view: {type: public}<br>
+  subscribe: {type: authenticated}<br>
+<br>
+plans:<br>
+  default-plan:<br>
+    title: Default Plan<br>
+    rate-limits:<br>
+      default: {value: 100/1hour}</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">16.2</div>
+                                <div class="sub-step-text">Try to update existing product:
+                                    <div class="code-block">$APIC_CMD draft-products:update \<br>
+  "${PRODUCT_NAME}:${PRODUCT_VERSION}" \<br>
+  --server "$APIC_SERVER" --org "$APIC_ORG" \<br>
+  "$PRODUCT_FILE"</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">16.3</div>
+                                <div class="sub-step-text">If update fails (product doesn't exist), create new:
+                                    <div class="code-block">$APIC_CMD draft-products:create \<br>
+  --server "$APIC_SERVER" --org "$APIC_ORG" \<br>
+  "$PRODUCT_FILE"</div>
+                                </div>
+                            </div>
+                            <div class="sub-step">
+                                <div class="sub-step-num">16.4</div>
+                                <div class="sub-step-text">Publish product to catalog:
+                                    <div class="code-block">$APIC_CMD products:publish \<br>
+  --server "$APIC_SERVER" --org "$APIC_ORG" \<br>
+  --catalog "$CATALOG_NAME" "$PRODUCT_FILE"</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">📦 Product Bundle</div>
+                            <div class="info-content">
+                                The product acts as a container for all APIs. Publishing to catalog makes 
+                                them available to consumers through the developer portal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PHASE 4: FINALIZATION -->
+            <div class="phase-header">✅ PHASE 4: Finalization & Cleanup</div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">17</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Finalize Backup</div>
+                        <div class="step-description">Move temporary backup to permanent location</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="function-call">
+                            <div class="function-name">finalize_backup()</div>
+                            <div class="function-purpose">Promotes temporary backup to permanent backup directory</div>
+                            <div class="function-params">
+                                <div class="param-label">Process:</div>
+                                <div class="param-item">1. Check if TEMP_BACKUP_DIR exists</div>
+                                <div class="param-item">2. Remove old BACKUP_DIR if present</div>
+                                <div class="param-item">3. Move TEMP_BACKUP_DIR to BACKUP_DIR</div>
+                                <div class="param-item">4. Disable EXIT trap (backup preserved)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title">🔄 Rollback Capability</div>
+                            <div class="info-content">
+                                This backup can be used to restore the previous product state if issues 
+                                are discovered post-deployment.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">18</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Save Incremental State</div>
+                        <div class="step-description">Record current commit for future incremental builds</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="branches">
+                            <div class="branch branch-true">
+                                <div class="branch-label">✓ Success (FAILURE_COUNT = 0)</div>
+                                <div class="branch-content">
+                                    <div class="code-block">current_hash=$(git rev-parse HEAD)<br>
+echo "$current_hash" > "$LAST_COMMIT_FILE"</div>
+                                    This commit hash will be used as baseline for next incremental build
+                                </div>
+                            </div>
+                            
+                            <div class="branch branch-false">
+                                <div class="branch-label">✗ Failures Occurred</div>
+                                <div class="branch-content">
+                                    Do NOT save state<br>
+                                    Next incremental build will re-process from last successful run
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" onclick="toggleStep(this)">
+                <div class="step-header">
+                    <div class="step-number">19</div>
+                    <div class="step-title-section">
+                        <div class="step-title">Display Final Summary</div>
+                        <div class="step-description">Show deployment results and statistics</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="step-content">
+                    <div class="step-details">
+                        <div class="code-block">
+========================================<br>
+✓ COMPLETE: All operations finished successfully<br>
+========================================<br>
+<br>
+API Statistics:<br>
+  - APIs Created: $CREATED_COUNT<br>
+  - APIs Updated: $UPDATED_COUNT<br>
+  - Total Processed: $SUCCESS_COUNT<br>
+  - Failed: $FAILURE_COUNT<br>
+<br>
+Product:<br>
+  - Name: $PRODUCT_NAME v$PRODUCT_VERSION<br>
+  - Total APIs in Product: ${#API_REFS[@]}<br>
+  - Published to catalog: $CATALOG_NAME<br>
+========================================<br>
+<br>
+📦 Final backup location: ${BACKUP_DIR}/...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="flow-step" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none;">
+                <div class="step-header" style="background: transparent; pointer-events: none;">
+                    <div class="step-number" style="background: white; color: #10b981;">✓</div>
+                    <div class="step-title-section">
+                        <div class="step-title" style="color: white; font-size: 24px;">Deployment Complete!</div>
+                        <div class="step-description" style="color: #d1fae5;">All APIs synced and product published to catalog</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let allExpanded = false;
+        let functionsExpanded = false;
+        
+        function toggleStep(element) {
+            element.classList.toggle('expanded');
+        }
+        
+        function expandAll() {
+            const steps = document.querySelectorAll('.flow-step');
+            const expandText = document.getElementById('expandText');
+            
+            allExpanded = !allExpanded;
+            
+            steps.forEach(step => {
+                if (allExpanded) {
+                    step.classList.add('expanded');
+                } else {
+                    step.classList.remove('expanded');
+                }
+            });
+            
+            expandText.textContent = allExpanded ? 'Collapse All Steps' : 'Expand All Steps';
+        }
+        
+        function expandFunctions() {
+            const functionCalls = document.querySelectorAll('.function-call');
+            const steps = document.querySelectorAll('.flow-step');
+            const funcText = document.getElementById('funcText');
+            
+            functionsExpanded = !functionsExpanded;
+            
+            // First expand all steps that contain functions
+            steps.forEach(step => {
+                const hasFunctions = step.querySelector('.function-call');
+                if (hasFunctions && functionsExpanded) {
+                    step.classList.add('expanded');
+                }
+            });
+            
+            funcText.textContent = functionsExpanded ? 'Hide All Functions' : 'Show All Functions';
+            
+            if (!functionsExpanded) {
+                // Optionally collapse all if toggling off
+                allExpanded = false;
+                document.getElementById('expandText').textContent = 'Expand All Steps';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Enforce Unix line endings for shell scripts and env files
+*.sh text eol=lf
+*.env text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.bash text eol=lf
+*.py text eol=lf
+API-yamls/.last_successful_commit -text

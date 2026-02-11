@@ -1,0 +1,477 @@
+components:
+  schemas:
+    GetChargeCardListRequest:
+      additionalProperties: false
+      properties:
+        EAIMessage:
+          additionalProperties: false
+          description: Enterprise Application Integration envelope containing header
+            metadata and business payload
+          properties:
+            Body:
+              additionalProperties: false
+              description: Business request payload specific to the service operation
+              properties:
+                CMS_Rplcmnt_No:
+                  type: string
+              type: object
+            EAIHeader:
+              additionalProperties: false
+              description: Technical and routing metadata required for request processing
+                and tracking
+              properties:
+                BE_Ref_No:
+                  type: string
+                CIF:
+                  type: string
+                ChnlId:
+                  type: string
+                EAIRtrnCd:
+                  type: string
+                FE_Ref_No:
+                  type: string
+                FunctnId:
+                  type: string
+                Lang:
+                  type: string
+                MsgFrmt:
+                  type: string
+                OrgnlMsgId:
+                  type: string
+                Rqstr_Info1:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info2:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info3:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info4:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info5:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info6:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info7:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info11:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info12:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info13:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info14:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info15:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info16:
+                  description: Additional requester-provided metadata field
+                  type: string
+                Rqstr_Info19:
+                  description: Additional requester-provided metadata field
+                  type: string
+                RvrslOptn:
+                  type: string
+                Tmstmp:
+                  type: string
+              type: object
+          type: object
+      type: object
+    GetChargeCardListRequestData:
+      properties:
+        cardListFilter:
+          type: string
+      type: object
+    GetChargeCardListResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/GetChargeCardListResponseData'
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+      type: object
+    GetChargeCardListResponseData:
+      properties:
+        chargeCardList:
+          properties:
+            currentAmount:
+              type: string
+            type:
+              type: string
+          type: object
+        numberOfReturnedRecords:
+          type: string
+        totalNumberOfRecords:
+          type: string
+      type: object
+    RequestHeader:
+      properties:
+        backendReferenceNumber:
+          type: string
+        channelId:
+          type: string
+        cif:
+          type: string
+        deviceInfo:
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+          type: object
+        frontendReferenceNumber:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        messageFormat:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        transactionDateTime:
+          type: string
+      type: object
+    ResponseHeader:
+      allOf:
+      - $ref: '#/components/schemas/RequestHeader'
+      - properties:
+          code:
+            type: string
+          info:
+            type: string
+        type: object
+  securitySchemes:
+    clientID:
+      in: header
+      name: X-IBM-Client-Id
+      type: apiKey
+      x-key-type: client_id
+    clientSecret:
+      in: header
+      name: X-IBM-Client-Secret
+      type: apiKey
+      x-key-type: client_secret
+    oAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            Integration_scope: Integration_scope
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+info:
+  title: Get Charge Card List
+  version: 1.0.0
+  x-ibm-name: get-charge-card-list
+openapi: 3.0.0
+paths:
+  /get-charge-card-list:
+    post:
+      operationId: GetChargeCardList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChargeCardListRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChargeCardListResponse'
+          description: success
+security:
+- clientID: []
+  clientSecret: []
+- oAuth:
+  - Integration_scope
+servers:
+- url: /albilad-api/v1
+x-ibm-configuration:
+  activity-log:
+    enabled: true
+    error-content: payload
+    success-content: activity
+  assembly:
+    execute:
+    - operation-switch:
+        case:
+        - execute:
+          - invoke:
+              backend-type: json
+              chunked-uploads: true
+              follow-redirects: false
+              header-control:
+                type: blocklist
+                values: []
+              inject-proxy-headers: true
+              parameter-control:
+                type: allowlist
+                values: []
+              persistent-connection: true
+              target-url: $(target-url)
+              timeout: 60
+              title: invoke
+              verb: POST
+              version: 2.0.0
+          operations:
+          - GetChargeCardList
+        - execute:
+          - map:
+              actions:
+              - default: Get_MOI_Srvc_Fee
+                set: $item
+              - from: Data.header.cif
+                set: output.EAIMessage.EAIHeader.CIF
+              - from: Data.header.language
+                set: output.EAIMessage.EAIHeader.Lang
+              - from: Data.header.channelId
+                set: output.EAIMessage.EAIHeader.ChnlId
+              - from: Data.header.functionId
+                set: output.EAIMessage.EAIHeader.FunctnId
+              - from: Data.header.reversalOption
+                set: output.EAIMessage.EAIHeader.RvrslOptn
+              - from: Data.header.frontendReferenceNumber
+                set: output.EAIMessage.EAIHeader.FE_Ref_No
+              - from: Data.header.backendReferenceNumber
+                set: output.EAIMessage.EAIHeader.BE_Ref_No
+              - from: Data.header.transactionDateTime
+                set: output.EAIMessage.EAIHeader.Tmstmp
+              - from: Data.data.cardListFilter
+                set: output.EAIMessage.Body.Card_Lst_Fltr
+              - from: Data.header.segment
+                set: output.EAIMessage.EAIHeader.Sgmnt
+              - from: Data.header.deviceInfo.model
+                set: output.EAIMessage.EAIHeader.Rqstr_Info4
+              - from: Data.header.deviceInfo.city
+                set: output.EAIMessage.EAIHeader.Rqstr_Info11
+              - from: Data.header.deviceInfo.ipAddress
+                set: output.EAIMessage.EAIHeader.Rqstr_Info13
+              - from: Data.header.deviceInfo.country
+                set: output.EAIMessage.EAIHeader.Rqstr_Info15
+              - from: Data.header.deviceInfo.osVersion
+                set: output.EAIMessage.EAIHeader.Rqstr_Info16
+              - from: Data.header.deviceInfo.id
+                set: output.EAIMessage.EAIHeader.Rqstr_Info12
+              inputs:
+                Data:
+                  content: application/json
+                  schema:
+                    $ref: '#/components/schemas/GetChargeCardListRequest'
+                  variable: request.body
+              options:
+                mapEmulateV4DefaultRequiredProps: false
+                mapEmulateV4EmptyJSONObject: false
+                mapEnablePostProcessingJSON: false
+                mapReferenceLimit: 1
+              outputs:
+                output:
+                  content: application/json
+                  schema:
+                    properties:
+                      EAIMessage:
+                        properties:
+                          Body:
+                            properties:
+                              Card_Lst_Fltr:
+                                type: string
+                            type: object
+                          EAIHeader:
+                            properties:
+                              BE_Ref_No:
+                                type: string
+                              CIF:
+                                type: string
+                              ChnlId:
+                                type: string
+                              FE_Ref_No:
+                                type: string
+                              FunctnId:
+                                type: string
+                              Lang:
+                                type: string
+                              MsgFrmt:
+                                type: string
+                              Rqstr_Info1:
+                                type: string
+                              Rqstr_Info2:
+                                type: string
+                              Rqstr_Info4:
+                                type: string
+                              Rqstr_Info11:
+                                type: string
+                              Rqstr_Info12:
+                                type: string
+                              Rqstr_Info13:
+                                type: string
+                              Rqstr_Info15:
+                                type: string
+                              Rqstr_Info16:
+                                type: string
+                              RvrslOptn:
+                                type: string
+                              Sgmnt:
+                                type: string
+                              Tmstmp:
+                                type: string
+                            type: object
+                        type: object
+                    type: object
+                  variable: message.body
+              title: Map Request
+              version: 2.1.0
+          - map:
+              actions:
+              - from: input.EAIMessage.EAIHeader.CIF
+                set: output.result.cif
+              - from: input.EAIMessage.EAIHeader.Lang
+                set: output.result.language
+              - from: input.EAIMessage.EAIHeader.ChnlId
+                set: output.result.channelId
+              - from: input.EAIMessage.EAIHeader.FunctnId
+                set: output.result.functionId
+              - from: input.EAIMessage.EAIHeader.RvrslOptn
+                set: output.result.reversalOption
+              - from: input.EAIMessage.EAIHeader.FE_Ref_No
+                set: output.result.frontendReferenceNumber
+              - from: input.EAIMessage.EAIHeader.BE_Ref_No
+                set: output.result.backendReferenceNumber
+              - from: input.EAIMessage.EAIHeader.Tmstmp
+                set: output.result.transactionDateTime
+              - from: input.EAIMessage.EAIHeader.EAIRtrnCd
+                set: output.result.code
+              - from: input.EAIMessage.EAIHeader.EAIRtrnCdDesc
+                set: output.result.info
+              - from: input.EAIMessage.EAIHeader.Sgmnt
+                set: output.result.segment
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info4
+                set: output.result.deviceInfo.model
+              - from: input.EAIMessage.Body.Nof_Rtrnd_Rcrds
+                set: output.data.numberOfReturnedRecords
+              - from: input.EAIMessage.Body.Total_Nof_Rcrds
+                set: output.data.totalNumberOfRecords
+              - from: input.EAIMessage.Body.Chrg_Card_Lst
+                set: output.data.chargeCardList
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info11
+                set: output.result.deviceInfo.city
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info12
+                set: output.result.deviceInfo.id
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info13
+                set: output.result.deviceInfo.ipAddress
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info15
+                set: output.result.deviceInfo.country
+              - from: input.EAIMessage.EAIHeader.Rqstr_Info16
+                set: output.result.deviceInfo.osVersion
+              inputs:
+                input:
+                  content: application/json
+                  schema:
+                    properties:
+                      EAIMessage:
+                        properties:
+                          Body:
+                            properties:
+                              Chrg_Card_Lst:
+                                properties: {}
+                                type: object
+                              Nof_Rtrnd_Rcrds:
+                                type: string
+                              Total_Nof_Rcrds:
+                                type: string
+                            type: object
+                          EAIHeader:
+                            properties:
+                              BE_Ref_No:
+                                type: string
+                              CIF:
+                                type: string
+                              ChnlId:
+                                type: string
+                              EAIRtrnCd:
+                                type: string
+                              EAIRtrnCdDesc:
+                                type: string
+                              FE_Ref_No:
+                                type: string
+                              FunctnId:
+                                type: string
+                              Lang:
+                                type: string
+                              Rqstr_Info4:
+                                type: string
+                              Rqstr_Info11:
+                                type: string
+                              Rqstr_Info12:
+                                type: string
+                              Rqstr_Info13:
+                                type: string
+                              Rqstr_Info15:
+                                type: string
+                              Rqstr_Info16:
+                                type: string
+                              RvrslOptn:
+                                type: string
+                              Sgmnt:
+                                type: string
+                              Tmstmp:
+                                type: string
+                            type: object
+                        type: object
+                    type: object
+                  variable: message.body
+              options:
+                mapEmulateV4DefaultRequiredProps: false
+                mapEmulateV4EmptyJSONObject: false
+                mapEnablePostProcessingJSON: false
+                mapReferenceLimit: 1
+              outputs:
+                output:
+                  content: application/json
+                  schema:
+                    $ref: '#/components/schemas/GetChargeCardListResponse'
+                  variable: message.body
+              title: Map Response
+              version: 2.1.0
+          operations: []
+        otherwise: []
+        title: operation-switch
+        version: 2.0.0
+  cors:
+    enabled: false
+  enforced: true
+  gateway: datapower-api-gateway
+  phase: realized
+  properties:
+    target-url:
+      description: URL of the proxy policy
+      encoded: false
+      value: http://card-services-http-bab-sit-cp4i.apps.babsitaro.albtests.com/GetChargeCardList
+  testable: true
+  type: rest

@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "msgFormat": {
+          "type": "string"
+        },
+        "channelId": {
+          "type": "string",
+          "description": "Channel from which the request originated"
+        },
+        "functionId": {
+          "type": "string",
+          "description": "Identifier of the business function being invoked"
+        },
+        "cif": {
+          "type": "string",
+          "description": "Customer Information File number"
+        },
+        "language": {
+          "type": "string",
+          "description": "Request language code"
+        },
+        "reversalOption": {
+          "type": "string",
+          "description": "Indicates whether the transaction can be reversed"
+        },
+        "frontendReferenceNumber": {
+          "type": "string",
+          "description": "Frontend system reference number"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "srvcTp": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "lng": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

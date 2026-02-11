@@ -1,0 +1,145 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "CIF": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Acct_No": {
+              "type": "string"
+            },
+            "Card_Hldr_Name": {
+              "type": "string"
+            },
+            "Card_Prdct_Id": {
+              "type": "string"
+            },
+            "Cust_Title": {
+              "type": "string"
+            },
+            "Idntfctn_Ref": {
+              "type": "string"
+            },
+            "T24_Ref_No": {
+              "type": "string"
+            },
+            "Addtnl": {
+              "type": "string"
+            },
+            "Prnt_Crd": {
+              "type": "string"
+            },
+            "Idntfctn_Tp": {
+              "type": "string"
+            },
+            "Mbl_No": {
+              "type": "string"
+            },
+            "PO_Box_No": {
+              "type": "string"
+            },
+            "Cust_First_Name": {
+              "type": "string"
+            },
+            "Cust_Last_Name": {
+              "type": "string"
+            },
+            "DOB": {
+              "type": "string"
+            },
+            "Card_Brnch_Cd": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Cust_Town_Cntry": {
+              "type": "string"
+            },
+            "Cust_Pstl_CODE": {
+              "type": "string"
+            },
+            "Cust_Town_Cntry_AR": {
+              "type": "string"
+            },
+            "Cust_Wasel_Unit_No": {
+              "type": "string"
+            },
+            "Mail_Address_Tp": {
+              "type": "string"
+            },
+            "Mrtl_Status": {
+              "type": "string"
+            },
+            "Cust_Address_Street": {
+              "type": "string"
+            },
+            "Trgt": {
+              "type": "string"
+            },
+            "Dvc_Id": {
+              "type": "string"
+            },
+            "Dvc_Trstng_Dt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

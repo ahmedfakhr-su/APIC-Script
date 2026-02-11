@@ -1,0 +1,165 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Authenticate User Mock Authenticate 181006
+  x-ibm-name: authenticate-user-mock-authenticate-181006
+servers:
+  - url: /albilad-api/v1
+x-ibm-configuration:
+  properties:
+    target-url:
+      value: >-
+        http://authenticate-user-http-bab-sit-cp4i.apps.babsitaro.albtests.com/bib-ldap/authenticate
+      description: URL of the proxy policy
+      encoded: false
+  cors:
+    enabled: false
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  assembly:
+    execute:
+      - operation-switch:
+          version: 2.0.0
+          title: operation-switch
+          case:
+            - operations:
+                - AuthenticateUserMockAuthenticate181006
+              execute:
+                - invoke:
+                    version: 2.0.0
+                    title: invoke
+                    backend-type: json
+                    header-control:
+                      type: blocklist
+                      values: []
+                    parameter-control:
+                      type: allowlist
+                      values: []
+                    timeout: 60
+                    verb: POST
+                    chunked-uploads: true
+                    persistent-connection: true
+                    target-url: $(target-url)
+                    follow-redirects: false
+                    inject-proxy-headers: true
+          otherwise: []
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+paths:
+  /authenticate-user-mock-authenticate/181006:
+    post:
+      operationId: AuthenticateUserMockAuthenticate181006
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateUserMockAuthenticate181006Request'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticateUserMockAuthenticate181006Response'
+components:
+  securitySchemes:
+    clientID:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Id
+      x-key-type: client_id
+    clientSecret:
+      type: apiKey
+      in: header
+      name: X-IBM-Client-Secret
+      x-key-type: client_secret
+    oAuth:
+      type: oauth2
+      x-ibm-oauth-provider: native-oauth-provider
+      flows:
+        clientCredentials:
+          tokenUrl: https://$(catalog.url)/native-apic-oauth/oauth2/token
+          scopes:
+            Integration_scope: Integration_scope
+  schemas:
+    AuthenticateUserMockAuthenticate181006Request:
+      type: object
+      properties: {}
+    AuthenticateUserMockAuthenticate181006Response:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResponseHeader'
+        data:
+          $ref: '#/components/schemas/AuthenticateUserMockAuthenticate181006ResponseData'
+    RequestHeader:
+      type: object
+      properties:
+        messageFormat:
+          type: string
+        cif:
+          type: string
+        channelId:
+          type: string
+        functionId:
+          type: string
+        language:
+          type: string
+        reversalOption:
+          type: string
+        segment:
+          type: string
+        requesterInfo1:
+          type: string
+        requesterInfo2:
+          type: string
+        deviceInfo:
+          type: object
+          properties:
+            model:
+              type: string
+            osType:
+              type: string
+            osVersion:
+              type: string
+            id:
+              type: string
+            ipAddress:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+        frontendReferenceNumber:
+          type: string
+        backendReferenceNumber:
+          type: string
+        transactionDateTime:
+          type: string
+    ResponseHeader:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/RequestHeader'
+        - type: object
+          properties:
+            code:
+              type: string
+              description: Response code
+            info:
+              type: string
+              description: Response message
+    AuthenticateUserMockAuthenticate181006ResponseData:
+      type: object
+      description: Response data payload - customize per operation
+    
+security:
+  - clientID: []
+    clientSecret: []
+  - oAuth:
+      - Integration_scope

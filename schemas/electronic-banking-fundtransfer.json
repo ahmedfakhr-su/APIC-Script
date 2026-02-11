@@ -1,0 +1,203 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "CIF": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Tmstmp": {
+              "type": "string"
+            },
+            "Source_Acct_No": {
+              "type": "string"
+            },
+            "Source_FT_Cry": {
+              "type": "string"
+            },
+            "Source_FT_Amt": {
+              "type": "string"
+            },
+            "Target_Acct_No": {
+              "type": "string"
+            },
+            "Target_FT_Cry": {
+              "type": "string"
+            },
+            "Target_FT_Amt": {
+              "type": "string"
+            },
+            "FT_Prps": {
+              "type": "string"
+            },
+            "Spcl_Exchng_Rt": {
+              "type": "string"
+            },
+            "Nrml_Exchng_Rt": {
+              "type": "string"
+            },
+            "Pymnt_Desc_L1": {
+              "type": "string"
+            },
+            "Pymnt_Desc_L2": {
+              "type": "string"
+            },
+            "Pymnt_Desc_L3": {
+              "type": "string"
+            },
+            "Pymnt_Desc_L4": {
+              "type": "string"
+            },
+            "Ben_Cd": {
+              "type": "string"
+            },
+            "Ben_Cntry": {
+              "type": "string"
+            },
+            "Crdt_Val_Dt": {
+              "type": "string"
+            },
+            "Chrg_Tp": {
+              "type": "string"
+            },
+            "Chrg_Cry": {
+              "type": "string"
+            },
+            "Chrg_Amt": {
+              "type": "string"
+            },
+            "Bnfcry_Bnk": {
+              "type": "string"
+            },
+            "Rcvr": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "IBAN": {
+                  "type": "string"
+                },
+                "Shrt_Nm": {
+                  "type": "string"
+                },
+                "Prxy_Tp": {
+                  "type": "string"
+                },
+                "Prxy_Vl": {
+                  "type": "string"
+                }
+              }
+            },
+            "Chrg_Cd": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

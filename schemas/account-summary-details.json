@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "header": {
+      "type": "object",
+      "description": "Technical and routing metadata required for request processing and tracking",
+      "additionalProperties": false,
+      "properties": {
+        "requesterInformation1": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation2": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation3": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation5": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation6": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation7": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation14": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "requesterInformation19": {
+          "type": "string",
+          "description": "Additional requester-provided metadata field"
+        },
+        "messageFormat": {
+          "type": "string"
+        },
+        "channelId": {
+          "type": "string"
+        },
+        "functionId": {
+          "type": "string"
+        },
+        "cif": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "eaiReturnCode": {
+          "type": "string"
+        },
+        "reversalOption": {
+          "type": "string"
+        },
+        "originalMessageId": {
+          "type": "string"
+        },
+        "frontendReferenceNumber": {
+          "type": "string"
+        },
+        "backendReferenceNumber": {
+          "type": "string"
+        },
+        "timeStamp": {
+          "type": "string"
+        },
+        "deviceInfo": {
+          "type": "object",
+          "description": "Device information for the request",
+          "additionalProperties": false,
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "ipAddress": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "osVersion": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "description": "Business request payload for account summary details inquiry",
+      "additionalProperties": false,
+      "properties": {
+        "accountNumber": {
+          "type": "string"
+        },
+        "pageOffset": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

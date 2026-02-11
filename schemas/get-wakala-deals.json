@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "EAIMessage": {
+      "type": "object",
+      "description": "Enterprise Application Integration envelope containing header metadata and business payload",
+      "additionalProperties": false,
+      "properties": {
+        "EAIHeader": {
+          "type": "object",
+          "description": "Technical and routing metadata required for request processing and tracking",
+          "additionalProperties": false,
+          "properties": {
+            "CIF": {
+              "type": "string"
+            },
+            "ChnlId": {
+              "type": "string"
+            },
+            "FunctnId": {
+              "type": "string"
+            },
+            "Lang": {
+              "type": "string"
+            },
+            "Sgmnt": {
+              "type": "string"
+            },
+            "Rqstr_Info4": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info11": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info12": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info13": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info15": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info16": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Tmstmp": {
+              "type": "string"
+            },
+            "FE_Ref_No": {
+              "type": "string"
+            },
+            "RvrslOptn": {
+              "type": "string"
+            },
+            "Rqstr_Info1": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info2": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info3": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info5": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info6": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info7": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info14": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "Rqstr_Info19": {
+              "type": "string",
+              "description": "Additional requester-provided metadata field"
+            },
+            "MsgFrmt": {
+              "type": "string"
+            },
+            "EAIRtrnCd": {
+              "type": "string"
+            },
+            "OrgnlMsgId": {
+              "type": "string"
+            },
+            "BE_Ref_No": {
+              "type": "string"
+            },
+            "MQInput": {
+              "type": "string"
+            },
+            "ReplyToQMgr": {
+              "type": "string"
+            },
+            "ReplyToQ": {
+              "type": "string"
+            }
+          }
+        },
+        "Body": {
+          "type": "object",
+          "description": "Business request payload specific to the service operation",
+          "additionalProperties": false,
+          "properties": {
+            "Dpst_Stts": {
+              "type": "string"
+            },
+            "Trm_Dpst_Id": {
+              "type": "string"
+            },
+            "Actn": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
